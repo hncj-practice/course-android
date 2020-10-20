@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Learning Assistance</string>
     <string name="user_identity">用户角色:</string>
+    <string name="dynamic">动态</string>
+    <string name="my">我的</string>
+    <string name="homepage">首页</string>
+    <string name="message">消息</string>
 </resources>

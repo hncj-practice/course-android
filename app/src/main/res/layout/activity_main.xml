@@ -1,16 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gray"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/test"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="这是一个主页"
-        android:layout_gravity="center"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="vertical"
+        android:background="@color/mainBackground">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/homepage"
+            android:textSize="30sp"
+            android:layout_margin="10dp"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <LinearLayout
+        tools:ignore="UseCompoundDrawables"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:id="@+id/menu_homepage"
+            style="@style/table_menu_item"
+            android:onClick="clickHomepage">
+
+            <ImageView
+                android:id="@+id/homepage_image"
+                style="@style/table_menu_item_image"
+                android:src="@drawable/icon_homepage_default"
+                android:contentDescription="@string/homepage" />
+
+            <TextView
+                android:id="@+id/homepage_text"
+                style="@style/table_menu_item_text"
+                android:text="@string/homepage" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/menu_message"
+            style="@style/table_menu_item"
+            android:onClick="clickMessage">
+
+            <ImageView
+                android:id="@+id/message_image"
+                style="@style/table_menu_item_image"
+                android:src="@drawable/icon_message_default"
+                android:contentDescription="@string/message" />
+
+            <TextView
+                android:id="@+id/message_text"
+                style="@style/table_menu_item_text"
+                android:text="@string/message" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/menu_dynamic"
+            style="@style/table_menu_item"
+            android:onClick="clickDynamic">
+
+            <ImageView
+                android:id="@+id/dynamic_image"
+                style="@style/table_menu_item_image"
+                android:src="@drawable/icon_dynamic_default"
+                android:contentDescription="@string/dynamic" />
+
+            <TextView
+                android:id="@+id/dynamic_text"
+                style="@style/table_menu_item_text"
+                android:text="@string/dynamic" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/menu_my"
+            style="@style/table_menu_item"
+            android:onClick="clickMy">
+
+            <ImageView
+                android:id="@+id/my_image"
+                style="@style/table_menu_item_image"
+                android:src="@drawable/icon_my_default"
+                android:contentDescription="@string/my" />
+
+            <TextView
+                android:id="@+id/my_text"
+                style="@style/table_menu_item_text"
+                android:text="@string/my" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </LinearLayout>
