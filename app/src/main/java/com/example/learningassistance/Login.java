@@ -9,7 +9,6 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.Parcelable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -18,7 +17,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 import org.jsoup.Jsoup;
@@ -46,15 +44,6 @@ public class Login extends AppCompatActivity implements AdapterView.OnItemSelect
             if (json.getString("code").equals("200")){
                 Map<String, String> map = new HashMap<>();
                 String data = json.getString("data");
-//                JSONObject data = JSON.parseObject(data_array.get(0).toString());
-//                map.put("status",data.getString("status"));
-//                map.put("total",data.getString("total"));
-//                map.put("avatar",data.getString("avatar"));
-//                map.put("email",data.getString("email"));
-//                map.put("name",data.getString("name"));
-//                map.put("tno",data.getString("tno"));
-//                map.put("pwd",data.getString("pwd"));
-//                map.put("sex",data.getString("sex"));
                 Intent intent = new Intent(Login.this,MainActivity.class);
                 intent.putExtra("data", data);
                 startActivity(intent);
@@ -99,7 +88,7 @@ public class Login extends AppCompatActivity implements AdapterView.OnItemSelect
      * @param imageId 组件所需图片的id
      * @param imageSize 输出图片的大小
      */
-    public void setRadius(ImageView image,int imageId,int imageSize){
+    public void setRadius(ImageView image, int imageId, int imageSize){
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), imageId);
         Bitmap outBitmap =getRoundBitmapByShader(bitmap, imageSize,imageSize,50, 0);
         image.setImageBitmap(outBitmap);

@@ -20,6 +20,22 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    sourceSets {
+        main {
+            res.srcDirs = [
+                    'src/main/res/layout/dynamic',
+                    'src/main/res/layout/fragment',
+                    'src/main/res/layout/homepage',
+                    'src/main/res/layout/login',
+                    'src/main/res/layout/message',
+                    'src/main/res/layout/mine',
+                    'src/main/res/layout',
+                    'src/main/res'
+            ]
+        }
+    }
+
 }
 
 dependencies {
@@ -28,6 +44,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
     implementation 'org.jsoup:jsoup:1.13.1'
     implementation 'com.alibaba:fastjson:1.2.74'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'

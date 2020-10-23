@@ -1,28 +1,121 @@
 package com.example.learningassistance;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.learningassistance.adapter.MineAdapter;
+import com.example.learningassistance.entity.Option;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.example.learningassistance.utils.RoundRectImageView.getRoundBitmapByShader;
 
 public class MyFragment extends Fragment{
-    private String content;
+    private String data;
+    private int id;
 
-    public MyFragment(String content) {
-        this.content = content;
+    /**
+     * 碎片的有参构造,完成数据的传递
+     * @param data 要传入碎片的数据
+     * @param id 用来判断用户想要显示哪个碎片
+     */
+    public MyFragment(String data, int id) {
+        this.data = data;
+        this.id = id;
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fg_content, container, false);
-        TextView txt = view.findViewById(R.id.txt_content);
-        txt.setText(content);
+        View view = null;
+        switch (id){
+            case R.id.menu_homepage:
+                view = inflater.inflate(R.layout.fg_homepage, container, false);
+                loadHomepageFragment(view);
+                break;
+            case R.id.menu_message:
+                view = inflater.inflate(R.layout.fg_message, container, false);
+                loadMessageFragment(view);
+                break;
+            case R.id.menu_dynamic:
+                view = inflater.inflate(R.layout.fg_dynamic, container, false);
+                loadDynamicFragment(view);
+                break;
+            case R.id.menu_my:
+                view = inflater.inflate(R.layout.fg_mine, container, false);
+                loadMineFragment(view);
+                break;
+            default:
+                break;
+        }
+
         return view;
+    }
+
+    public void loadHomepageFragment(View view){
+        Toast.makeText(view.getContext(), "正在加载首页", Toast.LENGTH_SHORT).show();
+    }
+
+    public void loadMessageFragment(View view){
+        Toast.makeText(view.getContext(), "正在加载消息", Toast.LENGTH_SHORT).show();
+    }
+
+    public void loadDynamicFragment(View view){
+        Toast.makeText(view.getContext(), "正在加载动态", Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * 加载Fragment"我的".
+     * @param view "我的"在Activity中的fragment组件
+     */
+    public void loadMineFragment(View view){
+        ImageView imageView = view.findViewById(R.id.mine_avatar);
+        setRadius(imageView,R.drawable.a,40);
+        List<Option> options = initOption();
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_mine);
+        LinearLayoutManager manager = new LinearLayoutManager(view.getContext());
+        recyclerView.setLayoutManager(manager);
+        MineAdapter adapter = new MineAdapter(options,data);
+        recyclerView.setAdapter(adapter);
+    }
+
+    /**
+     * 加载每个选项所需的各种元素
+     * @return 返回一个包含所有选项的List集合
+     */
+    private List<Option> initOption(){
+        List<Option> options = new ArrayList<>();
+        options.add(new Option("我的信息",R.drawable.a));
+        options.add(new Option("我的课程",R.drawable.a));
+        options.add(new Option("我的成绩",R.drawable.a));
+        options.add(new Option("发布动态",R.drawable.a));
+        options.add(new Option("设置",R.drawable.a));
+        options.add(new Option("我的信息",R.drawable.a));
+        return options;
+    }
+
+    /**
+     * 设置登陆所需各种图片的圆角
+     * @param image 要设为圆形的ImageView组件
+     * @param imageId 组件所需图片的id
+     * @param imageSize 输出图片的大小
+     */
+    public void setRadius(ImageView image, int imageId, int imageSize){
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), imageId);
+        Bitmap outBitmap =getRoundBitmapByShader(bitmap, imageSize,imageSize,50, 0);
+        image.setImageBitmap(outBitmap);
     }
 }

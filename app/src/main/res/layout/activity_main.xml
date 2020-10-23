@@ -8,18 +8,15 @@
     tools:context=".MainActivity">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:orientation="vertical"
-        android:background="@color/mainBackground">
+        style="@style/top_bar_layout">
+
+        <View style="@style/occupy_vertical_free"/>
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/homepage"
-            android:textSize="30sp"
-            android:layout_margin="10dp"
-            android:layout_gravity="center"/>
+           style="@style/top_bar_layout_text"
+            android:text="@string/homepage"/>
+
+        <View style="@style/occupy_vertical_free"/>
 
     </LinearLayout>
 
@@ -32,19 +29,18 @@
     <LinearLayout
         tools:ignore="UseCompoundDrawables"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:background="@color/white">
 
         <LinearLayout
             android:id="@+id/menu_homepage"
-            style="@style/table_menu_item"
-            android:onClick="clickHomepage">
+            style="@style/table_menu_item">
 
             <ImageView
                 android:id="@+id/homepage_image"
                 style="@style/table_menu_item_image"
-                android:src="@drawable/icon_homepage_default"
-                android:contentDescription="@string/homepage" />
+                android:contentDescription="@string/homepage"
+                android:src="@drawable/icon_homepage_default" />
 
             <TextView
                 android:id="@+id/homepage_text"
@@ -55,8 +51,7 @@
 
         <LinearLayout
             android:id="@+id/menu_message"
-            style="@style/table_menu_item"
-            android:onClick="clickMessage">
+            style="@style/table_menu_item">
 
             <ImageView
                 android:id="@+id/message_image"
@@ -73,8 +68,7 @@
 
         <LinearLayout
             android:id="@+id/menu_dynamic"
-            style="@style/table_menu_item"
-            android:onClick="clickDynamic">
+            style="@style/table_menu_item">
 
             <ImageView
                 android:id="@+id/dynamic_image"
@@ -91,8 +85,7 @@
 
         <LinearLayout
             android:id="@+id/menu_my"
-            style="@style/table_menu_item"
-            android:onClick="clickMy">
+            style="@style/table_menu_item">
 
             <ImageView
                 android:id="@+id/my_image"
