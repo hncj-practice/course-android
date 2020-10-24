@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.example.learningassistance.utils.RoundRectImageView;
 
 import org.jsoup.Jsoup;
 
@@ -68,9 +69,9 @@ public class Login extends AppCompatActivity implements AdapterView.OnItemSelect
      */
     public void initComponent(){
         avatar = findViewById(R.id.login_avatar);
-        setRadius(avatar,R.drawable.a,70);
+        RoundRectImageView.setCircle(avatar,R.drawable.a,70,this);
         login = findViewById(R.id.login_button);
-        setRadius(login,R.drawable.icon_login,50);
+        RoundRectImageView.setCircle(login,R.drawable.icon_login,50,this);
         username = findViewById(R.id.login_username);
         password = findViewById(R.id.login_password);
 
@@ -80,18 +81,6 @@ public class Login extends AppCompatActivity implements AdapterView.OnItemSelect
         userType = findViewById(R.id.login_type);
 
         userType.setOnItemSelectedListener(this);
-    }
-
-    /**
-     * 设置登陆所需各种图片的圆角
-     * @param image 要设为圆形的ImageView组件
-     * @param imageId 组件所需图片的id
-     * @param imageSize 输出图片的大小
-     */
-    public void setRadius(ImageView image, int imageId, int imageSize){
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), imageId);
-        Bitmap outBitmap =getRoundBitmapByShader(bitmap, imageSize,imageSize,50, 0);
-        image.setImageBitmap(outBitmap);
     }
 
     /**

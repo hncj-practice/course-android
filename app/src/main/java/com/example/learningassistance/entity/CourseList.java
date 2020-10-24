@@ -1,14 +1,14 @@
 package com.example.learningassistance.entity;
 
-public class MineDetail {
+public class CourseList {
     private int imgId;
     private String name;
-    private String detail;
+    private String lecturer;
 
-    public MineDetail(int imgId, String name, String detail) {
+    public CourseList(int imgId, String name, String lecturer) {
         this.imgId = imgId;
         this.name = name;
-        this.detail = detail;
+        this.lecturer = lecturer;
     }
 
     public int getImgId() {
@@ -19,7 +19,7 @@ public class MineDetail {
         return name;
     }
 
-    public String getDetail() {
-        return detail;
+    public String getLecturer() {
+        return lecturer;
     }
 }

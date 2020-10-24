@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/course_layout"
+    android:orientation="horizontal"
+    android:layout_marginTop="20dp"
+    android:background="@drawable/style_mine_frame"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/course_avatar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="20dp"
+        android:layout_gravity="center"
+        android:src="@drawable/a"/>
+
+    <LinearLayout
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/course_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="数据可视化lkadjlakj国家大事个讲话稿阿斯加德"
+            android:lineHeight="15sp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textSize="18sp"
+            tools:ignore="UnusedAttribute" />
+
+        <TextView
+            android:id="@+id/course_lecturer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="见客户发科技和"
+            android:textSize="14sp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:layout_marginTop="5dp"/>
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:src="@drawable/icon_arrow_right"/>
+
+</LinearLayout>

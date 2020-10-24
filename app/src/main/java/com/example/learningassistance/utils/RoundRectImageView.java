@@ -2,8 +2,11 @@ package com.example.learningassistance.utils;
 
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -16,6 +19,8 @@ import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.widget.ImageView;
+
+import androidx.fragment.app.Fragment;
 
 @SuppressLint("AppCompatCustomView")
 public class RoundRectImageView extends ImageView {
@@ -109,6 +114,45 @@ public class RoundRectImageView extends ImageView {
             canvas.drawRoundRect(rect, radius, radius, boarderPaint);
         }
         return desBitmap;
+    }
+
+    /**
+     * 设置图片为圆形
+     * @param image 要设为圆形的ImageView组件
+     * @param imageId 组件所需图片的id
+     * @param imageSize 输出图片的大小
+     * @param activity 需要改变圆角图片所在的activity
+     */
+    public static void setCircle(ImageView image, int imageId, int imageSize, Activity activity){
+        Bitmap bitmap = BitmapFactory.decodeResource(activity.getResources(), imageId);
+        Bitmap outBitmap =getRoundBitmapByShader(bitmap, imageSize,imageSize,50, 0);
+        image.setImageBitmap(outBitmap);
+    }
+
+    public static void setCircle(ImageView image, int imageId, int imageSize, Fragment fragment){
+        Bitmap bitmap = BitmapFactory.decodeResource(fragment.getResources(), imageId);
+        Bitmap outBitmap =getRoundBitmapByShader(bitmap, imageSize,imageSize,50, 0);
+        image.setImageBitmap(outBitmap);
+    }
+
+    /**
+     * 设置图片的圆角
+     * @param image 要设为圆角的ImageView组件
+     * @param imageId 组件所需图片的id
+     * @param imageSize 输出图片的大小
+     * @param radius 圆角的值
+     * @param activity 需要改变圆角图片所在的activity
+     */
+    public static void setRadius(ImageView image, int imageId, int imageSize,int radius ,Activity activity){
+        Bitmap bitmap = BitmapFactory.decodeResource(activity.getResources(), imageId);
+        Bitmap outBitmap =getRoundBitmapByShader(bitmap, imageSize,imageSize,radius, 0);
+        image.setImageBitmap(outBitmap);
+    }
+
+    public static void setRadius(ImageView image, int imageId, int imageSize,int radius , Fragment activity){
+        Bitmap bitmap = BitmapFactory.decodeResource(activity.getResources(), imageId);
+        Bitmap outBitmap =getRoundBitmapByShader(bitmap, imageSize,imageSize,radius, 0);
+        image.setImageBitmap(outBitmap);
     }
 
 }

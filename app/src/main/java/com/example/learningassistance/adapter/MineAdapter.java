@@ -48,14 +48,19 @@ public class MineAdapter extends RecyclerView.Adapter<MineAdapter.ViewHolder> {
     }
 
     public void bindClick(View v, int position){
+        Activity activity = (Activity) v.getContext();
+        Intent intent = new Intent();
         switch (position){
             case 0:
-                Activity activity = (Activity) v.getContext();
-                Intent intent = new Intent("com.example.learningassistance.ACTION_START");
+                intent.setAction("com.action.MINE_DATA_DETAIL_START");
                 intent.putExtra("data",data);
                 intent.putExtra("topName",mOptionList.get(position).getName());
-                activity.startActivity(intent);
+                break;
+            case 1:
+                intent.setAction("com.action.COURSE_ACTIVITY_START");
+                break;
         }
+        activity.startActivity(intent);
     }
 
     @Override

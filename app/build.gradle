@@ -30,6 +30,8 @@ android {
                     'src/main/res/layout/login',
                     'src/main/res/layout/message',
                     'src/main/res/layout/mine',
+                    'src/main/res/layout/recycler',
+                    'src/main/res/layout/course',
                     'src/main/res/layout',
                     'src/main/res'
             ]

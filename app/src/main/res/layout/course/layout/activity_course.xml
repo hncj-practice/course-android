@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/gray"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        style="@style/top_bar_layout">
+
+        <View style="@style/occupy_vertical_free"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:onClick="goBack"
+                android:src="@drawable/icon_arrow_left"/>
+
+            <View style="@style/occupy_horizontal_free"/>
+
+            <TextView
+                android:id="@+id/course_top"
+                style="@style/top_bar_layout_text"
+                android:text="@string/all_course"/>
+
+            <View style="@style/occupy_horizontal_free"/>
+
+            <View
+                android:layout_width="40dp"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+
+        <View style="@style/occupy_vertical_free"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:orientation="horizontal"
+        android:background="@drawable/style_mine_frame">
+
+        <View style="@style/occupy_horizontal_free"/>
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:src="@drawable/icon_search"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:text="@string/search"/>
+
+        <View style="@style/occupy_horizontal_free"/>
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_course"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="-20dp"/>
+
+
+</LinearLayout>

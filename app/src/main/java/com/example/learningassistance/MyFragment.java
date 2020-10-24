@@ -17,11 +17,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.learningassistance.adapter.MineAdapter;
 import com.example.learningassistance.entity.Option;
+import com.example.learningassistance.utils.RoundRectImageView;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.example.learningassistance.utils.RoundRectImageView.getRoundBitmapByShader;
 
 public class MyFragment extends Fragment{
     private String data;
@@ -83,7 +82,8 @@ public class MyFragment extends Fragment{
      */
     public void loadMineFragment(View view){
         ImageView imageView = view.findViewById(R.id.mine_avatar);
-        setRadius(imageView,R.drawable.a,40);
+        RoundRectImageView.setCircle(imageView,R.drawable.a,40,this);
+
         List<Option> options = initOption();
         RecyclerView recyclerView = view.findViewById(R.id.recycler_mine);
         LinearLayoutManager manager = new LinearLayoutManager(view.getContext());
@@ -107,15 +107,4 @@ public class MyFragment extends Fragment{
         return options;
     }
 
-    /**
-     * 设置登陆所需各种图片的圆角
-     * @param image 要设为圆形的ImageView组件
-     * @param imageId 组件所需图片的id
-     * @param imageSize 输出图片的大小
-     */
-    public void setRadius(ImageView image, int imageId, int imageSize){
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), imageId);
-        Bitmap outBitmap =getRoundBitmapByShader(bitmap, imageSize,imageSize,50, 0);
-        image.setImageBitmap(outBitmap);
-    }
 }
