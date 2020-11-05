@@ -47,6 +47,7 @@ dependencies {
     implementation 'org.jsoup:jsoup:1.13.1'
     implementation 'com.alibaba:fastjson:1.2.74'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'com.github.wangfeng19930909:AutoFitColorTextView:1.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'

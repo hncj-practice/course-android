@@ -7,18 +7,7 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        style="@style/top_bar_layout">
-
-        <View style="@style/occupy_vertical_free"/>
-
-        <TextView
-           style="@style/top_bar_layout_text"
-            android:text="@string/homepage"/>
-
-        <View style="@style/occupy_vertical_free"/>
-
-    </LinearLayout>
+    <include layout="@layout/title"/>
 
     <FrameLayout
         android:id="@+id/fragment"

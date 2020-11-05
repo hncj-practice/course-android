@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.learningassistance.fragment.MainPageFragment;
+
 @SuppressLint("ResourceAsColor")
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String DATA  = "{\"cla\":\"0814171\",\"status\":1,\"total\":0,\"avatar\":\"http://m.imeitou.com/uploads/allimg/200911/3-200911160509-lp.jpg\",\"email\":\"111111@qq.com\",\"name\":\"吴硕\",\"pwd\":\"000000\",\"sno\":\"888888888\",\"sex\":\"m\"}";
@@ -19,7 +21,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView image_homepage,image_message,image_dynamic,image_my;
     private TextView text_homepage,text_message,text_dynamic,text_my;
 
-    private MyFragment f1,f2,f3,f4;
+    private TextView title_text;
+    private ImageView title_back;
+
+    private MainPageFragment f1,f2,f3,f4;
     private FragmentManager fm;
 
 
@@ -53,6 +58,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         image_my = findViewById(R.id.my_image);
         text_my = findViewById(R.id.my_text);
+
+        title_text = findViewById(R.id.title_text);
+        title_text.setText("首页");
+
+        title_back = findViewById(R.id.title_back);
+        title_back.setVisibility(View.INVISIBLE);
 
         layout_my.setOnClickListener(this);
         layout_message.setOnClickListener(this);
@@ -121,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 text_homepage.setTextColor(R.color.selected);
                 layout_homepage.setSelected(true);
                 if (f1 == null){
-                    f1 = new MyFragment(DATA,R.id.menu_homepage);
+                    f1 = new MainPageFragment(DATA,R.id.menu_homepage);
                     transaction.add(R.id.fragment,f1);
                 } else {
                     transaction.show(f1);
@@ -132,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 text_message.setTextColor(R.color.selected);
                 layout_message.setSelected(true);
                 if (f2 == null){
-                    f2 = new MyFragment(DATA,R.id.menu_message);
+                    f2 = new MainPageFragment(DATA,R.id.menu_message);
                     transaction.add(R.id.fragment,f2);
                 } else {
                     transaction.show(f2);
@@ -143,7 +154,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 text_dynamic.setTextColor(R.color.selected);
                 layout_dynamic.setSelected(true);
                 if (f3 == null){
-                    f3 = new MyFragment(DATA,R.id.menu_dynamic);
+                    f3 = new MainPageFragment(DATA,R.id.menu_dynamic);
                     transaction.add(R.id.fragment,f3);
                 } else {
                     transaction.show(f3);
@@ -154,7 +165,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 text_my.setTextColor(R.color.selected);
                 layout_my.setSelected(true);
                 if (f4 == null){
-                    f4 = new MyFragment(DATA,R.id.menu_my);
+                    f4 = new MainPageFragment(DATA,R.id.menu_my);
                     transaction.add(R.id.fragment,f4);
                 } else {
                     transaction.show(f4);

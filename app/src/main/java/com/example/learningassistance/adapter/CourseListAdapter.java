@@ -1,6 +1,7 @@
 package com.example.learningassistance.adapter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,12 +35,20 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         CourseList course = mCourseList.get(position);
         holder.lecturer.setText(course.getLecturer());
         holder.img.setImageResource(course.getImgId());
         RoundRectImageView.setRadius(holder.img,course.getImgId(),50,10 ,activity);
         holder.name.setText(course.getName());
+        holder.view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent("com.action.COURSE_DETAIL_ACTIVITY_START");
+                intent.putExtra("courseName",holder.name.getText().toString());
+                v.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -48,12 +57,14 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        public View view;
         public ImageView img;
         public TextView name;
         public TextView lecturer;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            view = itemView;
             img = itemView.findViewById(R.id.course_avatar);
             name = itemView.findViewById(R.id.course_name);
             lecturer = itemView.findViewById(R.id.course_lecturer);

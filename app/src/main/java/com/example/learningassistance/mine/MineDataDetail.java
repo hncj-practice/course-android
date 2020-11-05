@@ -7,26 +7,27 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.learningassistance.R;
 import com.example.learningassistance.adapter.MineDetailAdapter;
 import com.example.learningassistance.entity.MineDetail;
+import com.example.learningassistance.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MineDataDetail extends AppCompatActivity {
+    private TextView title_text;
+    private ImageView title_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mine_data_detail);
 
-        Intent intent = getIntent();
-        String topName = intent.getStringExtra("topName");
-        TextView top = findViewById(R.id.mine_detail_top);
-        top.setText(topName);
+        Utils.setTitle(this,"我的信息");
 
         List<MineDetail> list = initDetail();
         RecyclerView recyclerView = findViewById(R.id.recycler_mine_detail);

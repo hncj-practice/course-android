@@ -1,4 +1,4 @@
-package com.example.learningassistance;
+package com.example.learningassistance.fragment;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.learningassistance.R;
 import com.example.learningassistance.adapter.MineAdapter;
 import com.example.learningassistance.entity.Option;
 import com.example.learningassistance.utils.RoundRectImageView;
@@ -22,7 +23,7 @@ import com.example.learningassistance.utils.RoundRectImageView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyFragment extends Fragment{
+public class MainPageFragment extends Fragment{
     private String data;
     private int id;
 
@@ -31,7 +32,7 @@ public class MyFragment extends Fragment{
      * @param data 要传入碎片的数据
      * @param id 用来判断用户想要显示哪个碎片
      */
-    public MyFragment(String data, int id) {
+    public MainPageFragment(String data, int id) {
         this.data = data;
         this.id = id;
     }
@@ -86,7 +87,12 @@ public class MyFragment extends Fragment{
 
         List<Option> options = initOption();
         RecyclerView recyclerView = view.findViewById(R.id.recycler_mine);
-        LinearLayoutManager manager = new LinearLayoutManager(view.getContext());
+        LinearLayoutManager manager = new LinearLayoutManager(view.getContext()){
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
         recyclerView.setLayoutManager(manager);
         MineAdapter adapter = new MineAdapter(options,data);
         recyclerView.setAdapter(adapter);

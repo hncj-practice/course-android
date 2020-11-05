@@ -5,4 +5,8 @@
         <item>教师</item>
         <item>管理员</item>
     </string-array>
+
+    <array name="font_size">
+        <item>10sp</item>
+    </array>
 </resources>

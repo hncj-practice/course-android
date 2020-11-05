@@ -54,10 +54,11 @@ public class MineAdapter extends RecyclerView.Adapter<MineAdapter.ViewHolder> {
             case 0:
                 intent.setAction("com.action.MINE_DATA_DETAIL_START");
                 intent.putExtra("data",data);
-                intent.putExtra("topName",mOptionList.get(position).getName());
                 break;
             case 1:
                 intent.setAction("com.action.COURSE_ACTIVITY_START");
+                break;
+            default:
                 break;
         }
         activity.startActivity(intent);
