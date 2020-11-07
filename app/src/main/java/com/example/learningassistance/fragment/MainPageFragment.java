@@ -1,7 +1,5 @@
 package com.example.learningassistance.fragment;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -102,7 +100,7 @@ public class MainPageFragment extends Fragment{
      * 加载每个选项所需的各种元素
      * @return 返回一个包含所有选项的List集合
      */
-    private List<Option> initOption(){
+    public List<Option> initOption(){
         List<Option> options = new ArrayList<>();
         options.add(new Option("我的信息",R.drawable.a));
         options.add(new Option("我的课程",R.drawable.a));

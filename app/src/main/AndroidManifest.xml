@@ -14,6 +14,24 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme"
         tools:targetApi="m">
+        <activity android:name=".course.LearnDataActivity">
+            <intent-filter>
+                <action android:name="com.action.COURSE_DETAIL_LEARN_DATA"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".course.MemberActivity">
+            <intent-filter>
+                <action android:name="com.action.COURSE_DETAIL_MEMBER"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".course.AchievementActivity">
+            <intent-filter>
+                <action android:name="com.action.COURSE_DETAIL_ACHIEVEMENT"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
         <activity android:name=".course.CourseDetail">
             <intent-filter>
                 <action android:name="com.action.COURSE_DETAIL_ACTIVITY_START"/>

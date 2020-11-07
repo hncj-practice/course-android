@@ -5,10 +5,15 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.learningassistance.R;
 
+
 public class Utils {
-    public static void setTitle(final Activity view, String titleText){
+
+    public static void setTitle(final Activity view, final String titleText){
         TextView title_text = view.findViewById(R.id.title_text);
         title_text.setText(titleText);
 
@@ -20,4 +25,12 @@ public class Utils {
             }
         });
     }
+
+    public static void setRecycler(View view, int resourceId, RecyclerView.Adapter adapter){
+        RecyclerView recyclerView = view.findViewById(resourceId);
+        LinearLayoutManager manager = new LinearLayoutManager(view.getContext());
+        recyclerView.setLayoutManager(manager);
+        recyclerView.setAdapter(adapter);
+    }
+
 }

@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -19,9 +18,9 @@ import com.example.learningassistance.fragment.CourseFragment;
 import com.example.learningassistance.utils.Utils;
 
 public class CourseDetail extends AppCompatActivity implements View.OnClickListener {
-    public LinearLayout mission,chapter,more;
-    public TextView missionT,chapterT,moreT;
-    public CourseFragment missionF,chapterF,moreF;
+    public LinearLayout exam,chapter,more;
+    public TextView examT,chapterT,moreT;
+    public CourseFragment examF,chapterF,moreF;
     public FragmentManager fm;
 
     @Override
@@ -38,12 +37,12 @@ public class CourseDetail extends AppCompatActivity implements View.OnClickListe
 
     public void initComponent(){
         FragmentTransaction ft = fm.beginTransaction();
-        mission = findViewById(R.id.course_mission);
-        missionT = findViewById(R.id.course_mission_text);
-        missionT.setText("任务");
-        missionF = new CourseFragment(R.id.course_mission);
-        ft.add(R.id.course_fg,missionF);
-        ft.hide(missionF);
+        exam = findViewById(R.id.course_exam);
+        examT = findViewById(R.id.course_exam_text);
+        examT.setText("考试");
+        examF = new CourseFragment(R.id.course_exam);
+        ft.add(R.id.course_fg,examF);
+        ft.hide(examF);
 
         chapter = findViewById(R.id.course_chapter);
         chapterT = findViewById(R.id.course_chapter_text);
@@ -60,16 +59,16 @@ public class CourseDetail extends AppCompatActivity implements View.OnClickListe
         ft.hide(moreF);
         ft.commit();
 
-        mission.setOnClickListener(this);
+        exam.setOnClickListener(this);
         chapter.setOnClickListener(this);
         more.setOnClickListener(this);
 
-        mission.performClick();
+        exam.performClick();
     }
 
     public void resetTable(FragmentTransaction ft){
-        missionT.setTypeface(Typeface.DEFAULT,Typeface.NORMAL);
-        missionT.setBackground(ContextCompat.getDrawable(this,R.drawable.style_course_table_text_defalut));
+        examT.setTypeface(Typeface.DEFAULT,Typeface.NORMAL);
+        examT.setBackground(ContextCompat.getDrawable(this,R.drawable.style_course_table_text_defalut));
 
         chapterT.setTypeface(Typeface.DEFAULT,Typeface.NORMAL);
         chapterT.setBackground(ContextCompat.getDrawable(this,R.drawable.style_course_table_text_defalut));
@@ -77,7 +76,7 @@ public class CourseDetail extends AppCompatActivity implements View.OnClickListe
         moreT.setTypeface(Typeface.DEFAULT,Typeface.NORMAL);
         moreT.setBackground(ContextCompat.getDrawable(this,R.drawable.style_course_table_text_defalut));
 
-        ft.hide(missionF);
+        ft.hide(examF);
         ft.hide(chapterF);
         ft.hide(moreF);
     }
@@ -93,8 +92,8 @@ public class CourseDetail extends AppCompatActivity implements View.OnClickListe
         FragmentTransaction ft = fm.beginTransaction();
         resetTable(ft);
         switch (v.getId()){
-            case R.id.course_mission:
-                setSelected(missionT,ft,missionF);
+            case R.id.course_exam:
+                setSelected(examT,ft,examF);
                 break;
             case R.id.course_chapter:
                 setSelected(chapterT,ft,chapterF);

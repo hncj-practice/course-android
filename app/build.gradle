@@ -32,7 +32,6 @@ android {
                     'src/main/res/layout/mine',
                     'src/main/res/layout/recycler',
                     'src/main/res/layout/course',
-                    'src/main/res/layout',
                     'src/main/res'
             ]
         }

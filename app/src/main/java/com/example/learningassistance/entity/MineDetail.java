@@ -1,6 +1,7 @@
 package com.example.learningassistance.entity;
 
 public class MineDetail {
+//    图片的id,在Recourse目录下的
     private int imgId;
     private String name;
     private String detail;

@@ -13,11 +13,11 @@
         android:background="@color/white">
 
         <LinearLayout
-            android:id="@+id/course_mission"
+            android:id="@+id/course_exam"
             style="@style/table_menu_item">
 
             <TextView
-                android:id="@+id/course_mission_text"
+                android:id="@+id/course_exam_text"
                 style="@style/course_table_item_text"/>
 
         </LinearLayout>
