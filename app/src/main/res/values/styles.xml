@@ -57,4 +57,10 @@
         <item name="android:orientation">vertical</item>
     </style>
 
+    <style name="SplashTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:windowBackground">@drawable/splash</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+
 </resources>
