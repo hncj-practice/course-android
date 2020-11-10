@@ -4,8 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -25,9 +23,6 @@ import org.jsoup.Jsoup;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
-import static com.example.learningassistance.utils.RoundRectImageView.getRoundBitmapByShader;
-
 
 
 public class Login extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -69,7 +64,7 @@ public class Login extends AppCompatActivity implements AdapterView.OnItemSelect
      */
     public void initComponent(){
         avatar = findViewById(R.id.login_avatar);
-        RoundRectImageView.setCircle(avatar,R.drawable.a,70,this);
+        RoundRectImageView.setCircle(avatar,R.drawable.icon_user_avater,70,this);
         login = findViewById(R.id.login_button);
         RoundRectImageView.setCircle(login,R.drawable.icon_login,50,this);
         username = findViewById(R.id.login_username);

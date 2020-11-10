@@ -13,7 +13,7 @@
         android:layout_height="50dp"
         android:layout_margin="20dp"
         android:layout_gravity="center"
-        android:src="@drawable/a"/>
+        android:src="@drawable/icon_user_avater"/>
 
     <LinearLayout
         android:layout_gravity="center"

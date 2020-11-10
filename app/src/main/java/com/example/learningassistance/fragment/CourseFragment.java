@@ -81,11 +81,11 @@ public class CourseFragment extends Fragment implements View.OnClickListener {
 
     public List<Topic> initTopic(){
         List<Topic> list = new ArrayList<>();
-        list.add(new Topic(R.drawable.a,"娄鑫坡","03-24 20:34","监督学习","什么是监督学习?试举例说明监督学习的应用场景."));
-        list.add(new Topic(R.drawable.a,"娄鑫坡","03-24 20:34","监督学习","什么是监督学习?试举例说明监督学习的应用场景."));
-        list.add(new Topic(R.drawable.a,"娄鑫坡","03-24 20:34","监督学习","什么是监督学习?试举例说明监督学习的应用场景."));
-        list.add(new Topic(R.drawable.a,"娄鑫坡","03-24 20:34","监督学习","什么是监督学习?试举例说明监督学习的应用场景."));
-        list.add(new Topic(R.drawable.a,"娄鑫坡","03-24 20:34","监督学习","什么是监督学习?试举例说明监督学习的应用场景."));
+        list.add(new Topic(R.drawable.icon_user_avater,"娄鑫坡","03-24 20:34","监督学习","什么是监督学习?试举例说明监督学习的应用场景."));
+        list.add(new Topic(R.drawable.icon_user_avater,"娄鑫坡","03-24 20:34","监督学习","什么是监督学习?试举例说明监督学习的应用场景."));
+        list.add(new Topic(R.drawable.icon_user_avater,"娄鑫坡","03-24 20:34","监督学习","什么是监督学习?试举例说明监督学习的应用场景."));
+        list.add(new Topic(R.drawable.icon_user_avater,"娄鑫坡","03-24 20:34","监督学习","什么是监督学习?试举例说明监督学习的应用场景."));
+        list.add(new Topic(R.drawable.icon_user_avater,"娄鑫坡","03-24 20:34","监督学习","什么是监督学习?试举例说明监督学习的应用场景."));
         return list;
     }
 

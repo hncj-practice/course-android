@@ -73,13 +73,13 @@ public class TopicDetail extends AppCompatActivity {
 
     public List<Opinion> initOpinions(){
         List<Opinion> list = new ArrayList<>();
-        list.add(new Opinion(R.drawable.a,"江道宽","11-09","会尽快发改家回复的卡号地方啊看见哈付款很卡as控件很卡就分手"));
-        list.add(new Opinion(R.drawable.a,"江道宽","11-09","会尽快发改家回复的卡号地方啊看见哈付款很卡as控件很卡就分手"));
-        list.add(new Opinion(R.drawable.a,"江道宽","11-09","会尽快发改家回复的卡号地方啊看见哈付款很卡as控件很卡就分手"));
-        list.add(new Opinion(R.drawable.a,"江道宽","11-09","会尽快发改家回复的卡号地方啊看见哈付款很卡as控件很卡就分手"));
-        list.add(new Opinion(R.drawable.a,"江道宽","11-09","会尽快发改家回复的卡号地方啊看见哈付款很卡as控件很卡就分手"));
-        list.add(new Opinion(R.drawable.a,"江道宽","11-09","会尽快发改家回复的卡号地方啊看见哈付款很卡as控件很卡就分手"));
-        list.add(new Opinion(R.drawable.a,"江道宽","11-09","会尽快发改家回复的卡号地方啊看见哈付款很卡as控件很卡就分手"));
+        list.add(new Opinion(R.drawable.icon_user_avater,"江道宽","11-09","会尽快发改家回复的卡号地方啊看见哈付款很卡as控件很卡就分手"));
+        list.add(new Opinion(R.drawable.icon_user_avater,"江道宽","11-09","会尽快发改家回复的卡号地方啊看见哈付款很卡as控件很卡就分手"));
+        list.add(new Opinion(R.drawable.icon_user_avater,"江道宽","11-09","会尽快发改家回复的卡号地方啊看见哈付款很卡as控件很卡就分手"));
+        list.add(new Opinion(R.drawable.icon_user_avater,"江道宽","11-09","会尽快发改家回复的卡号地方啊看见哈付款很卡as控件很卡就分手"));
+        list.add(new Opinion(R.drawable.icon_user_avater,"江道宽","11-09","会尽快发改家回复的卡号地方啊看见哈付款很卡as控件很卡就分手"));
+        list.add(new Opinion(R.drawable.icon_user_avater,"江道宽","11-09","会尽快发改家回复的卡号地方啊看见哈付款很卡as控件很卡就分手"));
+        list.add(new Opinion(R.drawable.icon_user_avater,"江道宽","11-09","会尽快发改家回复的卡号地方啊看见哈付款很卡as控件很卡就分手"));
         return list;
     }
 

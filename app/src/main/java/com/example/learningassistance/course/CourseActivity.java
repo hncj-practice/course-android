@@ -1,7 +1,6 @@
 package com.example.learningassistance.course;
 
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,15 +34,15 @@ public class CourseActivity extends AppCompatActivity {
 
     public List<CourseList> initCourse(){
         List<CourseList> list = new ArrayList<>();
-        list.add(new CourseList(R.drawable.a,"河南城建学院2020-2021学年开学第一课","河南城建学院"));
-        list.add(new CourseList(R.drawable.a,"云计算技术与应用","柳运昌"));
-        list.add(new CourseList(R.drawable.a,"云计算技术与应用","柳运昌"));
-        list.add(new CourseList(R.drawable.a,"云计算技术与应用","柳运昌"));
-        list.add(new CourseList(R.drawable.a,"云计算技术与应用","柳运昌"));
-        list.add(new CourseList(R.drawable.a,"云计算技术与应用","柳运昌"));
-        list.add(new CourseList(R.drawable.a,"云计算技术与应用","柳运昌"));
-        list.add(new CourseList(R.drawable.a,"云计算技术与应用","柳运昌"));
-        list.add(new CourseList(R.drawable.a,"云计算技术与应用","柳运昌"));
+        list.add(new CourseList(R.drawable.icon_user_avater,"河南城建学院2020-2021学年开学第一课","河南城建学院"));
+        list.add(new CourseList(R.drawable.icon_user_avater,"云计算技术与应用","柳运昌"));
+        list.add(new CourseList(R.drawable.icon_user_avater,"云计算技术与应用","柳运昌"));
+        list.add(new CourseList(R.drawable.icon_user_avater,"云计算技术与应用","柳运昌"));
+        list.add(new CourseList(R.drawable.icon_user_avater,"云计算技术与应用","柳运昌"));
+        list.add(new CourseList(R.drawable.icon_user_avater,"云计算技术与应用","柳运昌"));
+        list.add(new CourseList(R.drawable.icon_user_avater,"云计算技术与应用","柳运昌"));
+        list.add(new CourseList(R.drawable.icon_user_avater,"云计算技术与应用","柳运昌"));
+        list.add(new CourseList(R.drawable.icon_user_avater,"云计算技术与应用","柳运昌"));
         return list;
     }
 

@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -44,12 +43,12 @@ public class MineDataDetail extends AppCompatActivity {
 
     private List<MineDetail> initDetail(){
         List<MineDetail> list = new ArrayList<>();
-        list.add(new MineDetail(R.drawable.a,"选项名","这是描述的具体值"));
-        list.add(new MineDetail(R.drawable.a,"选项名","这是描述的具体值"));
-        list.add(new MineDetail(R.drawable.a,"选项名","这是描述的具体值"));
-        list.add(new MineDetail(R.drawable.a,"选项名","这是描述的具体值"));
-        list.add(new MineDetail(R.drawable.a,"选项名","这是描述的具体值"));
-        list.add(new MineDetail(R.drawable.a,"选项名","这是描述的具体值"));
+        list.add(new MineDetail(R.drawable.icon_user_avater,"选项名","这是描述的具体值"));
+        list.add(new MineDetail(R.drawable.icon_user_avater,"选项名","这是描述的具体值"));
+        list.add(new MineDetail(R.drawable.icon_user_avater,"选项名","这是描述的具体值"));
+        list.add(new MineDetail(R.drawable.icon_user_avater,"选项名","这是描述的具体值"));
+        list.add(new MineDetail(R.drawable.icon_user_avater,"选项名","这是描述的具体值"));
+        list.add(new MineDetail(R.drawable.icon_user_avater,"选项名","这是描述的具体值"));
         return list;
     }
 }

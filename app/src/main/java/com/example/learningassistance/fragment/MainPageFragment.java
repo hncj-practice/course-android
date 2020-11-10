@@ -81,7 +81,7 @@ public class MainPageFragment extends Fragment{
      */
     public void loadMineFragment(View view){
         ImageView imageView = view.findViewById(R.id.mine_avatar);
-        RoundRectImageView.setCircle(imageView,R.drawable.a,40,this);
+        RoundRectImageView.setCircle(imageView,R.drawable.icon_user_avater,40,this);
 
         List<Option> options = initOption();
         RecyclerView recyclerView = view.findViewById(R.id.recycler_mine);
@@ -102,12 +102,12 @@ public class MainPageFragment extends Fragment{
      */
     public List<Option> initOption(){
         List<Option> options = new ArrayList<>();
-        options.add(new Option("我的信息",R.drawable.a));
-        options.add(new Option("我的课程",R.drawable.a));
-        options.add(new Option("我的成绩",R.drawable.a));
-        options.add(new Option("发布动态",R.drawable.a));
-        options.add(new Option("设置",R.drawable.a));
-        options.add(new Option("我的信息",R.drawable.a));
+        options.add(new Option("我的信息",R.drawable.icon_user_avater));
+        options.add(new Option("我的课程",R.drawable.icon_user_avater));
+        options.add(new Option("我的成绩",R.drawable.icon_user_avater));
+        options.add(new Option("发布动态",R.drawable.icon_user_avater));
+        options.add(new Option("设置",R.drawable.icon_user_avater));
+        options.add(new Option("我的信息",R.drawable.icon_user_avater));
         return options;
     }
 
