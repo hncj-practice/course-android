@@ -33,4 +33,11 @@ public class Utils {
         recyclerView.setAdapter(adapter);
     }
 
+    public static void setRecycler(Activity view, int resourceId, RecyclerView.Adapter adapter){
+        RecyclerView recyclerView = view.findViewById(resourceId);
+        LinearLayoutManager manager = new LinearLayoutManager(view.getApplicationContext());
+        recyclerView.setLayoutManager(manager);
+        recyclerView.setAdapter(adapter);
+    }
+
 }

@@ -23,11 +23,11 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/course_chapter"
+            android:id="@+id/course_topic"
             style="@style/table_menu_item">
 
             <TextView
-                android:id="@+id/course_chapter_text"
+                android:id="@+id/course_topic_text"
                 style="@style/course_table_item_text"/>
 
         </LinearLayout>

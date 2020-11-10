@@ -18,9 +18,9 @@ import com.example.learningassistance.fragment.CourseFragment;
 import com.example.learningassistance.utils.Utils;
 
 public class CourseDetail extends AppCompatActivity implements View.OnClickListener {
-    public LinearLayout exam,chapter,more;
-    public TextView examT,chapterT,moreT;
-    public CourseFragment examF,chapterF,moreF;
+    public LinearLayout exam,topic,more;
+    public TextView examT,topicT,moreT;
+    public CourseFragment examF,topicF,moreF;
     public FragmentManager fm;
 
     @Override
@@ -44,12 +44,12 @@ public class CourseDetail extends AppCompatActivity implements View.OnClickListe
         ft.add(R.id.course_fg,examF);
         ft.hide(examF);
 
-        chapter = findViewById(R.id.course_chapter);
-        chapterT = findViewById(R.id.course_chapter_text);
-        chapterT.setText("章节");
-        chapterF = new CourseFragment(R.id.course_chapter);
-        ft.add(R.id.course_fg,chapterF);
-        ft.hide(chapterF);
+        topic = findViewById(R.id.course_topic);
+        topicT = findViewById(R.id.course_topic_text);
+        topicT.setText("章节");
+        topicF = new CourseFragment(R.id.course_topic);
+        ft.add(R.id.course_fg,topicF);
+        ft.hide(topicF);
 
         more = findViewById(R.id.course_more);
         moreT = findViewById(R.id.course_more_text);
@@ -60,7 +60,7 @@ public class CourseDetail extends AppCompatActivity implements View.OnClickListe
         ft.commit();
 
         exam.setOnClickListener(this);
-        chapter.setOnClickListener(this);
+        topic.setOnClickListener(this);
         more.setOnClickListener(this);
 
         exam.performClick();
@@ -70,14 +70,14 @@ public class CourseDetail extends AppCompatActivity implements View.OnClickListe
         examT.setTypeface(Typeface.DEFAULT,Typeface.NORMAL);
         examT.setBackground(ContextCompat.getDrawable(this,R.drawable.style_course_table_text_defalut));
 
-        chapterT.setTypeface(Typeface.DEFAULT,Typeface.NORMAL);
-        chapterT.setBackground(ContextCompat.getDrawable(this,R.drawable.style_course_table_text_defalut));
+        topicT.setTypeface(Typeface.DEFAULT,Typeface.NORMAL);
+        topicT.setBackground(ContextCompat.getDrawable(this,R.drawable.style_course_table_text_defalut));
 
         moreT.setTypeface(Typeface.DEFAULT,Typeface.NORMAL);
         moreT.setBackground(ContextCompat.getDrawable(this,R.drawable.style_course_table_text_defalut));
 
         ft.hide(examF);
-        ft.hide(chapterF);
+        ft.hide(topicF);
         ft.hide(moreF);
     }
 
@@ -95,8 +95,8 @@ public class CourseDetail extends AppCompatActivity implements View.OnClickListe
             case R.id.course_exam:
                 setSelected(examT,ft,examF);
                 break;
-            case R.id.course_chapter:
-                setSelected(chapterT,ft,chapterF);
+            case R.id.course_topic:
+                setSelected(topicT,ft,topicF);
                 break;
             case R.id.course_more:
                 setSelected(moreT,ft,moreF);

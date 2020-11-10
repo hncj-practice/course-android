@@ -31,6 +31,7 @@
                     android:layout_height="25dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
+                    android:contentDescription="@string/todo"
                     android:src="@drawable/icon_search"/>
 
                 <TextView
@@ -38,7 +39,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="15sp"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
                     android:text="@string/search"/>
 
                 <View style="@style/occupy_horizontal_free"/>
@@ -52,8 +53,6 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="-20dp">
-
-
 
             </androidx.recyclerview.widget.RecyclerView>
 

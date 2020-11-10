@@ -8,4 +8,6 @@
     <color name="gray">#EBEBEB</color>
     <color name="selected">#DCB86C</color>
     <color name="black">#000</color>
+    <color name="blue">#0598F8</color>
+    <color name="soft_blue">#5cb3cc</color>
 </resources>

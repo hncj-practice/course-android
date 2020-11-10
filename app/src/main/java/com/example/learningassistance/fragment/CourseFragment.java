@@ -15,7 +15,9 @@ import androidx.fragment.app.Fragment;
 
 import com.example.learningassistance.R;
 import com.example.learningassistance.adapter.ExamListAdapter;
+import com.example.learningassistance.adapter.TopicAdapter;
 import com.example.learningassistance.entity.ExamList;
+import com.example.learningassistance.entity.Topic;
 import com.example.learningassistance.utils.Utils;
 
 import java.util.ArrayList;
@@ -37,8 +39,9 @@ public class CourseFragment extends Fragment implements View.OnClickListener {
                 view = inflater.inflate(R.layout.fg_course_exam,container,false);
                 Utils.setRecycler(view,R.id.recycler_exam,new ExamListAdapter(initExams()));
                 break;
-            case R.id.course_chapter:
-                view = inflater.inflate(R.layout.fg_course_chapter,container,false);
+            case R.id.course_topic:
+                view = inflater.inflate(R.layout.fg_course_topic,container,false);
+                Utils.setRecycler(view,R.id.recycler_topic_list,new TopicAdapter(initTopic(),this));
                 break;
             case R.id.course_more:
                 view = inflater.inflate(R.layout.fg_course_more,container,false);
@@ -70,6 +73,20 @@ public class CourseFragment extends Fragment implements View.OnClickListener {
         learnData.setOnClickListener(this);
         member.setOnClickListener(this);
         achievement.setOnClickListener(this);
+    }
+
+    public void loadTopicFragment(View view){
+
+    }
+
+    public List<Topic> initTopic(){
+        List<Topic> list = new ArrayList<>();
+        list.add(new Topic(R.drawable.a,"娄鑫坡","03-24 20:34","监督学习","什么是监督学习?试举例说明监督学习的应用场景."));
+        list.add(new Topic(R.drawable.a,"娄鑫坡","03-24 20:34","监督学习","什么是监督学习?试举例说明监督学习的应用场景."));
+        list.add(new Topic(R.drawable.a,"娄鑫坡","03-24 20:34","监督学习","什么是监督学习?试举例说明监督学习的应用场景."));
+        list.add(new Topic(R.drawable.a,"娄鑫坡","03-24 20:34","监督学习","什么是监督学习?试举例说明监督学习的应用场景."));
+        list.add(new Topic(R.drawable.a,"娄鑫坡","03-24 20:34","监督学习","什么是监督学习?试举例说明监督学习的应用场景."));
+        return list;
     }
 
     /**

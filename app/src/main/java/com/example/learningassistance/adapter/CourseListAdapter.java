@@ -30,15 +30,13 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_course_item, parent, false);
-        ViewHolder holder = new ViewHolder(view);
-        return holder;
+        return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         CourseList course = mCourseList.get(position);
         holder.lecturer.setText(course.getLecturer());
-        holder.img.setImageResource(course.getImgId());
         RoundRectImageView.setRadius(holder.img,course.getImgId(),50,10 ,activity);
         holder.name.setText(course.getName());
         holder.view.setOnClickListener(new View.OnClickListener() {

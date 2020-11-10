@@ -6,14 +6,21 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:allowBackup="true"
         android:icon="@drawable/a"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme"
-        tools:targetApi="m">
+        tools:targetApi="m"
+        android:allowBackup="false">
+        <activity android:name=".course.TopicDetail"
+            android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="com.action.COURSE_TOPIC_DETAIL"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
         <activity android:name=".course.LearnDataActivity">
             <intent-filter>
                 <action android:name="com.action.COURSE_DETAIL_LEARN_DATA"/>
