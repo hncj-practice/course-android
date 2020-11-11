@@ -14,6 +14,16 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
+
+        <provider
+            android:authorities="com.example.learningassistance.FileProvider"
+            android:name="androidx.core.content.FileProvider"
+            tools:ignore="ExportedContentProvider">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:value="@xml/file_paths"/>
+        </provider>
+
         <activity android:name=".SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
