@@ -30,9 +30,7 @@ public class CourseDetail extends AppCompatActivity implements View.OnClickListe
         Intent intent = getIntent();
         Utils.setTitle(this,intent.getStringExtra("courseName"));
         fm = getSupportFragmentManager();
-
         initComponent();
-
     }
 
     public void initComponent(){
