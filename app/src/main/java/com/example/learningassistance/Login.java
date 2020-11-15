@@ -24,13 +24,17 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 
 public class Login extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private static final String HOST = "http://123.56.156.212/Interface/";
 
     private ImageView avatar,login;
     private EditText username,password;
-    private Spinner userType;
+    @BindView
+   (R.id.login_type) Spinner userType;
     private Integer loginType;
 
     public Handler handler = new Handler(new Handler.Callback() {
@@ -55,6 +59,7 @@ public class Login extends AppCompatActivity implements AdapterView.OnItemSelect
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        ButterKnife.bind(this);
         initComponent();
 
     }
@@ -72,8 +77,6 @@ public class Login extends AppCompatActivity implements AdapterView.OnItemSelect
 
         username.setText("888888888");
         password.setText("000000");
-
-        userType = findViewById(R.id.login_type);
 
         userType.setOnItemSelectedListener(this);
     }

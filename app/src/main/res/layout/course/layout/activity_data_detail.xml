@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".course.DataDetailActivity">
+
+    <include layout="@layout/title"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:orientation="vertical">
+
+        <View style="@style/occupy_vertical_free"/>
+
+        <ImageView
+            android:id="@+id/data_detail_icon"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/icon_user_avater"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:id="@+id/data_detail_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="30dp"
+            android:paddingEnd="30dp"
+            android:paddingTop="10dp"
+            android:textSize="17sp"
+            android:layout_gravity="center"
+            android:gravity="center"/>
+
+        <com.example.learningassistance.utils.MyProgressBar
+            android:id="@+id/data_detail_progress"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="10dp"
+            android:visibility="invisible"
+            app:progress_circle_color="#ff000000"
+            app:progress_reached_bar_height="20dp"
+            app:progress_reached_color="@color/mainBackground"
+            app:progress_text_color="#ffffffff"
+            app:progress_text_size="14sp"
+            app:progress_unreached_bar_height="20dp"
+            app:progress_unreached_color="#ffBCB4E8" />
+
+        <View style="@style/occupy_vertical_free"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/data_detail_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="50dp"
+            android:layout_marginStart="50dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:background="@drawable/style_topic_send_button_default"
+            android:text="@string/clickToDownload"
+            android:textSize="17sp"
+            android:textColor="@color/black"
+            android:gravity="center"/>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -26,15 +26,14 @@ public class LearnDataActivity extends AppCompatActivity {
 
     public List<Data> initData(){
         List<Data> dataList = new ArrayList<>();
-        String localPath = getExternalFilesDir("").getAbsolutePath();
-        dataList.add(new Data("https://fyz1522426323.oss-cn-beijing.aliyuncs.com/美丽的神话MV_胡歌_白冰_高清mv在线观看_酷我音乐.mp4",3,localPath));
-        dataList.add(new Data("https://fyz1522426323.oss-cn-beijing.aliyuncs.com/中央气象台.docx",2,localPath));
-        dataList.add(new Data("https://tb-video.bdstatic.com/tieba-smallvideo/50_5dedbe722c517153666e7b6ddd9c64c6.mp4",3,localPath));
-        dataList.add(new Data("https://tva1.sinaimg.cn/large/0072Vf1pgy1foxk6w32z2j31kw0w04nn.jpg",1,localPath));
-        dataList.add(new Data("https://tb-video.bdstatic.com/tieba-smallvideo/50_5dedbe722c517153666e7b6ddd9c64c6.mp4",3,localPath));
-        dataList.add(new Data("https://tva3.sinaimg.cn/large/0075auPSly1fqb5pswimej31hc0u0kbj.jpg",1,localPath));
-        dataList.add(new Data("https://tb-video.bdstatic.com/tieba-smallvideo/50_5dedbe722c517153666e7b6ddd9c64c6.mp4",3,localPath));
-        dataList.add(new Data("https://tva3.sinaimg.cn/large/0075auPSly1fqb5pswimej31hc0u0kbj.jpg",1,localPath));
+        dataList.add(new Data("https://fyz1522426323.oss-cn-beijing.aliyuncs.com/美丽的神话MV_胡歌_白冰_高清mv在线观看_酷我音乐.mp4",3));
+        dataList.add(new Data("https://fyz1522426323.oss-cn-beijing.aliyuncs.com/中央气象台.docx",2));
+        dataList.add(new Data("https://tb-video.bdstatic.com/tieba-smallvideo/50_5dedbe722c517153666e7b6ddd9c64c6.mp4",3));
+        dataList.add(new Data("https://tva2.sinaimg.cn/large/0072Vf1pgy1foxlholn3ej31hc0u0qnp.jpg",1));
+        dataList.add(new Data("https://tb-video.bdstatic.com/tieba-smallvideo/50_5dedbe722c517153666e7b6ddd9c64c6.mp4",3));
+        dataList.add(new Data("https://tva2.sinaimg.cn/large/0072Vf1pgy1foxlholn3ej31hc0u0qnp.jpg",1));
+        dataList.add(new Data("https://tb-video.bdstatic.com/tieba-smallvideo/50_5dedbe722c517153666e7b6ddd9c64c6.mp4",3));
+        dataList.add(new Data("https://tva3.sinaimg.cn/large/0075auPSly1fqb5pswimej31hc0u0kbj.jpg",1));
         return dataList;
     }
 }

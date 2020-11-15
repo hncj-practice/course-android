@@ -44,7 +44,7 @@ public class CourseDetail extends AppCompatActivity implements View.OnClickListe
 
         topic = findViewById(R.id.course_topic);
         topicT = findViewById(R.id.course_topic_text);
-        topicT.setText("章节");
+        topicT.setText("话题");
         topicF = new CourseFragment(R.id.course_topic);
         ft.add(R.id.course_fg,topicF);
         ft.hide(topicF);

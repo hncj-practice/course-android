@@ -53,18 +53,7 @@ public class CourseFragment extends Fragment implements View.OnClickListener {
         return view;
     }
 
-    public List<ExamList> initExams(){
-        List<ExamList> lists = new ArrayList<>();
-        lists.add(new ExamList("这是一个考试","这是考试时间","未开始"));
-        lists.add(new ExamList("这是一个考试","这是考试时间","未开始"));
-        lists.add(new ExamList("这是一个考试","这是考试时间","未开始"));
-        lists.add(new ExamList("这是一个考试","这是考试时间","未开始"));
-        lists.add(new ExamList("这是一个考试","这是考试时间","未开始"));
-        lists.add(new ExamList("这是一个考试","这是考试时间","未开始"));
-        return lists;
-    }
-
-//    加载课程中的更多碎片
+    //    加载课程中的更多碎片
     public void loadMoreFragment(View view){
         LinearLayout learnData = view.findViewById(R.id.course_more_learn_data);
         LinearLayout member = view.findViewById(R.id.course_more_member);
@@ -73,20 +62,6 @@ public class CourseFragment extends Fragment implements View.OnClickListener {
         learnData.setOnClickListener(this);
         member.setOnClickListener(this);
         achievement.setOnClickListener(this);
-    }
-
-    public void loadTopicFragment(View view){
-
-    }
-
-    public List<Topic> initTopic(){
-        List<Topic> list = new ArrayList<>();
-        list.add(new Topic(R.drawable.icon_user_avater,"娄鑫坡","03-24 20:34","监督学习","什么是监督学习?试举例说明监督学习的应用场景."));
-        list.add(new Topic(R.drawable.icon_user_avater,"娄鑫坡","03-24 20:34","监督学习","什么是监督学习?试举例说明监督学习的应用场景."));
-        list.add(new Topic(R.drawable.icon_user_avater,"娄鑫坡","03-24 20:34","监督学习","什么是监督学习?试举例说明监督学习的应用场景."));
-        list.add(new Topic(R.drawable.icon_user_avater,"娄鑫坡","03-24 20:34","监督学习","什么是监督学习?试举例说明监督学习的应用场景."));
-        list.add(new Topic(R.drawable.icon_user_avater,"娄鑫坡","03-24 20:34","监督学习","什么是监督学习?试举例说明监督学习的应用场景."));
-        return list;
     }
 
     /**
@@ -108,7 +83,27 @@ public class CourseFragment extends Fragment implements View.OnClickListener {
             default:
                 break;
         }
-        Toast.makeText(v.getContext(),"click",Toast.LENGTH_SHORT).show();
         startActivity(intent);
+    }
+
+    public List<ExamList> initExams(){
+        List<ExamList> lists = new ArrayList<>();
+        lists.add(new ExamList("这是一个考试","这是考试时间","未开始"));
+        lists.add(new ExamList("这是一个考试","这是考试时间","未开始"));
+        lists.add(new ExamList("这是一个考试","这是考试时间","未开始"));
+        lists.add(new ExamList("这是一个考试","这是考试时间","未开始"));
+        lists.add(new ExamList("这是一个考试","这是考试时间","未开始"));
+        lists.add(new ExamList("这是一个考试","这是考试时间","未开始"));
+        return lists;
+    }
+
+    public List<Topic> initTopic(){
+        List<Topic> list = new ArrayList<>();
+        list.add(new Topic(R.drawable.icon_user_avater,"娄鑫坡","03-24 20:34","监督学习","什么是监督学习?试举例说明监督学习的应用场景."));
+        list.add(new Topic(R.drawable.icon_user_avater,"娄鑫坡","03-24 20:34","监督学习","什么是监督学习?试举例说明监督学习的应用场景."));
+        list.add(new Topic(R.drawable.icon_user_avater,"娄鑫坡","03-24 20:34","监督学习","什么是监督学习?试举例说明监督学习的应用场景."));
+        list.add(new Topic(R.drawable.icon_user_avater,"娄鑫坡","03-24 20:34","监督学习","什么是监督学习?试举例说明监督学习的应用场景."));
+        list.add(new Topic(R.drawable.icon_user_avater,"娄鑫坡","03-24 20:34","监督学习","什么是监督学习?试举例说明监督学习的应用场景."));
+        return list;
     }
 }

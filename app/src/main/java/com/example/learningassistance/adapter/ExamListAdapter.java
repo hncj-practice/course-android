@@ -1,5 +1,6 @@
 package com.example.learningassistance.adapter;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.learningassistance.R;
 import com.example.learningassistance.entity.ExamList;
+import com.example.learningassistance.utils.Utils;
 
 import java.util.List;
 
@@ -30,9 +32,18 @@ public class ExamListAdapter extends RecyclerView.Adapter<ExamListAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.name.setText(examLists.get(position).getName());
-        holder.time.setText(examLists.get(position).getTime());
-        holder.status.setText(examLists.get(position).getStatus());
+        ExamList exam = examLists.get(position);
+        holder.name.setText(exam.getName());
+        holder.time.setText(exam.getTime());
+        holder.status.setText(exam.getStatus());
+
+        holder.view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = Utils.setIntent(exam.getName(),"com.action.COURSE_EXAM_DETAIL");
+                v.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override

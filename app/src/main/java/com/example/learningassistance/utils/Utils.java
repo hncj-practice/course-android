@@ -1,6 +1,7 @@
 package com.example.learningassistance.utils;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -40,4 +41,10 @@ public class Utils {
         recyclerView.setAdapter(adapter);
     }
 
+
+    public static Intent setIntent(String value, String action) {
+        Intent intent = new Intent(action);
+        intent.putExtra("data",value);
+        return intent;
+    }
 }
