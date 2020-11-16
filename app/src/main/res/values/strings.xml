@@ -12,4 +12,5 @@
     <string name="todo">TODO</string>
     <string name="clickToDownload">点击下载</string>
     <string name="clickToRead">点击查看</string>
+    <string name="commitExam">提交试卷</string>
 </resources>

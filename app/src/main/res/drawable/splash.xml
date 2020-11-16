@@ -4,6 +4,6 @@
         <!-- 图片 -->
         <bitmap
             android:gravity="fill"
-        android:src="@drawable/background" />
+        android:src="@drawable/start_cover" />
     </item>
 </layer-list>
