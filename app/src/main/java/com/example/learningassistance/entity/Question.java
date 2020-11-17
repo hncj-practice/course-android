@@ -1,6 +1,6 @@
 package com.example.learningassistance.entity;
 
-public class SelectQuestion {
+public class Question {
     String question;
     String[] answers;
 
@@ -12,8 +12,8 @@ public class SelectQuestion {
         return answers;
     }
 
-    public SelectQuestion(String question, String[] answers) {
+    public Question(String question, String answers) {
         this.question = question;
-        this.answers = answers;
+        this.answers = answers.split("\\$");
     }
 }

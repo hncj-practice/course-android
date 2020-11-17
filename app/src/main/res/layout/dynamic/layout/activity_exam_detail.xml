@@ -88,33 +88,12 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/exam_layout_short_answer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/exam_question_short_answer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="简答题"
-                    android:textSize="20sp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"/>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/recycler_question_short_answer"/>
-
-            </LinearLayout>
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/style_topic_send_button_selected"
                 android:text="@string/commitExam"
+                android:onClick="getAchievement"
                 android:gravity="center"
                 android:layout_margin="20dp"
                 android:paddingTop="10dp"

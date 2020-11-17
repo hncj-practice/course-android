@@ -11,7 +11,10 @@ import com.example.learningassistance.utils.FileUtils;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -25,9 +28,26 @@ public class ExampleUnitTest {
 
     @Test
     public void addition_isCorrect() {
-        String[] split = question.split("\\$", 2);
-        for (String s : split){
-            System.out.println(s);
+        String[] split = question.split("\\$");
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i<split.length;i++){
+            if ( i > 0 ){
+                sb.append("$");
+            }
+            sb.append(split[i]);
+        }
+        System.out.println(sb.toString());
+    }
+
+    @Test
+    public void test(){
+        Map<Integer,String> list = new HashMap<>();
+        int max = 5;
+        while (max-- > 0){
+            if (list.get(max) == null){
+                list.put(max,"第"+max+"个");
+            }
         }
     }
+
 }

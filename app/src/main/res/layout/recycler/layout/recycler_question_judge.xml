@@ -16,7 +16,7 @@
         android:layout_marginBottom="20dp"/>
 
     <LinearLayout
-        android:id="@+id/exam_judge_layout"
+        android:id="@+id/judge_right_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp">
@@ -39,12 +39,13 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/judge_wrong_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp">
 
         <View
-            android:id="@+id/exam_select_button"
+            android:id="@+id/exam_judge_wrong"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_gravity="center"
