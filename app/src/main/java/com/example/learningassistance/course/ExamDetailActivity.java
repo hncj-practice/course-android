@@ -1,10 +1,13 @@
 package com.example.learningassistance.course;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.learningassistance.R;
 import com.example.learningassistance.adapter.FixingAdapter;
@@ -30,25 +34,34 @@ public class ExamDetailActivity extends AppCompatActivity {
 //    private String[] userChoice;
 //    private String[] rightAnswer;
 
-    String question = "以下关于线性分类器说法不正确的（    ）$A:线性分类器的一种直观的最优决策边界为最大间隔边界$B:线性可分的情形下，线性分类器的决策边界可以是多样的$C:线性分类器打分越高的样例越离决策边界越近，具有更高的分类置信度$D:训练好的SVM模型直接给出样例的列别标签";
+    String selectQuestion = "以下关于线性分类器说法不正确的（    ）$A:线性分类器的一种直观的最优决策边界为最大间隔边界$B:线性可分的情形下，线性分类器的决策边界可以是多样的$C:线性分类器打分越高的样例越离决策边界越近，具有更高的分类置信度$D:训练好的SVM模型直接给出样例的列别标签";
+    String selectAnswer = "B";
     String fixingQuestion = "粒度是对数据仓库中数据的综合程度高低的一个衡量。粒度越小,细节程度____,综合程度____,回答查询的种类____。";
     String fixingAnswer = "越高$越低$越多";
-//    String rigthAnswer = "错";
-//    int type = 1;
+    String judgeQuestion = "序列最小优化算法无法在原始问题增加松弛变量以后使用";
+    String judgeAnswer = "错";
 
     private SelectQuestionAdapter selectAdapter;
     private JudgeAdapter judgeAdapter;
     private FixingAdapter fixingAdapter;
+
+    private Map<Integer, Integer> marks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exam_detail);
 
+        marks = new HashMap<>();
+        for (int i = 0; i < 6; i++){
+            marks.put(i,i * 5 + 1);
+        }
+
+
         Intent intent = getIntent();
         Utils.setTitle(this,intent.getStringExtra("data"));
 
-        selectAdapter = new SelectQuestionAdapter(initQuestion());
+        selectAdapter = new SelectQuestionAdapter(initSelect());
         Utils.setRecycler(this,R.id.recycler_question_select,selectAdapter);
 
         judgeAdapter = new JudgeAdapter(initJudge());
@@ -85,8 +98,42 @@ public class ExamDetailActivity extends AppCompatActivity {
     }
 
     public void getAchievement(View view) {
-        Map<Integer, String> userAnswer = getUserAnswer();
-        System.out.println("da");
+        AlertDialog.Builder dialog = new AlertDialog.Builder(view.getContext());
+        dialog.setTitle("交卷");
+        dialog.setMessage("请认真检查是否有遗漏,是否交卷?");
+        dialog.setCancelable(false);
+        dialog.setPositiveButton("是", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Map<Integer, String> userAnswers = getUserAnswer();
+                Map<Integer, String> rigthAnswers = getRigthAnswers(initSelect(),initJudge(),initFixing());
+                int achievement = 0;
+                int position = rigthAnswers.size() - 1;
+                while (position-- >= 0){
+                    if ( userAnswers.get(position) != null && userAnswers.get(position).equals(rigthAnswers.get(position))){
+                        achievement += marks.get(position);
+                    }
+                }
+                Toast.makeText(view.getContext(), "最终得分为:"+ achievement +"分", Toast.LENGTH_SHORT).show();
+            }
+        });
+        dialog.setNegativeButton("否", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+    }
+
+    public Map<Integer, String> getRigthAnswers(List<Question>... params){
+        Map<Integer, String> rightAnswers = new HashMap<>();
+        int i = 0;
+        for (List<Question> q : params){
+            for (Question question : q){
+                rightAnswers.put(i++,question.getAnswers());
+            }
+        }
+        return rightAnswers;
     }
 
     /**
@@ -94,10 +141,10 @@ public class ExamDetailActivity extends AppCompatActivity {
      */
     public class JudgeAdapter extends RecyclerView.Adapter<JudgeAdapter.ViewHolder>{
 
-        private List<String> questionList;
+        private List<Question> questionList;
         private Map<Integer, String> userAnswers;
 
-        public JudgeAdapter(List<String> questionList) {
+        public JudgeAdapter(List<Question> questionList) {
             this.questionList = questionList;
             this.userAnswers = new HashMap<>();
         }
@@ -121,7 +168,7 @@ public class ExamDetailActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-            holder.question.setText(questionList.get(position));
+            holder.question.setText(questionList.get(position).getQuestion());
             holder.rightL.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -162,20 +209,20 @@ public class ExamDetailActivity extends AppCompatActivity {
 
     }
 
-    public List<Question> initQuestion(){
+    public List<Question> initSelect(){
         List<Question> questionList = new ArrayList<>();
-        String[] split = question.split("\\$", 2);
-        Question question = new Question(split[0],split[1]);
+        Question question = new Question(selectQuestion,selectAnswer);
         questionList.add(question);
         questionList.add(question);
         return questionList;
     }
 
-    public List<String> initJudge(){
-         List<String> questionList = new ArrayList<>();
-         questionList.add("序列最小优化算法无法在原始问题增加松弛变量以后使用");
-         questionList.add("序列最小优化算法无法在原始问题增加松弛变量以后使用");
-         return questionList;
+    public List<Question> initJudge(){
+        List<Question> questionList = new ArrayList<>();
+        Question question = new Question(judgeQuestion,judgeAnswer);
+        questionList.add(question);
+        questionList.add(question);
+        return questionList;
     }
 
     public List<Question> initFixing(){

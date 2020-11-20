@@ -48,8 +48,10 @@ public class SelectQuestionAdapter extends RecyclerView.Adapter<SelectQuestionAd
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Question question = questionList.get(position);
-        holder.question.setText(question.getQuestion());
-        Utils.setRecycler(holder.view,holder.answer.getId(),new SelectAnswerAdapter(question.getAnswers(),position));
+        String[] split = question.getQuestion().split("\\$", 2);
+        String[] answers = split[1].split("\\$");
+        holder.question.setText(split[0]);
+        Utils.setRecycler(holder.view,holder.answer.getId(),new SelectAnswerAdapter(answers,position));
     }
 
     @Override

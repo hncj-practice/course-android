@@ -1,5 +1,7 @@
 package com.example.learningassistance.adapter;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,7 +49,7 @@ public class FixingAdapter extends RecyclerView.Adapter<FixingAdapter.ViewHolder
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Question question = questionList.get(position);
         holder.question.setText(question.getQuestion());
-        int number = question.getAnswers().length;
+        int number = question.getAnswers().split("\\$").length;
         Utils.setRecycler(holder.itemView,R.id.recycler_fixing_answer,new FixingAnswerAdapter(number,position));
     }
 
@@ -93,7 +95,7 @@ public class FixingAdapter extends RecyclerView.Adapter<FixingAdapter.ViewHolder
 
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-            holder.answer.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            /*holder.answer.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
                 public void onFocusChange(View v, boolean hasFocus) {
                     if (hasFocus){
@@ -103,6 +105,22 @@ public class FixingAdapter extends RecyclerView.Adapter<FixingAdapter.ViewHolder
                         userAnswer[position] = (answer.length() < 1 ? " " :answer);
                         userAnswers.put(index,getStringAnswer(userAnswer));
                     }
+                }
+            });*/
+
+            holder.answer.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    userAnswer[position] = s.toString();
+                    userAnswers.put(index,getStringAnswer(userAnswer));
                 }
             });
         }

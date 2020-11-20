@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -15,7 +16,7 @@ import com.example.learningassistance.fragment.MainPageFragment;
 
 @SuppressLint("ResourceAsColor")
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    private static final String DATA  = "{\"cla\":\"0814171\",\"status\":1,\"total\":0,\"avatar\":\"http://m.imeitou.com/uploads/allimg/200911/3-200911160509-lp.jpg\",\"email\":\"111111@qq.com\",\"name\":\"吴硕\",\"pwd\":\"000000\",\"sno\":\"888888888\",\"sex\":\"m\"}";
+    private String DATA ;
 
     private LinearLayout layout_homepage,layout_message,layout_dynamic,layout_my;
     private ImageView image_homepage,image_message,image_dynamic,image_my;
@@ -27,11 +28,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private MainPageFragment f1,f2,f3,f4;
     private FragmentManager fm;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Intent intent = getIntent();
+        DATA = intent.getStringExtra("data");
         fm = getSupportFragmentManager();
         initComponent();
     }

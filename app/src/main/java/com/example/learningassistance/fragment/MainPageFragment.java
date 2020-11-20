@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.example.learningassistance.R;
 import com.example.learningassistance.adapter.MineAdapter;
 import com.example.learningassistance.entity.Option;
@@ -64,7 +67,7 @@ public class MainPageFragment extends Fragment{
     }
 
     public void loadHomepageFragment(View view){
-        Toast.makeText(view.getContext(), "正在加载首页", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this.getContext(), "正在加载首页", Toast.LENGTH_SHORT).show();
     }
 
     public void loadMessageFragment(View view){
@@ -80,8 +83,16 @@ public class MainPageFragment extends Fragment{
      * @param view "我的"在Activity中的fragment组件
      */
     public void loadMineFragment(View view){
+        JSONObject jsonObject = JSON.parseObject(data);
+
+        String localPath = jsonObject.getString("localPath");
         ImageView imageView = view.findViewById(R.id.mine_avatar);
-        RoundRectImageView.setCircle(imageView,R.drawable.icon_user_avater,40,this);
+        TextView username = view.findViewById(R.id.mine_user_name);
+        TextView cla = view.findViewById(R.id.mine_user_class);
+
+        RoundRectImageView.setUserAvatar(imageView,localPath,40);
+        username.setText(jsonObject.getString("name"));
+        cla.setText(jsonObject.getString("cla"));
 
         List<Option> options = initOption();
         RecyclerView recyclerView = view.findViewById(R.id.recycler_mine);
@@ -102,12 +113,11 @@ public class MainPageFragment extends Fragment{
      */
     public List<Option> initOption(){
         List<Option> options = new ArrayList<>();
-        options.add(new Option("我的信息",R.drawable.icon_user_avater));
-        options.add(new Option("我的课程",R.drawable.icon_user_avater));
-        options.add(new Option("我的成绩",R.drawable.icon_user_avater));
-        options.add(new Option("发布动态",R.drawable.icon_user_avater));
-        options.add(new Option("设置",R.drawable.icon_user_avater));
-        options.add(new Option("我的信息",R.drawable.icon_user_avater));
+        options.add(new Option("我的信息",R.drawable.icon_mine_info));
+        options.add(new Option("我的课程",R.drawable.icon_mine_course));
+        options.add(new Option("我的成绩",R.drawable.icon_mine_mark));
+        options.add(new Option("发布动态",R.drawable.icon_mine_dynamic));
+        options.add(new Option("设置",R.drawable.icon_mine_setting));
         return options;
     }
 
