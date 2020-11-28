@@ -12,10 +12,11 @@
 
         <ImageView
             android:id="@+id/mine_detail_item_image"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_gravity="center"
-            android:layout_margin="10dp"/>
+            android:layout_margin="10dp"
+            android:contentDescription="@string/todo" />
 
         <TextView
             android:id="@+id/mine_detail_item_name"
@@ -35,7 +36,7 @@
             android:layout_height="wrap_content"
             android:maxWidth="270dp"
             android:layout_gravity="center"
-            android:layout_marginRight="10dp"/>
+            android:layout_marginEnd="10dp"/>
 
     </LinearLayout>
 

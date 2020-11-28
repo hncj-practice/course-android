@@ -1,39 +1,63 @@
 package com.example.learningassistance.course;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.example.learningassistance.R;
 import com.example.learningassistance.adapter.DataListAdapter;
 import com.example.learningassistance.entity.Data;
 import com.example.learningassistance.utils.Utils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class LearnDataActivity extends AppCompatActivity {
+
+    Handler handler = new Handler(msg -> {
+        ArrayList<Data> dataList = new ArrayList<>();
+        if (msg.what == 1){
+            JSONArray array = JSON.parseArray(msg.getData().getString("data"));
+            int arraySize = 0;
+            assert array != null;
+            while (arraySize < array.size()){
+                JSONObject jsonObject = array.getJSONObject(arraySize);
+                String type = jsonObject.getString("datatype");
+                String link = jsonObject.getString("datalink");
+                String name = jsonObject.getString("dataname");
+
+                Data data = new Data(name,link,type);
+                dataList.add(data);
+
+                arraySize += 1;
+            }
+        }
+        if (dataList.size() > 0){
+            Utils.setRecycler(LearnDataActivity.this,R.id.recycler_data,new DataListAdapter(dataList));
+        }
+        return false;
+    });
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_learndata);
         Utils.setTitle(this,"资料");
+        Intent intent = getIntent();
+        String cid = intent.getStringExtra("courseId");
 
-        Utils.setRecycler(this,R.id.recycler_data, new DataListAdapter(initData()));
-    }
-
-    public List<Data> initData(){
-        List<Data> dataList = new ArrayList<>();
-        dataList.add(new Data("https://fyz1522426323.oss-cn-beijing.aliyuncs.com/美丽的神话MV_胡歌_白冰_高清mv在线观看_酷我音乐.mp4",3));
-        dataList.add(new Data("https://fyz1522426323.oss-cn-beijing.aliyuncs.com/中央气象台.docx",2));
-        dataList.add(new Data("https://tb-video.bdstatic.com/tieba-smallvideo/50_5dedbe722c517153666e7b6ddd9c64c6.mp4",3));
-        dataList.add(new Data("https://tva2.sinaimg.cn/large/0072Vf1pgy1foxlholn3ej31hc0u0qnp.jpg",1));
-        dataList.add(new Data("https://tb-video.bdstatic.com/tieba-smallvideo/50_5dedbe722c517153666e7b6ddd9c64c6.mp4",3));
-        dataList.add(new Data("https://tva2.sinaimg.cn/large/0072Vf1pgy1foxlholn3ej31hc0u0qnp.jpg",1));
-        dataList.add(new Data("https://tb-video.bdstatic.com/tieba-smallvideo/50_5dedbe722c517153666e7b6ddd9c64c6.mp4",3));
-        dataList.add(new Data("https://tva3.sinaimg.cn/large/0075auPSly1fqb5pswimej31hc0u0kbj.jpg",1));
-        return dataList;
+        Map<String, String> map = new HashMap<>();
+        map.put("courseid",cid);
+        map.put("page","1");
+        map.put("num","6");
+        Utils.getNetData("data/getdatabycourseid",map,handler);
     }
 }

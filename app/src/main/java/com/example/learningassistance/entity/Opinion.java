@@ -1,13 +1,13 @@
 package com.example.learningassistance.entity;
 
 public class Opinion {
-    private int imgId;
+    private String imgUrl;
     private String name;
     private String time;
     private String content;
 
-    public int getImgId() {
-        return imgId;
+    public String getImgUrl() {
+        return imgUrl;
     }
 
     public String getName() {
@@ -22,8 +22,8 @@ public class Opinion {
         return content;
     }
 
-    public Opinion(int imgId, String name, String time, String content) {
-        this.imgId = imgId;
+    public Opinion(String imgUrl, String name, String time, String content) {
+        this.imgUrl = imgUrl;
         this.name = name;
         this.time = time;
         this.content = content;

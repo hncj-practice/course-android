@@ -7,7 +7,7 @@ import java.io.Serializable;
 public class Data implements Serializable {
     private String name;
     private String url;
-    private int type;
+    private String type;
 
     public String getName() {
         return name;
@@ -17,14 +17,13 @@ public class Data implements Serializable {
         return url;
     }
 
-    public int getType() {
+    public String getType() {
         return type;
     }
 
-    public Data(String url, int type) {
+    public Data(String name, String url, String type) {
+        this.name = name;
         this.url = url;
         this.type = type;
-        this.name = FileUtils.getFileName(url);
-
     }
 }

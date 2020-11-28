@@ -3,7 +3,6 @@ package com.example.learningassistance;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -20,7 +19,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.arialyy.annotations.Download;
 import com.arialyy.aria.core.Aria;
@@ -31,9 +29,9 @@ import com.example.learningassistance.utils.RoundRectImageView;
 import com.example.learningassistance.utils.Utils;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -55,37 +53,37 @@ public class Login extends AppCompatActivity implements AdapterView.OnItemSelect
     public Handler handler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(@NonNull Message msg) {
-            switch (msg.what){
-                case 1:
-                    String data = msg.getData().getString("data");
-                    JSONObject jsonObject = JSON.parseObject(data);
+            if (msg.what == 1) {
+                String data = msg.getData().getString("data");
+                JSONObject jsonObject = JSON.parseObject(data);
 
-                    String type = jsonObject.getString("status");
-                    String username = null;
-                    if (type.equals("1")){
-                        username = jsonObject.getString("sno");
-                    } else if (type.equals("2")){
-                        username = jsonObject.getString("tno");
-                    }
-                    String avatar = jsonObject.getString("avatar");
-                    String localPath = LOCAL_PATH + username+"t"+type + ".png";
-                    jsonObject.put("localPath",localPath);
+                String type = jsonObject.getString("status");
+                String username = null;
+                if (type.equals("1")) {
+                    username = jsonObject.getString("sno");
+                } else if (type.equals("2")) {
+                    username = jsonObject.getString("tno");
+                }
+                String avatar = jsonObject.getString("avatar");
+                String localPath = LOCAL_PATH + username + "t" + type + ".png";
+                jsonObject.put("localPath", localPath);
 
-                    loginHistory = getSharedPreferences("loginHistory", MODE_PRIVATE);
-                    if (!loginHistory.getString((username + "t" + type),"").equals(avatar)){
-                        startDownload(jsonObject.getString("avatar"),localPath);
-                        SharedPreferences.Editor edit = loginHistory.edit();
-                        edit.putString(username + "t" + type,avatar);
-                        edit.apply();
-                    }
+                loginHistory = getSharedPreferences("loginHistory", MODE_PRIVATE);
+                SharedPreferences.Editor edit = loginHistory.edit();
+                if (!Objects.equals(loginHistory.getString((username + "t" + type), ""), avatar)) {
+                    startDownload(jsonObject.getString("avatar"), localPath);
+                    edit.putString(username + "t" + type, avatar);
+                }
+                edit.putString("currentUserName", jsonObject.getString("name"));
+                edit.putString("currentUserId", username);
+                edit.putString("currentUserAvatar", jsonObject.getString("avatar"));
+                edit.apply();
 
-                    Intent intent = new Intent(Login.this,MainActivity.class);
-                    intent.putExtra("data",jsonObject.toJSONString());
-                    startActivity(intent);
-                    break;
-                default:
-                    Toast.makeText(Login.this, "用户名或密码错误", Toast.LENGTH_SHORT).show();
-                    break;
+                Intent intent = new Intent(Login.this, MainActivity.class);
+                intent.putExtra("data", jsonObject.toJSONString());
+                startActivity(intent);
+            } else {
+                Toast.makeText(Login.this, "用户名或密码错误", Toast.LENGTH_SHORT).show();
             }
             return false;
         }
@@ -107,7 +105,7 @@ public class Login extends AppCompatActivity implements AdapterView.OnItemSelect
             file.mkdirs();
         }
 
-        RoundRectImageView.setCircle(avatar,R.drawable.icon_user_avater,50,this);
+        RoundRectImageView.setCircle(avatar,R.drawable.icon_default_avatar,50,this);
         RoundRectImageView.setCircle(login,R.drawable.icon_login,30,this);
 
         userType.setOnItemSelectedListener(this);
@@ -126,15 +124,15 @@ public class Login extends AppCompatActivity implements AdapterView.OnItemSelect
                 if (s.length() == 9){
                     loginHistory = getSharedPreferences("loginHistory",MODE_PRIVATE);
 //                    当首次登陆时,设置为默认头像,否则在本地区图片
-                    if (!loginHistory.getString(s.toString() + "t" + loginType, "null").equals("null")){
+                    if (!Objects.equals(loginHistory.getString(s.toString() + "t" + loginType, "null"), "null")){
                         RoundRectImageView.setUserAvatar(avatar,LOCAL_PATH + s.toString() + "t" + loginType + ".png",50);
                     }
                 }
             }
         });
 
-        username.setText("081417162");
-        password.setText("000000");
+/*        username.setText("081417162");
+        password.setText("000000");*/
 
     }
 

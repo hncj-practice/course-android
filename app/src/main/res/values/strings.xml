@@ -14,7 +14,11 @@
     <string name="todo">TODO</string>
     <string name="clickToDownload">点击下载</string>
     <string name="clickToRead">点击查看</string>
+    <string name="deleteDocument">删除文件</string>
     <string name="commitExam">提交试卷</string>
     <string name="right">正确</string>
     <string name="wrong">错误</string>
+    <string name="selectChoiceQuestion">选择题</string>
+    <string name="judgeQuestion">判断题</string>
+    <string name="fillInTheBlanks">填空题</string>
 </resources>

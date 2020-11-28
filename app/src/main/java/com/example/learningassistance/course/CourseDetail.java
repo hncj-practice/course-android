@@ -18,7 +18,7 @@ import com.example.learningassistance.fragment.CourseFragment;
 import com.example.learningassistance.utils.Utils;
 
 public class CourseDetail extends AppCompatActivity implements View.OnClickListener {
-    private Integer cid;
+    private String cid;
 
     public LinearLayout exam,topic,more;
     public TextView examT,topicT,moreT;
@@ -30,7 +30,7 @@ public class CourseDetail extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_detail);
         Intent intent = getIntent();
-        cid = intent.getIntExtra("cid",-1);
+        cid = intent.getStringExtra("cid");
         Utils.setTitle(this,intent.getStringExtra("courseName"));
 
         fm = getSupportFragmentManager();

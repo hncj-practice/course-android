@@ -21,8 +21,8 @@
             android:id="@+id/data_detail_icon"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:src="@drawable/icon_user_avater"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:contentDescription="@string/todo" />
 
         <TextView
             android:id="@+id/data_detail_name"
@@ -74,6 +74,25 @@
             android:textSize="17sp"
             android:textColor="@color/black"
             android:gravity="center"/>
+
+        <View style="@style/occupy_vertical_free"/>
+
+        <TextView
+            android:id="@+id/data_detail_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="@string/deleteDocument"
+            android:background="@drawable/style_topic_send_button_default"
+            android:textColor="@color/black"
+            android:layout_gravity="center"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingEnd="20dp"
+            android:paddingStart="20dp"
+            android:visibility="gone"
+            android:layout_marginBottom="30dp"/>
+
 
     </LinearLayout>
 

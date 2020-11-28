@@ -9,6 +9,8 @@ public class Topic implements Serializable {
     private String title;
     private String question;
 
+    private String topicId;
+
     public int getImgId() {
         return imgId;
     }
@@ -23,6 +25,14 @@ public class Topic implements Serializable {
 
     public String getTitle() {
         return title;
+    }
+
+    public String getTopicId() {
+        return topicId;
+    }
+
+    public void setTopicId(String topicId) {
+        this.topicId = topicId;
     }
 
     public String getQuestion() {

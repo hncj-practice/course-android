@@ -26,8 +26,7 @@ public class ExamListAdapter extends RecyclerView.Adapter<ExamListAdapter.ViewHo
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_exam_item, parent, false);
-        ViewHolder holder = new ViewHolder(view);
-        return holder;
+        return new ViewHolder(view);
     }
 
     @Override
@@ -37,8 +36,10 @@ public class ExamListAdapter extends RecyclerView.Adapter<ExamListAdapter.ViewHo
         holder.time.setText(exam.getTime());
         holder.status.setText(exam.getStatus());
 
+//        获取考试id,转入考试activity
         holder.view.setOnClickListener(v -> {
             Intent intent = Utils.setIntent(exam.getName(),"com.action.COURSE_EXAM_DETAIL");
+
             v.getContext().startActivity(intent);
         });
     }

@@ -6,9 +6,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -45,15 +42,15 @@ public class MineDataDetail extends AppCompatActivity {
 
     private List<MineDetail> initDetail(){
         List<MineDetail> list = new ArrayList<>();
-        list.add(new MineDetail(R.drawable.icon_user_avater,"姓名",jsonObject.getString("name")));
+        list.add(new MineDetail(R.drawable.icon_user_name,"姓名",jsonObject.getString("name")));
         if (jsonObject.getString("status").equals("1")){
-            list.add(new MineDetail(R.drawable.icon_user_avater,"学号",jsonObject.getString("sno")));
-            list.add(new MineDetail(R.drawable.icon_user_avater,"班级",jsonObject.getString("cla")));
+            list.add(new MineDetail(R.drawable.icon_user_id,"学号",jsonObject.getString("sno")));
+            list.add(new MineDetail(R.drawable.icon_user_class,"班级",jsonObject.getString("cla")));
         } else if (jsonObject.getString("status").equals("2")){
-            list.add(new MineDetail(R.drawable.icon_user_avater,"工号",jsonObject.getString("tno")));
+            list.add(new MineDetail(R.drawable.icon_user_class,"工号",jsonObject.getString("tno")));
         }
-        list.add(new MineDetail(R.drawable.icon_user_avater,"性别",jsonObject.getString("sex").equals("m") ? "男" : "女"));
-        list.add(new MineDetail(R.drawable.icon_user_avater,"电子邮箱",jsonObject.getString("email")));
+        list.add(new MineDetail(R.drawable.icon_user_sex,"性别",jsonObject.getString("sex").equals("m") ? "男" : "女"));
+        list.add(new MineDetail(R.drawable.icon_user_email,"电子邮箱",jsonObject.getString("email")));
         return list;
     }
 }

@@ -12,17 +12,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.learningassistance.R;
 import com.example.learningassistance.entity.Opinion;
+import com.example.learningassistance.utils.RangleTransForm;
 import com.example.learningassistance.utils.RoundRectImageView;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class OpinionAdapter extends RecyclerView.Adapter<OpinionAdapter.ViewHolder> {
     private List<Opinion> opinions;
-    private Activity activity;
 
-    public OpinionAdapter(List<Opinion> opinions, Activity activity) {
+    public OpinionAdapter(List<Opinion> opinions) {
         this.opinions = opinions;
-        this.activity = activity;
     }
 
     @NonNull
@@ -37,9 +37,12 @@ public class OpinionAdapter extends RecyclerView.Adapter<OpinionAdapter.ViewHold
         Opinion opinion = opinions.get(position);
 
         holder.content.setText(opinion.getContent());
-        RoundRectImageView.setRadius(holder.image,opinion.getImgId(),40,10,activity);
         holder.name.setText(opinion.getName());
         holder.time.setText(opinion.getTime());
+
+//        RoundRectImageView.setRadius(holder.image,opinion.getImgId(),40,10,activity);
+        Picasso.get().load(opinion.getImgUrl()).transform(new RangleTransForm(10,40)).into(holder.image);
+
     }
 
     @Override

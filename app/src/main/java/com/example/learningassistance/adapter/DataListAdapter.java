@@ -36,22 +36,19 @@ public class DataListAdapter extends RecyclerView.Adapter<DataListAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final Data data = dataList.get(position);
 
-        final String ext = FileUtils.getFileExt(data.getName());
+        final String ext = FileUtils.getFileExt(data.getUrl());
 
         holder.name.setText(data.getName());
         holder.icon.setImageResource(FileUtils.getImgId(ext));
 
 //        设置下载文件的点击事件
-        holder.view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        holder.view.setOnClickListener(v ->{
                 Intent intent = new Intent("com.action.MORE_DATA_DETAIL");
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("data",data);
                 intent.putExtras(bundle);
                 intent.putExtra("ext",ext);
                 v.getContext().startActivity(intent);
-            }
         });
     }
 

@@ -1,6 +1,7 @@
 package com.example.learningassistance.course;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.arialyy.annotations.Download;
 import com.arialyy.aria.core.Aria;
@@ -14,10 +15,9 @@ import com.example.learningassistance.utils.Utils;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -37,6 +37,7 @@ public class DataDetailActivity extends AppCompatActivity {
     @BindView(R.id.data_detail_button) TextView button;
     @BindView(R.id.data_detail_icon) ImageView icon;
     @BindView(R.id.data_detail_name) TextView docName;
+    @BindView(R.id.data_detail_delete) TextView docDel;
 
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +53,7 @@ public class DataDetailActivity extends AppCompatActivity {
         String directory = getExternalFilesDir(null) + File.separator + data.getType();
         pathName = directory + File.separator + data.getName();
         docName.setText(data.getName());
+        assert ext != null;
         icon.setImageResource(FileUtils.getImgId(ext));
 
         File file = new File(directory);
@@ -73,40 +75,45 @@ public class DataDetailActivity extends AppCompatActivity {
             button.setText(R.string.clickToRead);
             button.setBackground(getDrawable(R.drawable.style_topic_send_button_selected));
             button.setTextColor(getResources().getColor(R.color.white));
+            docDel.setVisibility(View.VISIBLE);
         }
     }
 
-    @OnClick(R.id.data_detail_button) void click(View view){
-        if (button.getText().toString().equals(getString(R.string.clickToDownload))){
-            Aria.download(this)
-                    .load(data.getUrl())
-                    .setFilePath(pathName)
-                    .ignoreFilePathOccupy()
-                    .create();
-        } else {
-            startRead();
+    @OnClick({R.id.data_detail_button,R.id.data_detail_delete}) void click(View view){
+        switch (view.getId()){
+            case R.id.data_detail_button:
+                if (button.getText().toString().equals(getString(R.string.clickToDownload))){
+                    AlertDialog.Builder start = new AlertDialog.Builder(this);
+                    start.setTitle("开始下载");
+                    start.setMessage("是否开始下载?");
+                    start.setCancelable(false);
+                    start.setPositiveButton("开始", (dialog, which) -> {
+                        Aria.download(this)
+                                .load(data.getUrl())
+                                .setFilePath(pathName)
+                                .ignoreFilePathOccupy()
+                                .create();
+                        progressBar.setVisibility(View.VISIBLE);
+                        progressBar.setProgress(0);
+                    });
+                    start.setNegativeButton("取消", (dialog, which) -> dialog.cancel());
+                    start.show();
+                } else {
+                    startRead();
+                }
+                break;
+            case R.id.data_detail_delete:
+                File file = new File(pathName);
+                if (file.exists() && file.isFile()){
+                    if (file.delete()){
+                        button.setText(R.string.clickToDownload);
+                        button.setTextColor(getResources().getColor(R.color.black));
+                        button.setBackground(ContextCompat.getDrawable(this,R.drawable.style_topic_send_button_default));
+                        docDel.setVisibility(View.GONE);
+                    }
+                }
+                break;
         }
-    }
-
-    @Download.onTaskPre void pre(DownloadTask task){
-        AlertDialog.Builder start = new AlertDialog.Builder(this);
-        start.setTitle("开始下载");
-        start.setMessage("是否开始下载?");
-        start.setCancelable(false);
-        start.setPositiveButton("开始", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                progressBar.setVisibility(View.VISIBLE);
-                progressBar.setProgress(0);
-            }
-        });
-        start.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                task.cancel();
-            }
-        });
-        start.show();
     }
 
     @Download.onTaskRunning protected void running(DownloadTask task){
@@ -115,18 +122,19 @@ public class DataDetailActivity extends AppCompatActivity {
 
     @SuppressLint("UseCompatLoadingForDrawables")
     @Download.onTaskComplete void complete(DownloadTask task){
+        progressBar.setVisibility(View.INVISIBLE);
         AlertDialog.Builder success = new AlertDialog.Builder(this);
         success.setTitle("下载完成");
         success.setMessage("指定文件已下载到本地");
         success.setCancelable(true);
-        progressBar.setVisibility(View.INVISIBLE);
         button.setText(R.string.clickToRead);
         button.setBackground(getDrawable(R.drawable.style_topic_send_button_selected));
         button.setTextColor(getResources().getColor(R.color.white));
+        docDel.setVisibility(View.VISIBLE);
         success.show();
     }
 
     public void startRead() {
-        FileUtils.openFile(this,new File(pathName),FileUtils.getFileExt(data.getName()));
+        FileUtils.openFile(this,new File(pathName),FileUtils.getFileExt(data.getUrl()));
     }
 }

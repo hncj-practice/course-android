@@ -46,16 +46,13 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.ViewHolder> 
         holder.title.setText(topic.getTitle());
         holder.title.setTypeface(Typeface.DEFAULT,Typeface.BOLD);
 
-        holder.layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("topic",topic);
-                intent.putExtras(bundle);
-                intent.setAction("com.action.COURSE_TOPIC_DETAIL");
-                v.getContext().startActivity(intent);
-            }
+        holder.layout.setOnClickListener(v -> {
+            Intent intent = new Intent();
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("topic",topic);
+            intent.putExtras(bundle);
+            intent.setAction("com.action.COURSE_TOPIC_DETAIL");
+            v.getContext().startActivity(intent);
         });
     }
 

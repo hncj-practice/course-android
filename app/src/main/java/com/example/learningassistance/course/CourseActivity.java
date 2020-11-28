@@ -4,13 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -28,15 +24,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class CourseActivity extends AppCompatActivity {
-    private JSONObject userData;
     private List<CourseList> courseLists = new ArrayList<>();
 
     Handler handler = new Handler(msg -> {
-        Map<Integer, String> result = (Map<Integer, String>) msg.getData().getSerializable("data");
+        Map<Integer, String> result = (HashMap) msg.getData().getSerializable("data");
         for(int j = 1; j < 9; j++ ){
-            if (result.get(j).equals("{ \"code\" : 401, \"message\" : \"查询结果为空\" }")){
+            assert result != null;
+            if (Objects.equals(result.get(j), "{ \"code\" : 401, \"message\" : \"查询结果为空\" }")){
                 continue;
             }
             JSONObject json = JSON.parseObject(result.get(j));
@@ -45,7 +42,7 @@ public class CourseActivity extends AppCompatActivity {
             for (int i = 0; i < array.size(); i++){
                 JSONObject jsonObject = array.getJSONObject(i);
                 CourseList courseList = new CourseList(jsonObject.getString("coverimg"),jsonObject.getString("cname"),jsonObject.getString("tname"));
-                courseList.setCid( jsonObject.getInteger("cid") );
+                courseList.setCid( jsonObject.getString("cid") );
                 courseLists.add(courseList);
             }
         }
@@ -62,10 +59,10 @@ public class CourseActivity extends AppCompatActivity {
 
         Utils.setTitle(this,"全部课程");
         Intent intent = getIntent();
-        userData = JSON.parseObject(intent.getStringExtra("data"));
+        JSONObject userData = JSON.parseObject(intent.getStringExtra("data"));
 
         Map<String, String> map = new HashMap<>();
-        map.put("studentid",userData.getString("sno"));
+        map.put("studentid", userData.getString("sno"));
         getCourseData(map);
     }
 
@@ -76,9 +73,9 @@ public class CourseActivity extends AppCompatActivity {
         new Thread(()  -> {
             Map<Integer, String> result = new HashMap<>();
             try {
-                Integer i = 1;
+                int i = 1;
                 while (i < 9){
-                    data.put("semesterid",i.toString());
+                    data.put("semesterid", Integer.toString(i));
                     String response = Jsoup.connect("http://123.56.156.212/Interface/course/getcoursebysno")
                             .data(data)
                             .ignoreContentType(true)

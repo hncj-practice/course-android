@@ -4,7 +4,7 @@ public class CourseList {
     private String imgUrl;
     private String name;
     private String lecturer;
-    private int cid;
+    private String cid;
 
     public CourseList(String imgUrl, String name, String lecturer) {
         this.imgUrl = imgUrl;
@@ -24,11 +24,11 @@ public class CourseList {
         return lecturer;
     }
 
-    public int getCid() {
+    public String getCid() {
         return cid;
     }
 
-    public void setCid(int cid) {
+    public void setCid(String cid) {
         this.cid = cid;
     }
 }
