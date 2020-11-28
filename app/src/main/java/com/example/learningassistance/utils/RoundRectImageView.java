@@ -20,11 +20,14 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
+import androidx.annotation.UiThread;
 import androidx.fragment.app.Fragment;
 
 import com.example.learningassistance.R;
+import com.squareup.picasso.Picasso;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 @SuppressLint("AppCompatCustomView")
 public class RoundRectImageView extends ImageView {
@@ -164,6 +167,12 @@ public class RoundRectImageView extends ImageView {
 
     public static void setRadius(ImageView image, int imageId, int imageSize,int radius , Fragment activity){
         Bitmap bitmap = BitmapFactory.decodeResource(activity.getResources(), imageId);
+        Bitmap outBitmap =getRoundBitmapByShader(bitmap, imageSize,imageSize,radius, 0);
+        image.setImageBitmap(outBitmap);
+    }
+
+    public static void setRadius(ImageView image, String imgUrl, int imageSize,int radius) throws IOException {
+        Bitmap bitmap = Picasso.get().load(imgUrl).get();
         Bitmap outBitmap =getRoundBitmapByShader(bitmap, imageSize,imageSize,radius, 0);
         image.setImageBitmap(outBitmap);
     }

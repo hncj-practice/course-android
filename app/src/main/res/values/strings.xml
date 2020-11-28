@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">学习助手</string>
+    <string name="account">账号：</string>
+    <string name="password">密码：</string>
     <string name="user_identity">用户角色:</string>
     <string name="dynamic">动态</string>
     <string name="my">我的</string>

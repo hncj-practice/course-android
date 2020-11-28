@@ -1,7 +1,9 @@
 package com.example.learningassistance.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.example.learningassistance.R;
 import com.example.learningassistance.adapter.ExamListAdapter;
 import com.example.learningassistance.adapter.TopicAdapter;
@@ -20,28 +25,90 @@ import com.example.learningassistance.entity.ExamList;
 import com.example.learningassistance.entity.Topic;
 import com.example.learningassistance.utils.Utils;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 public class CourseFragment extends Fragment implements View.OnClickListener {
     private int id;
+    private Integer cid;
+    public View view;
 
-    public CourseFragment(int id) {
+    public CourseFragment(int id,Integer cid) {
         this.id = id;
+        this.cid = cid;
     }
+
+    Handler examHandler = new Handler(msg -> {
+        List<ExamList> examLists = new ArrayList<>();
+        switch (msg.what){
+            case 1:
+                JSONArray jsonArray = JSON.parseArray(msg.getData().getString("data"));
+                int arraySize = jsonArray.size();
+                while (arraySize-- > 0){
+                    JSONObject jsonObject = jsonArray.getJSONObject(arraySize);
+                    String name = jsonObject.getString("papername");
+                    String status = jsonObject.getString("status");
+                    String startTime = timeStampToDate(jsonObject.getString("starttime"));
+                    String endTime = timeStampToDate(jsonObject.getString("endtime"));
+                    String time = startTime + "至" + endTime;
+
+                    ExamList examList = new ExamList(name,time,status);
+                    examLists.add(examList);
+                }
+                break;
+            default:
+                break;
+        }
+        if (examLists.size() > 0){
+            Utils.setRecycler(view,R.id.recycler_exam,new ExamListAdapter(examLists));
+        }
+        return false;
+    });
+
+    Handler topicHandler = new Handler(msg -> {
+        List<Topic> topics = new ArrayList<>();
+        switch (msg.what){
+            case 1:
+                JSONArray jsonArray = JSON.parseArray(msg.getData().getString("data"));
+                int arraySize = jsonArray.size();
+                while (arraySize-- > 0){
+                    JSONObject jsonObject = jsonArray.getJSONObject(arraySize);
+                    String name = jsonObject.getString("topictitle");
+                    String commitTime = timeStampToDate(jsonObject.getString("committime"));
+                    String content = jsonObject.getString("topiccontent");
+                    String topicId = jsonObject.getString("topicid");
+
+                    Topic topic = new Topic(R.drawable.icon_user_avater,topicId,commitTime,name,content);
+                    topics.add(topic);
+                }
+                break;
+            default:
+                break;
+        }
+        if (topics.size() > 0){
+            Utils.setRecycler(view,R.id.recycler_topic_list,new TopicAdapter(topics,CourseFragment.this));
+        }
+        return false;
+    });
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = null;
+        Map<String,String> map = new HashMap<>();
+        map.put("courseid", cid.toString());
         switch (id){
             case R.id.course_exam:
                 view = inflater.inflate(R.layout.fg_course_exam,container,false);
-                Utils.setRecycler(view,R.id.recycler_exam,new ExamListAdapter(initExams()));
+                Utils.getNetData("paper/getpaperbycourseid",map,examHandler);
                 break;
             case R.id.course_topic:
                 view = inflater.inflate(R.layout.fg_course_topic,container,false);
-                Utils.setRecycler(view,R.id.recycler_topic_list,new TopicAdapter(initTopic(),this));
+                Utils.getNetData("topic/gettopicbycid",map,topicHandler);
                 break;
             case R.id.course_more:
                 view = inflater.inflate(R.layout.fg_course_more,container,false);
@@ -86,24 +153,9 @@ public class CourseFragment extends Fragment implements View.OnClickListener {
         startActivity(intent);
     }
 
-    public List<ExamList> initExams(){
-        List<ExamList> lists = new ArrayList<>();
-        lists.add(new ExamList("这是一个考试","这是考试时间","未开始"));
-        lists.add(new ExamList("这是一个考试","这是考试时间","未开始"));
-        lists.add(new ExamList("这是一个考试","这是考试时间","未开始"));
-        lists.add(new ExamList("这是一个考试","这是考试时间","未开始"));
-        lists.add(new ExamList("这是一个考试","这是考试时间","未开始"));
-        lists.add(new ExamList("这是一个考试","这是考试时间","未开始"));
-        return lists;
+    public String timeStampToDate(String stamp){
+        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd HH:mm", Locale.getDefault());
+        return sdf.format(new Date(Long.parseLong(stamp)));
     }
 
-    public List<Topic> initTopic(){
-        List<Topic> list = new ArrayList<>();
-        list.add(new Topic(R.drawable.icon_user_avater,"娄鑫坡","03-24 20:34","监督学习","什么是监督学习?试举例说明监督学习的应用场景."));
-        list.add(new Topic(R.drawable.icon_user_avater,"娄鑫坡","03-24 20:34","监督学习","什么是监督学习?试举例说明监督学习的应用场景."));
-        list.add(new Topic(R.drawable.icon_user_avater,"娄鑫坡","03-24 20:34","监督学习","什么是监督学习?试举例说明监督学习的应用场景."));
-        list.add(new Topic(R.drawable.icon_user_avater,"娄鑫坡","03-24 20:34","监督学习","什么是监督学习?试举例说明监督学习的应用场景."));
-        list.add(new Topic(R.drawable.icon_user_avater,"娄鑫坡","03-24 20:34","监督学习","什么是监督学习?试举例说明监督学习的应用场景."));
-        return list;
-    }
 }

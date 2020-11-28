@@ -37,12 +37,9 @@ public class ExamListAdapter extends RecyclerView.Adapter<ExamListAdapter.ViewHo
         holder.time.setText(exam.getTime());
         holder.status.setText(exam.getStatus());
 
-        holder.view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = Utils.setIntent(exam.getName(),"com.action.COURSE_EXAM_DETAIL");
-                v.getContext().startActivity(intent);
-            }
+        holder.view.setOnClickListener(v -> {
+            Intent intent = Utils.setIntent(exam.getName(),"com.action.COURSE_EXAM_DETAIL");
+            v.getContext().startActivity(intent);
         });
     }
 

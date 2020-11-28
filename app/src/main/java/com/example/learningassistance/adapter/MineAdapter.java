@@ -57,6 +57,7 @@ public class MineAdapter extends RecyclerView.Adapter<MineAdapter.ViewHolder> {
                 break;
             case 1:
                 intent.setAction("com.action.COURSE_ACTIVITY_START");
+                intent.putExtra("data",data);
                 break;
             default:
                 break;

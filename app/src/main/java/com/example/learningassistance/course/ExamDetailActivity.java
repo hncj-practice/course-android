@@ -123,6 +123,7 @@ public class ExamDetailActivity extends AppCompatActivity {
 
             }
         });
+        dialog.show();
     }
 
     public Map<Integer, String> getRigthAnswers(List<Question>... params){

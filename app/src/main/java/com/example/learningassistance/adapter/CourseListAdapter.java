@@ -12,18 +12,21 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.learningassistance.R;
+import com.example.learningassistance.course.CourseActivity;
 import com.example.learningassistance.entity.CourseList;
+import com.example.learningassistance.utils.RangleTransForm;
 import com.example.learningassistance.utils.RoundRectImageView;
+import com.example.learningassistance.utils.Utils;
+import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.util.List;
 
 public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.ViewHolder> {
     private List<CourseList> mCourseList;
-    private Activity activity;
 
-    public CourseListAdapter(List<CourseList> mCourseList,Activity activity) {
+    public CourseListAdapter(List<CourseList> mCourseList) {
         this.mCourseList = mCourseList;
-        this.activity = activity;
     }
 
     @NonNull
@@ -37,15 +40,14 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         CourseList course = mCourseList.get(position);
         holder.lecturer.setText(course.getLecturer());
-        RoundRectImageView.setRadius(holder.img,course.getImgId(),50,10 ,activity);
+
+        Picasso.get().load(course.getImgUrl()).transform(new RangleTransForm(10,50)).into(holder.img);
         holder.name.setText(course.getName());
-        holder.view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent("com.action.COURSE_DETAIL_ACTIVITY_START");
-                intent.putExtra("courseName",holder.name.getText().toString());
-                v.getContext().startActivity(intent);
-            }
+        holder.view.setOnClickListener(v -> {
+            Intent intent = new Intent("com.action.COURSE_DETAIL_ACTIVITY_START");
+            intent.putExtra("courseName",holder.name.getText().toString());
+            intent.putExtra("cid",course.getCid());
+            v.getContext().startActivity(intent);
         });
     }
 

@@ -133,6 +133,9 @@ public class Login extends AppCompatActivity implements AdapterView.OnItemSelect
             }
         });
 
+        username.setText("081417162");
+        password.setText("000000");
+
     }
 
     public void startDownload(String url,String filePath){

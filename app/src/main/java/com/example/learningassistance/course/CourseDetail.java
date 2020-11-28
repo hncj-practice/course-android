@@ -18,6 +18,8 @@ import com.example.learningassistance.fragment.CourseFragment;
 import com.example.learningassistance.utils.Utils;
 
 public class CourseDetail extends AppCompatActivity implements View.OnClickListener {
+    private Integer cid;
+
     public LinearLayout exam,topic,more;
     public TextView examT,topicT,moreT;
     public CourseFragment examF,topicF,moreF;
@@ -28,7 +30,9 @@ public class CourseDetail extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_detail);
         Intent intent = getIntent();
+        cid = intent.getIntExtra("cid",-1);
         Utils.setTitle(this,intent.getStringExtra("courseName"));
+
         fm = getSupportFragmentManager();
         initComponent();
     }
@@ -38,21 +42,21 @@ public class CourseDetail extends AppCompatActivity implements View.OnClickListe
         exam = findViewById(R.id.course_exam);
         examT = findViewById(R.id.course_exam_text);
         examT.setText("考试");
-        examF = new CourseFragment(R.id.course_exam);
+        examF = new CourseFragment(R.id.course_exam,cid);
         ft.add(R.id.course_fg,examF);
         ft.hide(examF);
 
         topic = findViewById(R.id.course_topic);
         topicT = findViewById(R.id.course_topic_text);
         topicT.setText("话题");
-        topicF = new CourseFragment(R.id.course_topic);
+        topicF = new CourseFragment(R.id.course_topic,cid);
         ft.add(R.id.course_fg,topicF);
         ft.hide(topicF);
 
         more = findViewById(R.id.course_more);
         moreT = findViewById(R.id.course_more_text);
         moreT.setText("更多");
-        moreF = new CourseFragment(R.id.course_more);
+        moreF = new CourseFragment(R.id.course_more,cid);
         ft.add(R.id.course_fg,moreF);
         ft.hide(moreF);
         ft.commit();

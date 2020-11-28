@@ -1,18 +1,19 @@
 package com.example.learningassistance.entity;
 
 public class CourseList {
-    private int imgId;
+    private String imgUrl;
     private String name;
     private String lecturer;
+    private int cid;
 
-    public CourseList(int imgId, String name, String lecturer) {
-        this.imgId = imgId;
+    public CourseList(String imgUrl, String name, String lecturer) {
+        this.imgUrl = imgUrl;
         this.name = name;
         this.lecturer = lecturer;
     }
 
-    public int getImgId() {
-        return imgId;
+    public String getImgUrl() {
+        return imgUrl;
     }
 
     public String getName() {
@@ -21,5 +22,13 @@ public class CourseList {
 
     public String getLecturer() {
         return lecturer;
+    }
+
+    public int getCid() {
+        return cid;
+    }
+
+    public void setCid(int cid) {
+        this.cid = cid;
     }
 }

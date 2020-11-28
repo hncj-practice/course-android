@@ -45,7 +45,7 @@ public class MineDataDetail extends AppCompatActivity {
 
     private List<MineDetail> initDetail(){
         List<MineDetail> list = new ArrayList<>();
-        list.add(new MineDetail(R.drawable.icon_user_avater,"姓名","这是描述的具体值"));
+        list.add(new MineDetail(R.drawable.icon_user_avater,"姓名",jsonObject.getString("name")));
         if (jsonObject.getString("status").equals("1")){
             list.add(new MineDetail(R.drawable.icon_user_avater,"学号",jsonObject.getString("sno")));
             list.add(new MineDetail(R.drawable.icon_user_avater,"班级",jsonObject.getString("cla")));
