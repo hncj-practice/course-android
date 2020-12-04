@@ -145,7 +145,7 @@ public class RoundRectImageView extends ImageView {
     public static void setUserAvatar(ImageView image, String uri, int imageSize){
         Bitmap bitmap = BitmapFactory.decodeFile(uri);
         if (bitmap == null){
-            bitmap = BitmapFactory.decodeResource(Resources.getSystem(), R.drawable.icon_user_avater);
+            bitmap = BitmapFactory.decodeResource(Resources.getSystem(), R.drawable.icon_default_avatar);
         }
         Bitmap outBitmap =getRoundBitmapByShader(bitmap, imageSize,imageSize,50, 0);
         image.setImageBitmap(outBitmap);

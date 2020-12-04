@@ -41,26 +41,27 @@ public class MemberActivity extends AppCompatActivity {
 
     private List<Member> initTeacher(){
         List<Member> members = new ArrayList<>();
-        members.add(new Member("这是老师",R.drawable.icon_user_avater));
+        members.add(new Member("这是老师",R.drawable.icon_default_avatar));
         return members;
     }
 
     private List<Member> initStudent(){
         List<Member> members = new ArrayList<>();
-        members.add(new Member("这是学生",R.drawable.icon_user_avater));
-        members.add(new Member("这是学生",R.drawable.icon_user_avater));
-        members.add(new Member("这是学生",R.drawable.icon_user_avater));
-        members.add(new Member("这是学生",R.drawable.icon_user_avater));
-        members.add(new Member("这是学生",R.drawable.icon_user_avater));
-        members.add(new Member("这是学生",R.drawable.icon_user_avater));
-        members.add(new Member("这是学生",R.drawable.icon_user_avater));
-        members.add(new Member("这是学生",R.drawable.icon_user_avater));
-        members.add(new Member("这是学生",R.drawable.icon_user_avater));
-        members.add(new Member("这是学生",R.drawable.icon_user_avater));
-        members.add(new Member("这是学生",R.drawable.icon_user_avater));
-        members.add(new Member("这是学生",R.drawable.icon_user_avater));
-        members.add(new Member("这是学生",R.drawable.icon_user_avater));
-        members.add(new Member("这是学生",R.drawable.icon_user_avater));
+        members.add(new Member("这是学生",R.drawable.icon_default_avatar));
+        members.add(new Member("这是学生",R.drawable.icon_default_avatar));
+        members.add(new Member("这是学生",R.drawable.icon_default_avatar));
+        members.add(new Member("这是学生",R.drawable.icon_default_avatar));
+        members.add(new Member("这是学生",R.drawable.icon_default_avatar));
+        members.add(new Member("这是学生",R.drawable.icon_default_avatar));
+        members.add(new Member("这是学生",R.drawable.icon_default_avatar));
+        members.add(new Member("这是学生",R.drawable.icon_default_avatar));
+        members.add(new Member("这是学生",R.drawable.icon_default_avatar));
+        members.add(new Member("这是学生",R.drawable.icon_default_avatar));
+        members.add(new Member("这是学生",R.drawable.icon_default_avatar));
+        members.add(new Member("这是学生",R.drawable.icon_default_avatar));
+        members.add(new Member("这是学生",R.drawable.icon_default_avatar));
+        members.add(new Member("这是学生",R.drawable.icon_default_avatar));
+        members.add(new Member("这是学生",R.drawable.icon_default_avatar));
         return members;
     }
 

@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -17,6 +18,7 @@ import com.example.learningassistance.fragment.MainPageFragment;
 @SuppressLint("ResourceAsColor")
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private String DATA ;
+    private int SIZE;
 
     private LinearLayout layout_homepage,layout_message,layout_dynamic,layout_my;
     private ImageView image_homepage,image_message,image_dynamic,image_my;
@@ -32,6 +34,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Point point = new Point();
+        getWindowManager().getDefaultDisplay().getSize(point);
+        SIZE = point.x;
 
         Intent intent = getIntent();
         DATA = intent.getStringExtra("data");
@@ -157,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 text_dynamic.setTextColor(R.color.selected);
                 layout_dynamic.setSelected(true);
                 if (f3 == null){
-                    f3 = new MainPageFragment(DATA,R.id.menu_dynamic);
+                    f3 = new MainPageFragment(DATA,R.id.menu_dynamic,SIZE);
                     transaction.add(R.id.fragment,f3);
                 } else {
                     transaction.show(f3);

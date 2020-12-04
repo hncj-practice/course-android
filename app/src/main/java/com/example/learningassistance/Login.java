@@ -131,8 +131,8 @@ public class Login extends AppCompatActivity implements AdapterView.OnItemSelect
             }
         });
 
-/*        username.setText("081417162");
-        password.setText("000000");*/
+        username.setText("081417162");
+        password.setText("000000");
 
     }
 

@@ -1,9 +1,14 @@
 package com.example.learningassistance.fragment;
 
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,8 +23,13 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.example.learningassistance.R;
 import com.example.learningassistance.adapter.MineAdapter;
+import com.example.learningassistance.course.Dynamic;
 import com.example.learningassistance.entity.Option;
+import com.example.learningassistance.utils.MyTransForm;
 import com.example.learningassistance.utils.RoundRectImageView;
+import com.example.learningassistance.utils.Utils;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +37,7 @@ import java.util.List;
 public class MainPageFragment extends Fragment{
     private String data;
     private int id;
+    private int size;
 
     /**
      * 碎片的有参构造,完成数据的传递
@@ -36,6 +47,12 @@ public class MainPageFragment extends Fragment{
     public MainPageFragment(String data, int id) {
         this.data = data;
         this.id = id;
+    }
+
+    public MainPageFragment(String data, int id, int size) {
+        this.data = data;
+        this.id = id;
+        this.size = size / 3 - 50;
     }
 
     @Nullable
@@ -75,7 +92,47 @@ public class MainPageFragment extends Fragment{
     }
 
     public void loadDynamicFragment(View view){
-        Toast.makeText(view.getContext(), "正在加载动态", Toast.LENGTH_SHORT).show();
+        String content = "这是一个动态的正文;这是一个动态的正文;这是一个动态的正文;这是一个动态的正文;这是一个动态的正文;这是一个动态的正文;这是一个动态的正文;这是一个动态的正文;这是一个动态的正文;这是一个动态的正文;这是一个动态的正文;这是一个动态的正文;";
+        List<String> imgs = new ArrayList<>();
+        imgs.add("https://tva1.sinaimg.cn/large/466f79e8ly1fw5oi8xtynj21040nmqd3.jpg");
+        List<Dynamic> dynamicList = new ArrayList<>();
+        Dynamic dynamic = new Dynamic("https://tva1.sinaimg.cn/large/466f79e8ly1fw5oh9146uj21gp15qdta.jpg","JEmber","This is time",content,"103",imgs);
+        dynamicList.add(dynamic);
+
+        imgs = new ArrayList<>();
+        imgs.add("https://tva1.sinaimg.cn/large/466f79e8ly1fw5oi7d5w5j21hc0u0n1p.jpg");
+        imgs.add("https://tva1.sinaimg.cn/large/466f79e8ly1fw5oi7d5w5j21hc0u0n1p.jpg");
+        imgs.add("https://tva1.sinaimg.cn/large/466f79e8ly1fw5oi7d5w5j21hc0u0n1p.jpg");
+        imgs.add("https://tva1.sinaimg.cn/large/466f79e8ly1fw5oi7d5w5j21hc0u0n1p.jpg");
+        dynamic = new Dynamic("https://tva1.sinaimg.cn/large/466f79e8ly1fw5oh9146uj21gp15qdta.jpg","JEmber","This is time",content,"103",imgs);
+        dynamicList.add(dynamic);
+
+        imgs = new ArrayList<>();
+        imgs.add("https://tva1.sinaimg.cn/large/466f79e8ly1fw5oi836h6j21b80xeth3.jpg");
+        imgs.add("https://tva1.sinaimg.cn/large/466f79e8ly1fw5oi836h6j21b80xeth3.jpg");
+        imgs.add("https://tva1.sinaimg.cn/large/466f79e8ly1fw5oi836h6j21b80xeth3.jpg");
+        imgs.add("https://tva1.sinaimg.cn/large/466f79e8ly1fw5oi836h6j21b80xeth3.jpg");
+        imgs.add("https://tva1.sinaimg.cn/large/466f79e8ly1fw5oi836h6j21b80xeth3.jpg");
+        imgs.add("https://tva1.sinaimg.cn/large/466f79e8ly1fw5oi836h6j21b80xeth3.jpg");
+        imgs.add("https://tva1.sinaimg.cn/large/466f79e8ly1fw5oi836h6j21b80xeth3.jpg");
+        dynamic = new Dynamic("https://tva1.sinaimg.cn/large/466f79e8ly1fw5oh9146uj21gp15qdta.jpg","JEmber","This is time",content,"103",imgs);
+        dynamicList.add(dynamic);
+
+        imgs = new ArrayList<>();
+        imgs.add("https://tva1.sinaimg.cn/large/466f79e8ly1fw5oh9146uj21gp15qdta.jpg");
+        imgs.add("https://tva1.sinaimg.cn/large/466f79e8ly1fw5oh9146uj21gp15qdta.jpg");
+        imgs.add("https://tva1.sinaimg.cn/large/466f79e8ly1fw5oh9146uj21gp15qdta.jpg");
+        imgs.add("https://tva1.sinaimg.cn/large/466f79e8ly1fw5oh9146uj21gp15qdta.jpg");
+        imgs.add("https://tva1.sinaimg.cn/large/466f79e8ly1fw5oh9146uj21gp15qdta.jpg");
+        imgs.add("https://tva1.sinaimg.cn/large/466f79e8ly1fw5oh9146uj21gp15qdta.jpg");
+        imgs.add("https://tva1.sinaimg.cn/large/466f79e8ly1fw5oh9146uj21gp15qdta.jpg");
+        imgs.add("https://tva1.sinaimg.cn/large/466f79e8ly1fw5oh9146uj21gp15qdta.jpg");
+        imgs.add("https://tva1.sinaimg.cn/large/466f79e8ly1fw5oh9146uj21gp15qdta.jpg");
+        dynamic = new Dynamic("https://tva1.sinaimg.cn/large/466f79e8ly1fw5oh9146uj21gp15qdta.jpg","JEmber","This is time",content,"103",imgs);
+        dynamicList.add(dynamic);
+
+        Utils.setRecycler(view,R.id.recycler_dynamic,new DynamicAdapter(dynamicList));
+
     }
 
     /**
@@ -119,6 +176,68 @@ public class MainPageFragment extends Fragment{
         options.add(new Option("发布动态",R.drawable.icon_mine_dynamic));
         options.add(new Option("设置",R.drawable.icon_mine_setting));
         return options;
+    }
+
+    private class DynamicAdapter extends RecyclerView.Adapter<DynamicAdapter.ViewHolder>{
+        private static final int MAX = 9;
+
+        private List<Dynamic> dynamics;
+
+        public DynamicAdapter(List<Dynamic> dynamics) {
+            this.dynamics = dynamics;
+        }
+
+        @NonNull
+        @Override
+        public DynamicAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_dynamic_item, parent, false);
+            return new ViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull DynamicAdapter.ViewHolder holder, int position) {
+            Dynamic dynamic = dynamics.get(position);
+            holder.name.setText(dynamic.getName());
+            holder.content.setText(dynamic.getContent());
+            holder.time.setText(dynamic.getTime());
+            holder.commentNum.setText(dynamic.getCommentNum());
+            Picasso.get().load(dynamic.getAvatar()).transform(new MyTransForm.RangleTransForm(10,50)).into(holder.avatar);
+
+
+            //设置图片
+            int imageNum = 0;
+            for (String url : dynamic.getImages()){
+                imageNum += 1;
+                ImageView imageView = new ImageView(holder.gridLayout.getContext());
+                Picasso.get().load(url).transform(new MyTransForm.SquareTransForm(size)).into(imageView);
+
+                holder.gridLayout.addView(imageView);
+                if (imageNum == MAX)
+                    break;
+            }
+        }
+
+        @Override
+        public int getItemCount() {
+            return dynamics.size();
+        }
+
+        public class ViewHolder extends RecyclerView.ViewHolder {
+            TextView name,time,content,commentNum;
+            ImageView avatar;
+            GridLayout gridLayout;
+            View view;
+            public ViewHolder(@NonNull View itemView) {
+                super(itemView);
+                view = itemView;
+                name = itemView.findViewById(R.id.dynamic_user_name);
+                time = itemView.findViewById(R.id.dynamic_commit_time);
+                content = itemView.findViewById(R.id.dynamic_content_text);
+                avatar = itemView.findViewById(R.id.dynamic_user_avatar);
+                gridLayout = itemView.findViewById(R.id.dynamic_image_gridlayout);
+                commentNum = itemView.findViewById(R.id.dynamic_comment_num);
+            }
+        }
     }
 
 }

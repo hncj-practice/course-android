@@ -1,6 +1,5 @@
 package com.example.learningassistance.adapter;
 
-import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.learningassistance.R;
 import com.example.learningassistance.entity.Opinion;
-import com.example.learningassistance.utils.RangleTransForm;
-import com.example.learningassistance.utils.RoundRectImageView;
+import com.example.learningassistance.utils.MyTransForm;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -41,7 +39,7 @@ public class OpinionAdapter extends RecyclerView.Adapter<OpinionAdapter.ViewHold
         holder.time.setText(opinion.getTime());
 
 //        RoundRectImageView.setRadius(holder.image,opinion.getImgId(),40,10,activity);
-        Picasso.get().load(opinion.getImgUrl()).transform(new RangleTransForm(10,40)).into(holder.image);
+        Picasso.get().load(opinion.getImgUrl()).transform(new MyTransForm.RangleTransForm(10,40)).into(holder.image);
 
     }
 

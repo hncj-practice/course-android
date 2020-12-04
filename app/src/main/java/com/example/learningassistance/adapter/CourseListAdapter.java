@@ -1,6 +1,5 @@
 package com.example.learningassistance.adapter;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,14 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.learningassistance.R;
-import com.example.learningassistance.course.CourseActivity;
 import com.example.learningassistance.entity.CourseList;
-import com.example.learningassistance.utils.RangleTransForm;
-import com.example.learningassistance.utils.RoundRectImageView;
-import com.example.learningassistance.utils.Utils;
+import com.example.learningassistance.utils.MyTransForm;
 import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
 import java.util.List;
 
 public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.ViewHolder> {
@@ -41,7 +36,7 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
         CourseList course = mCourseList.get(position);
         holder.lecturer.setText(course.getLecturer());
 
-        Picasso.get().load(course.getImgUrl()).transform(new RangleTransForm(10,50)).into(holder.img);
+        Picasso.get().load(course.getImgUrl()).transform(new MyTransForm.RangleTransForm(10,50)).into(holder.img);
         holder.name.setText(course.getName());
         holder.view.setOnClickListener(v -> {
             Intent intent = new Intent("com.action.COURSE_DETAIL_ACTIVITY_START");
