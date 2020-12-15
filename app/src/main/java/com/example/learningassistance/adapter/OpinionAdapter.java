@@ -38,8 +38,7 @@ public class OpinionAdapter extends RecyclerView.Adapter<OpinionAdapter.ViewHold
         holder.name.setText(opinion.getName());
         holder.time.setText(opinion.getTime());
 
-//        RoundRectImageView.setRadius(holder.image,opinion.getImgId(),40,10,activity);
-        Picasso.get().load(opinion.getImgUrl()).transform(new MyTransForm.RangleTransForm(10,40)).into(holder.image);
+        Picasso.get().load(opinion.getImgUrl()).transform(new MyTransForm.RangleTransForm()).into(holder.image);
 
     }
 

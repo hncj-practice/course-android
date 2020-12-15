@@ -61,32 +61,9 @@
         android:id="@+id/dynamic_image_gridlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:orientation="horizontal"
-        android:columnCount="3"
-        android:useDefaultMargins="true"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <View style="@style/occupy_horizontal_free"/>
-
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_margin="5dp"
-            android:src="@drawable/icon_dynamic_comment"/>
-
-        <TextView
-            android:id="@+id/dynamic_comment_num"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:layout_gravity="center"
-            android:textSize="12sp"/>
-
-
-    </LinearLayout>
+        android:columnCount="3"/>
 
     <View
         android:layout_marginTop="20dp"

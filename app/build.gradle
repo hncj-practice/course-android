@@ -57,6 +57,8 @@ dependencies {
     implementation 'com.jakewharton:butterknife:10.2.3'
     implementation 'org.litepal.guolindev:core:3.2.2'
     implementation 'com.squareup.picasso:picasso:2.8'
+    implementation 'com.soundcloud.android:android-crop:1.0.1@aar'
+    implementation 'com.loopj.android:android-async-http:1.4.11'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.3'
     annotationProcessor 'com.arialyy.aria:compiler:3.8.15'
     testImplementation 'junit:junit:4.12'

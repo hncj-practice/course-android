@@ -15,7 +15,7 @@ public class ExampleUnitTest {
 
     @Test
     public void test() throws IOException {
-        Map<String, String> map = new HashMap<>();
+        /*Map<String, String> map = new HashMap<>();
         map.put("courseid","1");
         map.put("page","1");
         map.put("num","6");
@@ -28,10 +28,11 @@ public class ExampleUnitTest {
                 .post()
                 .body()
                 .text();
-//        System.out.println(result);
+        System.out.println(result);*/
 
+        String result = "{\"a\":\"b\",\"c\":\"d\"}";
         JSONObject jsonObject = JSON.parseObject(result);
-        JSONArray jsonArray = JSON.parseArray(jsonObject.getString("data"));
-        jsonArray.forEach(System.out::println);
+        String a = jsonObject.getString("e");
+        System.out.println(a);
     }
 }

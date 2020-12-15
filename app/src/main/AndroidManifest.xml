@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.SET_WALLPAPER"/>
 
     <application
         android:name="org.litepal.LitePalApplication"
@@ -20,68 +21,97 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:largeHeap="true"
+        android:hardwareAccelerated="false"
+        android:requestLegacyExternalStorage="true"
         tools:targetApi="m">
+        <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
+        <activity android:name=".dynamic.ReplyDetail">
+            <intent-filter>
+                <action android:name="com.action.DYNAMIC_Reply_Detail" />
 
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".dynamic.DynamicDetail">
+            <intent-filter>
+                <action android:name="com.action.DYNAMIC_DETAIL" />
 
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity android:name=".course.ExamDetailActivity">
             <intent-filter>
                 <action android:name="com.action.COURSE_EXAM_DETAIL" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity android:name=".course.DataDetailActivity">
             <intent-filter>
                 <action android:name="com.action.MORE_DATA_DETAIL" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".SplashActivity"
+        <activity
+            android:name=".SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".course.TopicDetail"
+        <activity
+            android:name=".course.TopicDetail"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="com.action.COURSE_TOPIC_DETAIL" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity android:name=".course.LearnDataActivity">
             <intent-filter>
                 <action android:name="com.action.COURSE_DETAIL_LEARN_DATA" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity android:name=".course.MemberActivity">
             <intent-filter>
                 <action android:name="com.action.COURSE_DETAIL_MEMBER" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity android:name=".course.AchievementActivity">
             <intent-filter>
                 <action android:name="com.action.COURSE_DETAIL_ACHIEVEMENT" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity android:name=".course.CourseDetail">
             <intent-filter>
                 <action android:name="com.action.COURSE_DETAIL_ACTIVITY_START" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity android:name=".course.CourseActivity">
             <intent-filter>
                 <action android:name="com.action.COURSE_ACTIVITY_START" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity android:name=".mine.MineDataDetail">
             <intent-filter>
                 <action android:name="com.action.MINE_DATA_DETAIL_START" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>

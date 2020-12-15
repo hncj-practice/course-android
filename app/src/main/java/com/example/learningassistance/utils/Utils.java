@@ -93,4 +93,24 @@ public class Utils {
         return sdf.format(new Date(Long.parseLong(stamp)));
     }
 
+    /**
+     * (x,y)是否在view的区域内
+     * @param view view组件
+     * @param x 点击的x轴坐标
+     * @param y 点击的y轴坐标
+     * @return 是否在view中
+     */
+    public static boolean isTouchPointInView(View view, int x, int y) {
+        if (view == null) {
+            return false;
+        }
+        int[] location = new int[2];
+        view.getLocationOnScreen(location);
+        int left = location[0];
+        int top = location[1];
+        int right = left + view.getMeasuredWidth();
+        int bottom = top + view.getMeasuredHeight();
+        return y >= top && y <= bottom && x >= left && x <= right;
+    }
+
 }

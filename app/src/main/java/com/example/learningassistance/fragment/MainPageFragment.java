@@ -1,15 +1,18 @@
 package com.example.learningassistance.fragment;
 
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
+import android.app.Activity;
+import android.app.Dialog;
+import android.content.Intent;
+import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,13 +34,18 @@ import com.example.learningassistance.utils.Utils;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainPageFragment extends Fragment{
+public class MainPageFragment extends Fragment {
+
     private String data;
     private int id;
     private int size;
+
+    public String localPath;
 
     /**
      * 碎片的有参构造,完成数据的传递
@@ -52,7 +60,7 @@ public class MainPageFragment extends Fragment{
     public MainPageFragment(String data, int id, int size) {
         this.data = data;
         this.id = id;
-        this.size = size / 3 - 50;
+        this.size = (size - 60) / 3 - 20;
     }
 
     @Nullable
@@ -94,40 +102,43 @@ public class MainPageFragment extends Fragment{
     public void loadDynamicFragment(View view){
         String content = "这是一个动态的正文;这是一个动态的正文;这是一个动态的正文;这是一个动态的正文;这是一个动态的正文;这是一个动态的正文;这是一个动态的正文;这是一个动态的正文;这是一个动态的正文;这是一个动态的正文;这是一个动态的正文;这是一个动态的正文;";
         List<String> imgs = new ArrayList<>();
-        imgs.add("https://tva1.sinaimg.cn/large/466f79e8ly1fw5oi8xtynj21040nmqd3.jpg");
         List<Dynamic> dynamicList = new ArrayList<>();
         Dynamic dynamic = new Dynamic("https://tva1.sinaimg.cn/large/466f79e8ly1fw5oh9146uj21gp15qdta.jpg","JEmber","This is time",content,"103",imgs);
         dynamicList.add(dynamic);
 
         imgs = new ArrayList<>();
-        imgs.add("https://tva1.sinaimg.cn/large/466f79e8ly1fw5oi7d5w5j21hc0u0n1p.jpg");
-        imgs.add("https://tva1.sinaimg.cn/large/466f79e8ly1fw5oi7d5w5j21hc0u0n1p.jpg");
-        imgs.add("https://tva1.sinaimg.cn/large/466f79e8ly1fw5oi7d5w5j21hc0u0n1p.jpg");
-        imgs.add("https://tva1.sinaimg.cn/large/466f79e8ly1fw5oi7d5w5j21hc0u0n1p.jpg");
+        imgs.add("http://a1.qpic.cn/psc?/V1250wVF0hEr1t/ruAMsa53pVQWN7FLK88i5oYmF7IF2.ZWvEfVStWTGjTri7aey9eXBLvnIUPQfRSzXvGpnLzeio0gmSb*Jl7.8xqaU*7NDWvf4PQM3VCyd9E!/m&ek=1&kp=1&pt=0&bo=VQhABlUIQAYRECc!&tl=3&vuin=2116161338&tm=1607180400&sce=60-4-3&rf=0-0");
+        imgs.add("http://a1.qpic.cn/psc?/V1250wVF0hEr1t/ruAMsa53pVQWN7FLK88i5lEsmmjto3JW4djo4LYT3rMK.5xsZoO2GObxU2HNUN7QOeqeI4JwBuV4VcqrCiq7dUuCy31oMwS2YufZchTWOcA!/m&ek=1&kp=1&pt=0&bo=VQhABlUIQAYRECc!&tl=3&vuin=2116161338&tm=1607180400&sce=60-4-3&rf=0-0");
+        imgs.add("http://a1.qpic.cn/psc?/V1250wVF0hEr1t/ruAMsa53pVQWN7FLK88i5lEsmmjto3JW4djo4LYT3rNoiPsTsoZPE0a0CvVGEFbWU1fUb8mMh8iW2OAz9EMrIm*kaTYfHmQ0Qb2CNoYBIDs!/m&ek=1&kp=1&pt=0&bo=VQhABlUIQAYRECc!&tl=3&vuin=2116161338&tm=1607180400&sce=60-4-3&rf=0-0");
         dynamic = new Dynamic("https://tva1.sinaimg.cn/large/466f79e8ly1fw5oh9146uj21gp15qdta.jpg","JEmber","This is time",content,"103",imgs);
         dynamicList.add(dynamic);
 
         imgs = new ArrayList<>();
-        imgs.add("https://tva1.sinaimg.cn/large/466f79e8ly1fw5oi836h6j21b80xeth3.jpg");
-        imgs.add("https://tva1.sinaimg.cn/large/466f79e8ly1fw5oi836h6j21b80xeth3.jpg");
-        imgs.add("https://tva1.sinaimg.cn/large/466f79e8ly1fw5oi836h6j21b80xeth3.jpg");
-        imgs.add("https://tva1.sinaimg.cn/large/466f79e8ly1fw5oi836h6j21b80xeth3.jpg");
-        imgs.add("https://tva1.sinaimg.cn/large/466f79e8ly1fw5oi836h6j21b80xeth3.jpg");
-        imgs.add("https://tva1.sinaimg.cn/large/466f79e8ly1fw5oi836h6j21b80xeth3.jpg");
-        imgs.add("https://tva1.sinaimg.cn/large/466f79e8ly1fw5oi836h6j21b80xeth3.jpg");
+        imgs.add("http://a1.qpic.cn/psc?/V1250wVF0hEr1t/ruAMsa53pVQWN7FLK88i5oYmF7IF2.ZWvEfVStWTGjTri7aey9eXBLvnIUPQfRSzXvGpnLzeio0gmSb*Jl7.8xqaU*7NDWvf4PQM3VCyd9E!/m&ek=1&kp=1&pt=0&bo=VQhABlUIQAYRECc!&tl=3&vuin=2116161338&tm=1607180400&sce=60-4-3&rf=0-0");
+        imgs.add("http://a1.qpic.cn/psc?/V1250wVF0hEr1t/ruAMsa53pVQWN7FLK88i5lEsmmjto3JW4djo4LYT3rMK.5xsZoO2GObxU2HNUN7QOeqeI4JwBuV4VcqrCiq7dUuCy31oMwS2YufZchTWOcA!/m&ek=1&kp=1&pt=0&bo=VQhABlUIQAYRECc!&tl=3&vuin=2116161338&tm=1607180400&sce=60-4-3&rf=0-0");
+        imgs.add("http://a1.qpic.cn/psc?/V1250wVF0hEr1t/ruAMsa53pVQWN7FLK88i5lEsmmjto3JW4djo4LYT3rNoiPsTsoZPE0a0CvVGEFbWU1fUb8mMh8iW2OAz9EMrIm*kaTYfHmQ0Qb2CNoYBIDs!/m&ek=1&kp=1&pt=0&bo=VQhABlUIQAYRECc!&tl=3&vuin=2116161338&tm=1607180400&sce=60-4-3&rf=0-0");
+        imgs.add("http://a1.qpic.cn/psc?/V1250wVF0hEr1t/ruAMsa53pVQWN7FLK88i5oYmF7IF2.ZWvEfVStWTGjTri7aey9eXBLvnIUPQfRSzXvGpnLzeio0gmSb*Jl7.8xqaU*7NDWvf4PQM3VCyd9E!/m&ek=1&kp=1&pt=0&bo=VQhABlUIQAYRECc!&tl=3&vuin=2116161338&tm=1607180400&sce=60-4-3&rf=0-0");
+        imgs.add("http://a1.qpic.cn/psc?/V1250wVF0hEr1t/ruAMsa53pVQWN7FLK88i5lEsmmjto3JW4djo4LYT3rMK.5xsZoO2GObxU2HNUN7QOeqeI4JwBuV4VcqrCiq7dUuCy31oMwS2YufZchTWOcA!/m&ek=1&kp=1&pt=0&bo=VQhABlUIQAYRECc!&tl=3&vuin=2116161338&tm=1607180400&sce=60-4-3&rf=0-0");
+        imgs.add("http://a1.qpic.cn/psc?/V1250wVF0hEr1t/ruAMsa53pVQWN7FLK88i5lEsmmjto3JW4djo4LYT3rNoiPsTsoZPE0a0CvVGEFbWU1fUb8mMh8iW2OAz9EMrIm*kaTYfHmQ0Qb2CNoYBIDs!/m&ek=1&kp=1&pt=0&bo=VQhABlUIQAYRECc!&tl=3&vuin=2116161338&tm=1607180400&sce=60-4-3&rf=0-0");
+        imgs.add("http://a1.qpic.cn/psc?/V1250wVF0hEr1t/ruAMsa53pVQWN7FLK88i5oYmF7IF2.ZWvEfVStWTGjTri7aey9eXBLvnIUPQfRSzXvGpnLzeio0gmSb*Jl7.8xqaU*7NDWvf4PQM3VCyd9E!/m&ek=1&kp=1&pt=0&bo=VQhABlUIQAYRECc!&tl=3&vuin=2116161338&tm=1607180400&sce=60-4-3&rf=0-0");
+        imgs.add("http://a1.qpic.cn/psc?/V1250wVF0hEr1t/ruAMsa53pVQWN7FLK88i5lEsmmjto3JW4djo4LYT3rMK.5xsZoO2GObxU2HNUN7QOeqeI4JwBuV4VcqrCiq7dUuCy31oMwS2YufZchTWOcA!/m&ek=1&kp=1&pt=0&bo=VQhABlUIQAYRECc!&tl=3&vuin=2116161338&tm=1607180400&sce=60-4-3&rf=0-0");
+        imgs.add("http://a1.qpic.cn/psc?/V1250wVF0hEr1t/ruAMsa53pVQWN7FLK88i5lEsmmjto3JW4djo4LYT3rNoiPsTsoZPE0a0CvVGEFbWU1fUb8mMh8iW2OAz9EMrIm*kaTYfHmQ0Qb2CNoYBIDs!/m&ek=1&kp=1&pt=0&bo=VQhABlUIQAYRECc!&tl=3&vuin=2116161338&tm=1607180400&sce=60-4-3&rf=0-0");
+        imgs.add("http://a1.qpic.cn/psc?/V1250wVF0hEr1t/ruAMsa53pVQWN7FLK88i5oYmF7IF2.ZWvEfVStWTGjTri7aey9eXBLvnIUPQfRSzXvGpnLzeio0gmSb*Jl7.8xqaU*7NDWvf4PQM3VCyd9E!/m&ek=1&kp=1&pt=0&bo=VQhABlUIQAYRECc!&tl=3&vuin=2116161338&tm=1607180400&sce=60-4-3&rf=0-0");
+        imgs.add("http://a1.qpic.cn/psc?/V1250wVF0hEr1t/ruAMsa53pVQWN7FLK88i5lEsmmjto3JW4djo4LYT3rMK.5xsZoO2GObxU2HNUN7QOeqeI4JwBuV4VcqrCiq7dUuCy31oMwS2YufZchTWOcA!/m&ek=1&kp=1&pt=0&bo=VQhABlUIQAYRECc!&tl=3&vuin=2116161338&tm=1607180400&sce=60-4-3&rf=0-0");
+        imgs.add("http://a1.qpic.cn/psc?/V1250wVF0hEr1t/ruAMsa53pVQWN7FLK88i5lEsmmjto3JW4djo4LYT3rNoiPsTsoZPE0a0CvVGEFbWU1fUb8mMh8iW2OAz9EMrIm*kaTYfHmQ0Qb2CNoYBIDs!/m&ek=1&kp=1&pt=0&bo=VQhABlUIQAYRECc!&tl=3&vuin=2116161338&tm=1607180400&sce=60-4-3&rf=0-0");
         dynamic = new Dynamic("https://tva1.sinaimg.cn/large/466f79e8ly1fw5oh9146uj21gp15qdta.jpg","JEmber","This is time",content,"103",imgs);
         dynamicList.add(dynamic);
 
         imgs = new ArrayList<>();
-        imgs.add("https://tva1.sinaimg.cn/large/466f79e8ly1fw5oh9146uj21gp15qdta.jpg");
-        imgs.add("https://tva1.sinaimg.cn/large/466f79e8ly1fw5oh9146uj21gp15qdta.jpg");
-        imgs.add("https://tva1.sinaimg.cn/large/466f79e8ly1fw5oh9146uj21gp15qdta.jpg");
-        imgs.add("https://tva1.sinaimg.cn/large/466f79e8ly1fw5oh9146uj21gp15qdta.jpg");
-        imgs.add("https://tva1.sinaimg.cn/large/466f79e8ly1fw5oh9146uj21gp15qdta.jpg");
-        imgs.add("https://tva1.sinaimg.cn/large/466f79e8ly1fw5oh9146uj21gp15qdta.jpg");
-        imgs.add("https://tva1.sinaimg.cn/large/466f79e8ly1fw5oh9146uj21gp15qdta.jpg");
-        imgs.add("https://tva1.sinaimg.cn/large/466f79e8ly1fw5oh9146uj21gp15qdta.jpg");
-        imgs.add("https://tva1.sinaimg.cn/large/466f79e8ly1fw5oh9146uj21gp15qdta.jpg");
+        imgs.add("http://wx4.sinaimg.cn/mw690/6a04b428gy1fyrldan1nzg20900a3myd.gif");
+        imgs.add("http://wx4.sinaimg.cn/mw690/6a04b428gy1fyrldan1nzg20900a3myd.gif");
+        imgs.add("http://wx4.sinaimg.cn/mw690/6a04b428gy1fyrldan1nzg20900a3myd.gif");
+        imgs.add("http://wx4.sinaimg.cn/mw690/6a04b428gy1fyrldan1nzg20900a3myd.gif");
+        imgs.add("http://wx4.sinaimg.cn/mw690/6a04b428gy1fyrldan1nzg20900a3myd.gif");
+        imgs.add("http://wx4.sinaimg.cn/mw690/6a04b428gy1fyrldan1nzg20900a3myd.gif");
+        imgs.add("http://wx4.sinaimg.cn/mw690/6a04b428gy1fyrldan1nzg20900a3myd.gif");
+        imgs.add("http://wx4.sinaimg.cn/mw690/6a04b428gy1fyrldan1nzg20900a3myd.gif");
+        imgs.add("http://wx4.sinaimg.cn/mw690/6a04b428gy1fyrldan1nzg20900a3myd.gif");
         dynamic = new Dynamic("https://tva1.sinaimg.cn/large/466f79e8ly1fw5oh9146uj21gp15qdta.jpg","JEmber","This is time",content,"103",imgs);
         dynamicList.add(dynamic);
 
@@ -142,7 +153,7 @@ public class MainPageFragment extends Fragment{
     public void loadMineFragment(View view){
         JSONObject jsonObject = JSON.parseObject(data);
 
-        String localPath = jsonObject.getString("localPath");
+        localPath = jsonObject.getString("localPath");
         ImageView imageView = view.findViewById(R.id.mine_avatar);
         TextView username = view.findViewById(R.id.mine_user_name);
         TextView cla = view.findViewById(R.id.mine_user_class);
@@ -201,20 +212,50 @@ public class MainPageFragment extends Fragment{
             holder.content.setText(dynamic.getContent());
             holder.time.setText(dynamic.getTime());
             holder.commentNum.setText(dynamic.getCommentNum());
-            Picasso.get().load(dynamic.getAvatar()).transform(new MyTransForm.RangleTransForm(10,50)).into(holder.avatar);
+            Picasso.get().load(dynamic.getAvatar()).transform(new MyTransForm.RangleTransForm()).into(holder.avatar);
 
+            if (dynamic.getImages().size() < 1){
+                holder.gridLayout.setVisibility(View.GONE);
+            } else {
+                //设置图片
+                int imageNum = 1;
+                for (String url : dynamic.getImages()){
 
-            //设置图片
-            int imageNum = 0;
-            for (String url : dynamic.getImages()){
-                imageNum += 1;
-                ImageView imageView = new ImageView(holder.gridLayout.getContext());
-                Picasso.get().load(url).transform(new MyTransForm.SquareTransForm(size)).into(imageView);
+                    ImageView imageView = new ImageView(holder.gridLayout.getContext());
+                    Picasso.get().load(url).transform(new MyTransForm.SquareTransForm(size)).into(imageView);
+                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(size, size);
+                    GridLayout.LayoutParams gl = new GridLayout.LayoutParams(layoutParams);
+                    gl.rightMargin = 10;
+                    gl.leftMargin = 10;
+                    gl.bottomMargin = 10;
+                    imageView.setLayoutParams(gl);
 
-                holder.gridLayout.addView(imageView);
-                if (imageNum == MAX)
-                    break;
+                    if (imageNum == MAX && dynamic.getImages().size() > 9) {
+                        TextView textView = new TextView(holder.view.getContext());
+                        textView.setLayoutParams(gl);
+                        textView.setBackgroundColor(getResources().getColor(R.color.gray));
+                        textView.setText("+" + (dynamic.getImages().size() - 8));
+                        textView.setTextSize(size / 6);
+                        textView.setGravity(Gravity.CENTER);
+                        textView.setTextColor(Color.WHITE);
+                        holder.gridLayout.addView(textView);
+                        break;
+                    }
+
+                    holder.gridLayout.addView(imageView);
+                    imageNum += 1;
+                }
             }
+
+
+
+            holder.view.setOnClickListener(v -> {
+                Intent intent = new Intent("com.action.DYNAMIC_DETAIL");
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("dynamic",dynamic);
+                intent.putExtras(bundle);
+                v.getContext().startActivity(intent);
+            });
         }
 
         @Override

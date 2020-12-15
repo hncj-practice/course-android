@@ -19,9 +19,9 @@ public class MyTransForm {
         private int rangle;
         private int outSize;
 
-        public RangleTransForm(int rangle, int outSize) {
-            this.rangle = rangle;
-            this.outSize = outSize;
+        public RangleTransForm() {
+            this.rangle = 10;
+            this.outSize = 50;
         }
 
         @Override
@@ -71,7 +71,7 @@ public class MyTransForm {
             float width = source.getWidth();
             float height = source.getHeight();
             float scaleWidth,scaleHeight,x,y;
-            Bitmap nBitmap = null;
+            Bitmap nBitmap;
             Bitmap cBitmap = null;
             Matrix matrix = new Matrix();
 

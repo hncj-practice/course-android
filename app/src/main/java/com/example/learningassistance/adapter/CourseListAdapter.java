@@ -36,7 +36,7 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
         CourseList course = mCourseList.get(position);
         holder.lecturer.setText(course.getLecturer());
 
-        Picasso.get().load(course.getImgUrl()).transform(new MyTransForm.RangleTransForm(10,50)).into(holder.img);
+        Picasso.get().load(course.getImgUrl()).transform(new MyTransForm.RangleTransForm()).into(holder.img);
         holder.name.setText(course.getName());
         holder.view.setOnClickListener(v -> {
             Intent intent = new Intent("com.action.COURSE_DETAIL_ACTIVITY_START");

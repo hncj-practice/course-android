@@ -1,8 +1,9 @@
 package com.example.learningassistance.course;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Dynamic {
+public class Dynamic implements Serializable {
     private String avatar;
     private String name;
     private String time;

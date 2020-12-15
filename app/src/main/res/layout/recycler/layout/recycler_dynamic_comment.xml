@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/dynamic_comment_avatar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:contentDescription="@string/todo" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/dynamic_comment_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="奥利给"
+                android:textSize="14sp"
+                android:textColor="#2F557D"/>
+
+            <TextView
+                android:id="@+id/dynamic_comment_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="发卡回复卡号发卡行发货啦风景发放机阿里"
+                android:layout_marginTop="10dp"
+                android:textSize="16sp"/>
+            
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/dynamic_comment_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="今天11:10"
+                    android:textSize="13sp"/>
+
+                <TextView
+                    android:id="@+id/dynamic_comment_reply"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="回复"
+                    android:textSize="13sp"
+                    android:layout_marginStart="30dp"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/comment_reply_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:text="2条回复 >"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:background="@drawable/style_comment_frame"/>
+
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray"/>
+
+</LinearLayout>
