@@ -83,22 +83,14 @@
 
                 <View style="@style/occupy_horizontal_free"/>
 
-                <ImageView
+                <TextView
                     android:id="@+id/dynamic_reply_button"
                     android:onClick="startReply"
-                    android:layout_width="12dp"
-                    android:layout_height="13dp"
-                    android:layout_margin="5dp"
-                    android:src="@drawable/icon_dynamic_comment" />
-
-                <TextView
-                    android:id="@+id/dynamic_comment_num"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="20dp"
-                    android:layout_gravity="center"
-                    android:textSize="12sp"/>
-
+                    android:text="回复"
+                    android:layout_marginEnd="30dp"
+                    android:textSize="14sp"/>
 
             </LinearLayout>
 

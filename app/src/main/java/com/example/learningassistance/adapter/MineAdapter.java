@@ -59,6 +59,9 @@ public class MineAdapter extends RecyclerView.Adapter<MineAdapter.ViewHolder> {
                 intent.setAction("com.action.COURSE_ACTIVITY_START");
                 intent.putExtra("data",data);
                 break;
+            case 3:
+                intent.setAction("com.action.DYNAMIC_CREATE");
+                break;
             default:
                 break;
         }

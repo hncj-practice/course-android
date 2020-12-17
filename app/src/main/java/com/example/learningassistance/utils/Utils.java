@@ -76,7 +76,7 @@ public class Utils {
             Message message = new Message();
             JSONObject jsonObject = JSON.parseObject(result);
             Bundle bundle = new Bundle();
-            if (jsonObject.getInteger("code") == 200){
+            if (jsonObject.getInteger("code") != null && jsonObject.getInteger("code") == 200){
                 String arrayStr = jsonObject.getString("data");
                 bundle.putString("data",arrayStr);
                 message.what = 1;
@@ -88,6 +88,9 @@ public class Utils {
         }).start();
     }
 
+    /**
+     * 将时间戳转换为日期格式的字符串
+     */
     public static String timeStampToDate(String stamp){
         SimpleDateFormat sdf = new SimpleDateFormat("MM-dd HH:mm", Locale.getDefault());
         return sdf.format(new Date(Long.parseLong(stamp)));

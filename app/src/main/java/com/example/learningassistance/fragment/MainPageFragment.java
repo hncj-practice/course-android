@@ -1,10 +1,7 @@
 package com.example.learningassistance.fragment;
 
-import android.app.Activity;
-import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -21,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -31,11 +29,9 @@ import com.example.learningassistance.entity.Option;
 import com.example.learningassistance.utils.MyTransForm;
 import com.example.learningassistance.utils.RoundRectImageView;
 import com.example.learningassistance.utils.Utils;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -173,6 +169,12 @@ public class MainPageFragment extends Fragment {
         recyclerView.setLayoutManager(manager);
         MineAdapter adapter = new MineAdapter(options,data);
         recyclerView.setAdapter(adapter);
+
+        SwipeRefreshLayout refreshLayout = view.findViewById(R.id.mine_refresh);
+        refreshLayout.setOnRefreshListener(() -> {
+            RoundRectImageView.setUserAvatar(imageView,localPath,40);
+            refreshLayout.setRefreshing(false);
+        });
     }
 
     /**
@@ -211,7 +213,6 @@ public class MainPageFragment extends Fragment {
             holder.name.setText(dynamic.getName());
             holder.content.setText(dynamic.getContent());
             holder.time.setText(dynamic.getTime());
-            holder.commentNum.setText(dynamic.getCommentNum());
             Picasso.get().load(dynamic.getAvatar()).transform(new MyTransForm.RangleTransForm()).into(holder.avatar);
 
             if (dynamic.getImages().size() < 1){
@@ -264,7 +265,7 @@ public class MainPageFragment extends Fragment {
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {
-            TextView name,time,content,commentNum;
+            TextView name,time,content;
             ImageView avatar;
             GridLayout gridLayout;
             View view;
@@ -276,7 +277,6 @@ public class MainPageFragment extends Fragment {
                 content = itemView.findViewById(R.id.dynamic_content_text);
                 avatar = itemView.findViewById(R.id.dynamic_user_avatar);
                 gridLayout = itemView.findViewById(R.id.dynamic_image_gridlayout);
-                commentNum = itemView.findViewById(R.id.dynamic_comment_num);
             }
         }
     }

@@ -50,6 +50,9 @@ public class ReplyDetail extends AppCompatActivity {
 
         Intent intent = getIntent();
         Utils.setTitle(this,intent.getStringExtra("title"));
+        /**
+         * 需要有动态的id，被回复者的id，name。
+         */
         commentId = intent.getStringExtra("commentId");
         commentName = intent.getStringExtra("commentName");
         replyList = (List<String>) intent.getExtras().getSerializable("reply");

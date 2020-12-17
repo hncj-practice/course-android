@@ -114,6 +114,9 @@ public class ExamDetailActivity extends AppCompatActivity {
                         achievement += marks.get(position);
                     }
                 }
+                /**
+                 * 上传考试成绩到服务器同时跳转到成绩显示页面
+                 */
                 Toast.makeText(view.getContext(), "最终得分为:"+ achievement +"分", Toast.LENGTH_SHORT).show();
             }
         });

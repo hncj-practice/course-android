@@ -57,12 +57,12 @@ public class Login extends AppCompatActivity implements AdapterView.OnItemSelect
                 String data = msg.getData().getString("data");
                 JSONObject jsonObject = JSON.parseObject(data);
 
-                String type = jsonObject.getString("status");
-                String username = null;
-                if (type.equals("1")) {
-                    username = jsonObject.getString("sno");
-                } else if (type.equals("2")) {
+                String type;
+                String username = jsonObject.getString("sno");
+                type = "1";
+                if (username == null){
                     username = jsonObject.getString("tno");
+                    type = "2";
                 }
                 String avatar = jsonObject.getString("avatar");
                 String localPath = LOCAL_PATH + username + "t" + type + ".png";
@@ -76,7 +76,9 @@ public class Login extends AppCompatActivity implements AdapterView.OnItemSelect
                 }
                 edit.putString("currentUserName", jsonObject.getString("name"));
                 edit.putString("currentUserId", username);
+                edit.putString("currentUserType",type);
                 edit.putString("currentUserAvatar", jsonObject.getString("avatar"));
+                edit.putString("localPath",localPath);
                 edit.apply();
 
                 Intent intent = new Intent(Login.this, MainActivity.class);

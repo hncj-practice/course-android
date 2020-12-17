@@ -1,9 +1,11 @@
 package com.example.learningassistance.course;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,7 +31,7 @@ import java.util.Objects;
 public class CourseActivity extends AppCompatActivity {
     private List<CourseList> courseLists = new ArrayList<>();
 
-    Handler handler = new Handler(msg -> {
+    Handler handlerS = new Handler(msg -> {
         Map<Integer, String> result = (HashMap) msg.getData().getSerializable("data");
         for(int j = 1; j < 9; j++ ){
             assert result != null;
@@ -52,6 +54,22 @@ public class CourseActivity extends AppCompatActivity {
         return true;
     });
 
+    Handler handlerT = new Handler(msg -> {
+        if (msg.what == 1){
+            JSONArray array = JSON.parseArray(msg.getData().getString("data"));
+            for (int i = 0; i < array.size(); i++) {
+                JSONObject jsonObject = array.getJSONObject(i);
+                CourseList courseList = new CourseList(jsonObject.getString("coverimg"),jsonObject.getString("cname"),jsonObject.getString("tname"));
+                courseList.setCid( jsonObject.getString("cid") );
+                courseLists.add(courseList);
+            }
+            Utils.setRecycler(this,R.id.recycler_course,new CourseListAdapter(courseLists));
+        } else {
+            Toast.makeText(this, "未查询到相关信息", Toast.LENGTH_SHORT).show();
+        }
+        return false;
+    });
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,9 +79,19 @@ public class CourseActivity extends AppCompatActivity {
         Intent intent = getIntent();
         JSONObject userData = JSON.parseObject(intent.getStringExtra("data"));
 
+        SharedPreferences preferences = getSharedPreferences("loginHistory",MODE_PRIVATE);
+
         Map<String, String> map = new HashMap<>();
-        map.put("studentid", userData.getString("sno"));
-        getCourseData(map);
+        if (preferences.getString("currentUserType","0").equals("1")){
+            map.put("studentid", userData.getString("sno"));
+            getCourseData(map);
+        } else {
+            map.put("condition", userData.getString("tno"));
+            map.put("page","1");
+            map.put("num","6");
+            map.put("type","1");
+            Utils.getNetData("course/getcoursebytnoorcoursename",map,handlerT);
+        }
     }
 
     /**
@@ -94,7 +122,7 @@ public class CourseActivity extends AppCompatActivity {
             Bundle bundle = new Bundle();
             bundle.putSerializable("data", (Serializable) result);
             message.setData(bundle);
-            handler.sendMessage(message);
+            handlerS.sendMessage(message);
         }).start();
     }
 

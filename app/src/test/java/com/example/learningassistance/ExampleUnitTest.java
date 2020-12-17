@@ -15,11 +15,11 @@ public class ExampleUnitTest {
 
     @Test
     public void test() throws IOException {
-        /*Map<String, String> map = new HashMap<>();
-        map.put("courseid","1");
-        map.put("page","1");
-        map.put("num","6");
-        String url = "data/getdatabycourseid";
+        Map<String, String> map = new HashMap<>();
+        map.put("username", "888888888");
+        map.put("password","000000");
+        map.put("type","2");
+        String url = "account/login";
 
         String result = Jsoup.connect("http://123.56.156.212/Interface/" + url)
                 .data(map)
@@ -28,11 +28,11 @@ public class ExampleUnitTest {
                 .post()
                 .body()
                 .text();
-        System.out.println(result);*/
 
-        String result = "{\"a\":\"b\",\"c\":\"d\"}";
+//        String result = "{\"a\":\"b\",\"c\":\"d\"}";
         JSONObject jsonObject = JSON.parseObject(result);
-        String a = jsonObject.getString("e");
-        System.out.println(a);
+        String a = jsonObject.getString("data");
+        JSONObject object = jsonObject.parseObject(a);
+        System.out.println(object.getString("sno"));
     }
 }

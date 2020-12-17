@@ -41,8 +41,7 @@ public class DynamicDetail extends AppCompatActivity {
     @BindView(R.id.dynamic_commit_time) TextView commitTime;
     @BindView(R.id.dynamic_content_text) TextView content;
     @BindView(R.id.dynamic_image_gridlayout) GridLayout gridLayout;
-    @BindView(R.id.dynamic_reply_button) ImageView replyIcon;
-    @BindView(R.id.dynamic_comment_num) TextView commentNum;
+    @BindView(R.id.dynamic_reply_button) TextView replyIcon;
 
     @BindView(R.id.comment_send_text) EditText sendText;
     @BindView(R.id.comment_send_button) TextView sendButton;
@@ -107,7 +106,6 @@ public class DynamicDetail extends AppCompatActivity {
         username.setText(dynamic.getName());
         commitTime.setText(dynamic.getTime());
         content.setText(dynamic.getContent());
-        commentNum.setText(dynamic.getCommentNum());
 
         if (dynamic.getImages().size() < 1){
             gridLayout.setVisibility(View.GONE);
@@ -118,8 +116,7 @@ public class DynamicDetail extends AppCompatActivity {
                 Picasso.get().load(s).transform(new MyTransForm.SquareTransForm(size)).into(imageView);
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(size, size);
                 GridLayout.LayoutParams gl = new GridLayout.LayoutParams(layoutParams);
-                gl.rightMargin = 10;
-                gl.leftMargin = 10;
+                gl.setMargins(10,10,10,10);
                 imageView.setLayoutParams(gl);
                 gridLayout.addView(imageView);
             }

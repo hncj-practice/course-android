@@ -1,6 +1,8 @@
 package com.example.learningassistance.fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -118,6 +120,13 @@ public class CourseFragment extends Fragment implements View.OnClickListener {
         LinearLayout learnData = view.findViewById(R.id.course_more_learn_data);
         LinearLayout member = view.findViewById(R.id.course_more_member);
         LinearLayout achievement = view.findViewById(R.id.course_more_achievement);
+        LinearLayout overview = view.findViewById(R.id.course_more_overview);
+
+        SharedPreferences preferences = view.getContext().getSharedPreferences("loginHistory", Context.MODE_PRIVATE);
+        if (preferences.getString("currentUserType","1").equals("2")){
+            overview.setVisibility(View.VISIBLE);
+            overview.setOnClickListener(this);
+        }
 
         learnData.setOnClickListener(this);
         member.setOnClickListener(this);
@@ -139,6 +148,9 @@ public class CourseFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.course_more_achievement:
                 intent.setAction("com.action.COURSE_DETAIL_ACHIEVEMENT");
+                break;
+            case R.id.course_more_overview:
+                intent.setAction("com.action.COURSE_DETAIL_OVERVIEW");
                 break;
             default:
                 break;
