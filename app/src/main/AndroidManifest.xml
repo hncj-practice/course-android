@@ -26,6 +26,13 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
+        <activity android:name=".course.ShowAchievement">
+            <intent-filter>
+                <action android:name="com.action.COURSE_SHOW_ACHIEVEMENT" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity android:name=".course.OverviewActivity">
             <intent-filter>
                 <action android:name="com.action.COURSE_DETAIL_OVERVIEW" />

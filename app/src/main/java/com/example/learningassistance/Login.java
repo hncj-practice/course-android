@@ -39,6 +39,8 @@ import butterknife.ButterKnife;
 
 public class Login extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private String LOCAL_PATH = Utils.IMG_DIR;
+    private static final int LOCKED = 0;
+    private static final int UNLOCK = 1;
 
     @BindView(R.id.login_avatar) ImageView avatar;
     @BindView(R.id.login_button) ImageView login;
@@ -47,6 +49,8 @@ public class Login extends AppCompatActivity implements AdapterView.OnItemSelect
     @BindView(R.id.login_type) Spinner userType;
 
     private Integer loginType;
+
+    private int Lock;
 
     public SharedPreferences loginHistory;
 
@@ -87,6 +91,7 @@ public class Login extends AppCompatActivity implements AdapterView.OnItemSelect
             } else {
                 Toast.makeText(Login.this, "用户名或密码错误", Toast.LENGTH_SHORT).show();
             }
+            Lock = UNLOCK;
             return false;
         }
     });
@@ -101,6 +106,8 @@ public class Login extends AppCompatActivity implements AdapterView.OnItemSelect
         Aria.download(this).register();
 
         AccessUtil.verifyStoragePermissions(this);
+
+        Lock = UNLOCK;
 
         File file = new File(LOCAL_PATH);
         if (!file.exists()){
@@ -155,6 +162,11 @@ public class Login extends AppCompatActivity implements AdapterView.OnItemSelect
      * @param view 登录的按钮
      */
     public void startLogin(View view) {
+        if (Lock == LOCKED){
+            Toast.makeText(this,"请勿重复点击",Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         if (username.getText().toString().length() != 9 || password.getText().length() < 6){
             Toast.makeText(this,"用户名或密码错误",Toast.LENGTH_SHORT).show();
             return;
@@ -164,8 +176,8 @@ public class Login extends AppCompatActivity implements AdapterView.OnItemSelect
         map.put("username",username.getText().toString());
         map.put("password",password.getText().toString());
         map.put("type", String.valueOf(loginType));
-
         Utils.getNetData("account/login",map,handler);
+        Lock = LOCKED;
     }
 
     @Override

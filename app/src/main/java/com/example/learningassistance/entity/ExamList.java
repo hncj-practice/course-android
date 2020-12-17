@@ -4,6 +4,15 @@ public class ExamList {
     private String name;
     private String time;
     private String status;
+    private String examId;
+
+    public String getExamId() {
+        return examId;
+    }
+
+    public void setExamId(String examId) {
+        this.examId = examId;
+    }
 
     public String getName() {
         return name;

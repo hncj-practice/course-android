@@ -9,7 +9,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +21,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.example.learningassistance.R;
 import com.example.learningassistance.adapter.FixingAdapter;
 import com.example.learningassistance.adapter.SelectQuestionAdapter;
@@ -29,50 +35,126 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class ExamDetailActivity extends AppCompatActivity {
-//    分别存储该套试卷的正确答案和用户的答案
-//    private String[] userChoice;
-//    private String[] rightAnswer;
+    @BindView(R.id.exam_layout_select) LinearLayout select;
+    @BindView(R.id.exam_layout_fixing) LinearLayout fixing;
+    @BindView(R.id.exam_layout_judge) LinearLayout judge;
 
-    String selectQuestion = "以下关于线性分类器说法不正确的（    ）$A:线性分类器的一种直观的最优决策边界为最大间隔边界$B:线性可分的情形下，线性分类器的决策边界可以是多样的$C:线性分类器打分越高的样例越离决策边界越近，具有更高的分类置信度$D:训练好的SVM模型直接给出样例的列别标签";
-    String selectAnswer = "B";
-    String fixingQuestion = "粒度是对数据仓库中数据的综合程度高低的一个衡量。粒度越小,细节程度____,综合程度____,回答查询的种类____。";
-    String fixingAnswer = "越高$越低$越多";
-    String judgeQuestion = "序列最小优化算法无法在原始问题增加松弛变量以后使用";
-    String judgeAnswer = "错";
+    private SelectQuestionAdapter selectAdapter = null;
+    private JudgeAdapter judgeAdapter = null;
+    private FixingAdapter fixingAdapter = null;
 
-    private SelectQuestionAdapter selectAdapter;
-    private JudgeAdapter judgeAdapter;
-    private FixingAdapter fixingAdapter;
+    private String type;
+    private String sno;
+    private String examId;
+    private int achievement = 0;
 
+    private Integer questionNum;
+    private List<Question> selectLists = new ArrayList<>();
+    private List<Question> judgeLists = new ArrayList<>();
+    private List<Question> fixingLists = new ArrayList<>();
+
+//    记录每一题的分数
     private Map<Integer, Integer> marks;
+
+    Handler handler = new Handler(msg -> {
+        String question;
+        String answer;
+        Question q;
+        if (msg.what == 1){
+            JSONArray array = JSON.parseArray(msg.getData().getString("data"));
+            for (int i = 0; i < array.size(); i++) {
+                JSONObject object = array.getJSONObject(i);
+                question = object.getString("question");
+                answer = object.getString("panswer");
+                q = new Question(question,answer);
+                addQuestion(object.getString("ptype"),q);
+            }
+            questionNum = selectLists.size() + fixingLists.size() + judgeLists.size();
+            for (Integer i = 0; i < questionNum; i++) {
+                marks.put(i,(i+1)*10);
+            }
+            showView();
+        }
+        return false;
+    });
+
+    Handler commitHandler = new Handler(msg -> {
+        if (msg.what == 1){
+            Intent intent = new Intent("com.action.COURSE_SHOW_ACHIEVEMENT");
+            intent.putExtra("achievement",String.valueOf(achievement));
+            startActivity(intent);
+            finish();
+        } else {
+            Toast.makeText(this, "提交失败，请重试", Toast.LENGTH_SHORT).show();
+        }
+        return false;
+    });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exam_detail);
+        ButterKnife.bind(this);
 
         marks = new HashMap<>();
-        for (int i = 0; i < 6; i++){
-            marks.put(i,i * 5 + 1);
-        }
-
 
         Intent intent = getIntent();
         Utils.setTitle(this,intent.getStringExtra("data"));
 
-        selectAdapter = new SelectQuestionAdapter(initSelect());
-        Utils.setRecycler(this,R.id.recycler_question_select,selectAdapter);
+        SharedPreferences preferences = getSharedPreferences("loginHistory", MODE_PRIVATE);
+        type = preferences.getString("currentUserType","");
+        sno = preferences.getString("currentUserId","");
 
-        judgeAdapter = new JudgeAdapter(initJudge());
-        Utils.setRecycler(this,R.id.recycler_question_judge,judgeAdapter);
-
-        fixingAdapter = new FixingAdapter(initFixing());
-        Utils.setRecycler(this,R.id.recycler_question_fixing,fixingAdapter);
-
-
+        examId = intent.getStringExtra("paperid");
+        Map<String, String> map = new HashMap<>();
+        map.put("paperid",examId);
+        Utils.getNetData("problem/getproblembypaperid",map,handler);
     }
 
+    private void addQuestion(String type, Question question){
+        switch (type){
+            case "1":
+                selectLists.add(question);
+                break;
+            case "2":
+                fixingLists.add(question);
+                break;
+            case "3":
+                judgeLists.add(question);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void showView(){
+        if (selectLists.size() < 1){
+            select.setVisibility(View.GONE);
+        } else {
+            selectAdapter = new SelectQuestionAdapter(selectLists);
+            Utils.setRecycler(this,R.id.recycler_question_select,selectAdapter);
+        }
+        if (judgeLists.size() < 1){
+            judge.setVisibility(View.GONE);
+        } else {
+            judgeAdapter = new JudgeAdapter(judgeLists);
+            Utils.setRecycler(this,R.id.recycler_question_judge,judgeAdapter);
+        }
+        if (fixingLists.size() < 1){
+            fixing.setVisibility(View.GONE);
+        } else {
+            fixingAdapter = new FixingAdapter(fixingLists);
+            Utils.setRecycler(this,R.id.recycler_question_fixing,fixingAdapter);
+        }
+    }
+
+    /**
+     * 获得用户的答案
+     */
     private Map<Integer, String> getUserAnswer(){
         Map<Integer, String> userAnswer = new HashMap<>();
         int position = 0;
@@ -97,34 +179,38 @@ public class ExamDetailActivity extends AppCompatActivity {
         return userAnswer;
     }
 
+//    获得用户得到的总分并上传到数据库中
     public void getAchievement(View view) {
         AlertDialog.Builder dialog = new AlertDialog.Builder(view.getContext());
         dialog.setTitle("交卷");
         dialog.setMessage("请认真检查是否有遗漏,是否交卷?");
         dialog.setCancelable(false);
-        dialog.setPositiveButton("是", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Map<Integer, String> userAnswers = getUserAnswer();
-                Map<Integer, String> rigthAnswers = getRigthAnswers(initSelect(),initJudge(),initFixing());
-                int achievement = 0;
-                int position = rigthAnswers.size() - 1;
-                while (position-- >= 0){
-                    if ( userAnswers.get(position) != null && userAnswers.get(position).equals(rigthAnswers.get(position))){
-                        achievement += marks.get(position);
-                    }
+        dialog.setPositiveButton("是", (dialog12, which) -> {
+            Map<Integer, String> userAnswers = getUserAnswer();
+            Map<Integer, String> rigthAnswers = getRigthAnswers(selectLists,judgeLists,fixingLists);
+            int position = rigthAnswers.size() - 1;
+            while (position-- >= 0){
+                if ( userAnswers.get(position) != null && userAnswers.get(position).equals(rigthAnswers.get(position))){
+                    achievement += marks.get(position);
                 }
-                /**
-                 * 上传考试成绩到服务器同时跳转到成绩显示页面
-                 */
-                Toast.makeText(view.getContext(), "最终得分为:"+ achievement +"分", Toast.LENGTH_SHORT).show();
+            }
+            /**
+             * 上传考试成绩到服务器同时跳转到成绩显示页面
+             */
+            if (type.equals("1")){
+                Map<String, String> map = new HashMap<>();
+                map.put("sno",sno);
+                map.put("paperid",examId);
+                map.put("grade",String.valueOf(achievement));
+                Utils.getNetData("paper/updatetestgrade",map,commitHandler);
+            } else {
+                Intent intent = new Intent("com.action.COURSE_SHOW_ACHIEVEMENT");
+                intent.putExtra("achievement",String.valueOf(achievement));
+                startActivity(intent);
+                finish();
             }
         });
-        dialog.setNegativeButton("否", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-            }
+        dialog.setNegativeButton("否", (dialog1, which) -> {
         });
         dialog.show();
     }
@@ -213,27 +299,4 @@ public class ExamDetailActivity extends AppCompatActivity {
 
     }
 
-    public List<Question> initSelect(){
-        List<Question> questionList = new ArrayList<>();
-        Question question = new Question(selectQuestion,selectAnswer);
-        questionList.add(question);
-        questionList.add(question);
-        return questionList;
-    }
-
-    public List<Question> initJudge(){
-        List<Question> questionList = new ArrayList<>();
-        Question question = new Question(judgeQuestion,judgeAnswer);
-        questionList.add(question);
-        questionList.add(question);
-        return questionList;
-    }
-
-    public List<Question> initFixing(){
-        List<Question> questionList = new ArrayList<>();
-        Question question = new Question(fixingQuestion,fixingAnswer);
-        questionList.add(question);
-        questionList.add(question);
-        return questionList;
-    }
 }

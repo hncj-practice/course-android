@@ -52,13 +52,6 @@ public class Utils {
         recyclerView.setAdapter(adapter);
     }
 
-
-    public static Intent setIntent(String value, String action) {
-        Intent intent = new Intent(action);
-        intent.putExtra("data",value);
-        return intent;
-    }
-
     public static void getNetData(String url, Map<String, String> data, final Handler handler){
         new Thread(()  -> {
             String result = null;

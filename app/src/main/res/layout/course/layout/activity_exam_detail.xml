@@ -13,6 +13,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:overScrollMode="never"
         android:fillViewport="true">
 
         <LinearLayout
@@ -28,18 +29,17 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/exam_question_select"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/selectChoiceQuestion"
                     android:textSize="20sp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"/>
+                    android:layout_margin="10dp"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:overScrollMode="never"
+                    android:layout_marginStart="10dp"
                     android:id="@+id/recycler_question_select"/>
 
             </LinearLayout>
@@ -51,18 +51,17 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/exam_question_judge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/judgeQuestion"
                     android:textSize="20sp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"/>
+                    android:layout_margin="10dp"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:overScrollMode="never"
+                    android:layout_marginStart="10dp"
                     android:id="@+id/recycler_question_judge"/>
 
             </LinearLayout>
@@ -74,18 +73,17 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/exam_question_fixing"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/fillInTheBlanks"
                     android:textSize="20sp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"/>
+                    android:layout_margin="10dp"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:overScrollMode="never"
+                    android:layout_marginStart="10dp"
                     android:id="@+id/recycler_question_fixing"/>
 
             </LinearLayout>

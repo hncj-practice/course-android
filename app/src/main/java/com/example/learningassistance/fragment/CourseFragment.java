@@ -55,12 +55,13 @@ public class CourseFragment extends Fragment implements View.OnClickListener {
                 String time = startTime + "至" + endTime;
 
                 ExamList examList = new ExamList(name, time, status);
+                examList.setExamId(jsonObject.getString("paperid"));
                 examLists.add(examList);
                 arraySize += 1;
             }
         }
         if (examLists.size() > 0){
-            Utils.setRecycler(view,R.id.recycler_exam,new ExamListAdapter(examLists));
+            Utils.setRecycler(view,R.id.recycler_exam,new ExamListAdapter(examLists,this));
         }
         return false;
     });

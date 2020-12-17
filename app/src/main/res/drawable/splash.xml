@@ -3,7 +3,8 @@
     <item>
         <!-- 图片 -->
         <bitmap
+
             android:gravity="fill"
-        android:src="@drawable/start_cover" />
+            android:src="@drawable/start_cover" />
     </item>
 </layer-list>
