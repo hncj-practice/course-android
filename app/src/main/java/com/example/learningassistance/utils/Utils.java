@@ -1,7 +1,10 @@
 package com.example.learningassistance.utils;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.os.Bundle;
@@ -9,6 +12,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,14 +21,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.example.learningassistance.R;
+import com.example.learningassistance.entity.CourseList;
 
 import org.jsoup.Jsoup;
+import org.litepal.LitePalApplication;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Queue;
 
 
 public class Utils {
@@ -79,6 +90,76 @@ public class Utils {
             message.setData(bundle);
             handler.sendMessage(message);
         }).start();
+    }
+
+    public static void getCourseData(Map<String, String> data, final Handler handlerS){
+        new Thread(()  -> {
+            Map<Integer, String> result = new HashMap<>();
+            try {
+                int i = 1;
+                while (i < 9){
+                    data.put("semesterid", Integer.toString(i));
+                    String response = Jsoup.connect("http://123.56.156.212/Interface/course/getcoursebysno")
+                            .data(data)
+                            .ignoreContentType(true)
+                            .timeout(10000)
+                            .post()
+                            .body()
+                            .text();
+                    result.put(i, response);
+                    i++;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            Message message = new Message();
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("data", (Serializable) result);
+            message.setData(bundle);
+            handlerS.sendMessage(message);
+        }).start();
+    }
+
+    public static void setRecentCourse(String s){
+        String s1,s2,s3,s4;
+        SharedPreferences preferences = LitePalApplication.getContext().getSharedPreferences("loginHistory", Context.MODE_PRIVATE);
+        s1 = preferences.getString("recentCourse1","null");
+        s2 = preferences.getString("recentCourse2","null");
+        s3 = preferences.getString("recentCourse3","null");
+        s4 = preferences.getString("recentCourse4","null");
+        SharedPreferences.Editor editor = preferences.edit();
+        if (s.equals(s1)){
+            editor.putString("recentCourse1",s1);
+        } else if (s.equals(s2)){
+            editor.putString("recentCourse1",s2);
+            editor.putString("recentCourse2",s1);
+        } else if (s.equals(s3)){
+            editor.putString("recentCourse1",s3);
+            editor.putString("recentCourse2",s1);
+            editor.putString("recentCourse3",s2);
+        } else if (s.equals(s4)){
+            editor.putString("recentCourse1",s4);
+            editor.putString("recentCourse2",s1);
+            editor.putString("recentCourse3",s2);
+            editor.putString("recentCourse4",s3);
+        } else {
+            editor.putString("recentCourse1",s);
+            editor.putString("recentCourse2",s1);
+            editor.putString("recentCourse3",s2);
+            editor.putString("recentCourse4",s3);
+        }
+        editor.apply();
+    }
+
+    public static List<String> getRecentCourse(){
+        List<String> list = new ArrayList<>();
+        SharedPreferences preferences = LitePalApplication.getContext().getSharedPreferences("loginHistory", Context.MODE_PRIVATE);
+        list.add(preferences.getString("recentCourse1","null"));
+        list.add(preferences.getString("recentCourse2","null"));
+        list.add(preferences.getString("recentCourse3","null"));
+        list.add(preferences.getString("recentCourse4","null"));
+        return list;
     }
 
     /**

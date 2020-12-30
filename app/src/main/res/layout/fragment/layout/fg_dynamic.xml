@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/gray">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -11,4 +11,19 @@
         android:layout_height="wrap_content"
         android:overScrollMode="never"/>
 
-</LinearLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        app:fabSize="normal"
+        app:backgroundTint="#31bfcf"
+        app:rippleColor="#e7d16b"
+        app:borderWidth="0dp"
+        app:elevation="50dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_gravity="bottom|end"
+        android:src="@drawable/style_btn_add"/>
+
+</FrameLayout>

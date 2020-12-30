@@ -3,6 +3,7 @@ package com.example.learningassistance;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,11 +12,16 @@ import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
@@ -37,7 +43,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class Login extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class Login extends AppCompatActivity implements View.OnClickListener {
     private String LOCAL_PATH = Utils.IMG_DIR;
     private static final int LOCKED = 0;
     private static final int UNLOCK = 1;
@@ -46,9 +52,10 @@ public class Login extends AppCompatActivity implements AdapterView.OnItemSelect
     @BindView(R.id.login_button) ImageView login;
     @BindView(R.id.login_username) EditText username;
     @BindView(R.id.login_password) EditText password;
-    @BindView(R.id.login_type) Spinner userType;
+    @BindView(R.id.login_type) TextView userType;
 
     private Integer loginType;
+    private Dialog dialog1;
 
     private int Lock;
 
@@ -88,6 +95,7 @@ public class Login extends AppCompatActivity implements AdapterView.OnItemSelect
                 Intent intent = new Intent(Login.this, MainActivity.class);
                 intent.putExtra("data", jsonObject.toJSONString());
                 startActivity(intent);
+                finish();
             } else {
                 Toast.makeText(Login.this, "用户名或密码错误", Toast.LENGTH_SHORT).show();
             }
@@ -117,9 +125,15 @@ public class Login extends AppCompatActivity implements AdapterView.OnItemSelect
         RoundRectImageView.setCircle(avatar,R.drawable.icon_default_avatar,50,this);
         RoundRectImageView.setCircle(login,R.drawable.icon_login,30,this);
 
-        userType.setOnItemSelectedListener(this);
+        dialog1 = setDialog();
+        userType.setText("学生");
+        loginType = 1;
+        userType.setOnClickListener(this);
 
-        username.addTextChangedListener(new TextWatcher() {
+        username.setText("888888888");
+        password.setText("000000");
+
+        /*username.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -138,14 +152,55 @@ public class Login extends AppCompatActivity implements AdapterView.OnItemSelect
                     }
                 }
             }
-        });
-
-        username.setText("081417162");
-        password.setText("000000");
+        });*/
 
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.login_type:
+                dialog1.show();
+                break;
+            case R.id.btn_choose_stu:
+                userType.setText("学生");
+                loginType = 1;
+                dialog1.dismiss();
+                break;
+            case R.id.btn_choose_tea:
+                userType.setText("教师");
+                loginType = 2;
+                dialog1.dismiss();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private Dialog setDialog() {
+        Dialog dialog = new Dialog(this,R.style.BottomDialog);
+        View view = LayoutInflater.from(this).inflate(R.layout.login_dialog, null, false);
+        view.findViewById(R.id.btn_choose_tea).setOnClickListener(this);
+        view.findViewById(R.id.btn_choose_stu).setOnClickListener(this);
+        dialog.setContentView(view);
+        Window dialogWindow = dialog.getWindow();
+        dialogWindow.setGravity(Gravity.BOTTOM);
+        dialogWindow.setWindowAnimations(R.style.DialogAnimation);
+        WindowManager.LayoutParams lp = dialogWindow.getAttributes(); // 获取对话框当前的参数值
+        lp.x = 0; // 新位置X坐标
+        lp.y = 0; // 新位置Y坐标
+        lp.width = (int) getResources().getDisplayMetrics().widthPixels; // 宽度
+        view.measure(0, 0);
+        lp.height = view.getMeasuredHeight();
+        lp.alpha = 9f; // 透明度
+        dialogWindow.setAttributes(lp);
+        return dialog;
+    }
+
     public void startDownload(String url,String filePath){
+        if (url.equals("default")){
+            return;
+        }
         Aria.download(this)
                 .load(url)
                 .ignoreFilePathOccupy()
@@ -176,22 +231,8 @@ public class Login extends AppCompatActivity implements AdapterView.OnItemSelect
         map.put("username",username.getText().toString());
         map.put("password",password.getText().toString());
         map.put("type", String.valueOf(loginType));
-        Utils.getNetData("account/login",map,handler);
         Lock = LOCKED;
+        Utils.getNetData("account/login",map,handler);
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        loginType = parent.getSelectedItemPosition() + 1 ;
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
-
-    @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
-
-    }
 }

@@ -50,6 +50,8 @@ public class CourseActivity extends AppCompatActivity {
         }
         if (courseLists.size() != 0) {
             Utils.setRecycler(CourseActivity.this, R.id.recycler_course, new CourseListAdapter(courseLists));
+        } else {
+            Toast.makeText(this, "未查询到相关信息", Toast.LENGTH_SHORT).show();
         }
         return true;
     });
@@ -75,17 +77,17 @@ public class CourseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course);
 
-        Utils.setTitle(this,"全部课程");
         Intent intent = getIntent();
         JSONObject userData = JSON.parseObject(intent.getStringExtra("data"));
 
         SharedPreferences preferences = getSharedPreferences("loginHistory",MODE_PRIVATE);
-
         Map<String, String> map = new HashMap<>();
         if (preferences.getString("currentUserType","0").equals("1")){
+            Utils.setTitle(this,"全部课程");
             map.put("studentid", userData.getString("sno"));
-            getCourseData(map);
+            Utils.getCourseData(map,handlerS);
         } else {
+            Utils.setTitle(this,"我教的课");
             map.put("condition", userData.getString("tno"));
             map.put("page","1");
             map.put("num","6");

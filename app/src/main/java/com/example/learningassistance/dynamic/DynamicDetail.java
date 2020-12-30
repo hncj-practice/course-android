@@ -184,7 +184,7 @@ public class DynamicDetail extends AppCompatActivity {
                     /**
                      * 跳转到评论的回复详情页
                      */
-                    Intent intent = new Intent("com.action.DYNAMIC_Reply_Detail");
+                   Intent intent = new Intent("com.action.DYNAMIC_Reply_Detail");
                    intent.putExtra("commentId",comment.getCommentId());
                    intent.putExtra("commentName",comment.getUsername());
                    intent.putExtra("title",holder.replyNum.getText().toString());
@@ -192,7 +192,6 @@ public class DynamicDetail extends AppCompatActivity {
                    bundle.putSerializable("reply", (Serializable) comment.getReplyList());
                    intent.putExtras(bundle);
                    v.getContext().startActivity(intent);
-
                 });
             } else {
                 holder.replyNum.setVisibility(View.GONE);

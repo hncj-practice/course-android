@@ -16,8 +16,8 @@ public class ExampleUnitTest {
     @Test
     public void test() throws IOException {
         Map<String, String> map = new HashMap<>();
-        map.put("paperid", "1");
-        String url = "problem/getproblembypaperid";
+        map.put("courseid", "1");
+        String url = "paper/getpaperbycourseid";
 
         String result = Jsoup.connect("http://123.56.156.212/Interface/" + url)
                 .data(map)
@@ -29,13 +29,20 @@ public class ExampleUnitTest {
 
 //        String result = "{\"a\":\"b\",\"c\":\"d\"}";
         JSONObject jsonObject = JSON.parseObject(result);
-        String a = jsonObject.getString("data");
+        if (jsonObject.getInteger("code") != null && jsonObject.getInteger("code") == 200){
+            String arrayStr = jsonObject.getString("data");
+            System.out.println(arrayStr);
+        } else {
+            System.out.println("错了");
+        }
+        /*String a = jsonObject.getString("data");
+        System.out.println(result);*/
 //        JSONObject object = jsonObject.parseObject(a);
 //        System.out.println(object.getString("sno"));
-        JSONArray js = JSONArray.parseArray(a);
+        /*JSONArray js = JSONArray.parseArray(a);
         for (Object j : js) {
             System.out.println(j.toString());
             JSONObject jso = jsonObject.parseObject(j.toString());
-        }
+        }*/
     }
 }

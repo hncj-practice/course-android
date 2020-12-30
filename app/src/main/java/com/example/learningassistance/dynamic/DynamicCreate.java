@@ -114,14 +114,14 @@ public class DynamicCreate extends AppCompatActivity {
 
         if (requestCode == 1 && resultCode == RESULT_OK){
             Picasso.get().load(data.getData()).transform(new MyTransForm.SquareTransForm(size)).into(imageView);
-            gridLayout.addView(textView);
+            gridLayout.addView(imageView);
             num = num + 1;
-            try {
+            /*try {
                 Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(data.getData()));
                 sendImage(createTempFile(bitmap),this);
             } catch (IOException e) {
                 e.printStackTrace();
-            }
+            }*/
         }
     }
 

@@ -73,7 +73,7 @@ public class ExamListAdapter extends RecyclerView.Adapter<ExamListAdapter.ViewHo
                 map.put("studentid",id);
                 map.put("paperid",exam.getExamId());
                 currentExam = exam;
-                Utils.getNetData("paper/ findscorebysnoandpaperid",map,handler);
+                Utils.getNetData("paper/findscorebysnoandpaperid",map,handler);
                 return;
             }
             Intent intent = new Intent("com.action.COURSE_EXAM_DETAIL");

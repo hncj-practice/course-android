@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.learningassistance.Login;
 import com.example.learningassistance.R;
 import com.example.learningassistance.entity.Option;
 
@@ -62,6 +63,11 @@ public class MineAdapter extends RecyclerView.Adapter<MineAdapter.ViewHolder> {
             case 3:
                 intent.setAction("com.action.DYNAMIC_CREATE");
                 break;
+            case 4:
+                intent = new Intent(activity, Login.class);
+                activity.startActivity(intent);
+                activity.finish();
+                return;
             default:
                 break;
         }

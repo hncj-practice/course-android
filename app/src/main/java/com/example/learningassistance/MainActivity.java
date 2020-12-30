@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 text_homepage.setTextColor(R.color.selected);
                 layout_homepage.setSelected(true);
                 if (f1 == null){
-                    f1 = new MainPageFragment(DATA,R.id.menu_homepage);
+                    f1 = new MainPageFragment(DATA,R.id.menu_homepage,SIZE);
                     transaction.add(R.id.fragment,f1);
                 } else {
                     transaction.show(f1);

@@ -137,6 +137,9 @@ public class TopicDetail extends AppCompatActivity {
 //        发送自己的评论
         sendButton.setOnClickListener(v -> {
             String content = sendText.getText().toString();
+            if (content.length() < 1){
+                return;
+            }
             SharedPreferences preferences = getSharedPreferences("loginHistory",MODE_PRIVATE);
             String userId = preferences.getString("currentUserId", "");
             long time = new Date().getTime();
@@ -145,7 +148,6 @@ public class TopicDetail extends AppCompatActivity {
             map.put("topicid",topic.getTopicId());
             map.put("commentcontent",content);
             map.put("commenttime", Long.toString(time));
-
             Utils.getNetData("comment/addcomment",map,sendHandler);
             sendText.setText("");
         });

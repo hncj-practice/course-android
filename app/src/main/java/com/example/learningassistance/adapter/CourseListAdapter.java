@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.learningassistance.R;
 import com.example.learningassistance.entity.CourseList;
 import com.example.learningassistance.utils.MyTransForm;
+import com.example.learningassistance.utils.Utils;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -39,9 +40,15 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
         Picasso.get().load(course.getImgUrl()).transform(new MyTransForm.RangleTransForm()).into(holder.img);
         holder.name.setText(course.getName());
         holder.view.setOnClickListener(v -> {
+            String id = course.getCid();
+            String url = course.getImgUrl();
+            String name = course.getName();
+            String s = "{'id':'"+ id + "','name':'"+ name + "','url':'" + url +"'}";
+            Utils.setRecentCourse(s);
+
             Intent intent = new Intent("com.action.COURSE_DETAIL_ACTIVITY_START");
-            intent.putExtra("courseName",holder.name.getText().toString());
-            intent.putExtra("cid",course.getCid());
+            intent.putExtra("courseName",name);
+            intent.putExtra("cid",id);
             v.getContext().startActivity(intent);
         });
     }
