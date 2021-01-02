@@ -3,7 +3,7 @@ package com.example.learningassistance.entity;
 import java.io.Serializable;
 
 public class Topic implements Serializable {
-    private int imgId;
+    private String imgId;
     private String creator;
     private String time;
     private String title;
@@ -11,7 +11,7 @@ public class Topic implements Serializable {
 
     private String topicId;
 
-    public int getImgId() {
+    public String getImgId() {
         return imgId;
     }
 
@@ -39,7 +39,7 @@ public class Topic implements Serializable {
         return question;
     }
 
-    public Topic(int imgId, String creator, String time, String title, String question) {
+    public Topic(String imgId, String creator, String time, String title, String question) {
         this.imgId = imgId;
         this.creator = creator;
         this.time = time;

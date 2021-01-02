@@ -9,4 +9,13 @@
         android:layout_height="wrap_content"
         android:overScrollMode="never"/>
 
+    <TextView
+        android:id="@+id/topic_null"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:text="当前没有话题"
+        android:textSize="17sp"
+        android:layout_gravity="center"/>
+
 </LinearLayout>

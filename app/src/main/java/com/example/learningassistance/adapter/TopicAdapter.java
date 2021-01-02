@@ -16,7 +16,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.learningassistance.R;
 import com.example.learningassistance.entity.Topic;
+import com.example.learningassistance.utils.MyTransForm;
 import com.example.learningassistance.utils.RoundRectImageView;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -39,7 +41,7 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull TopicAdapter.ViewHolder holder, int position) {
         final Topic topic = topics.get(position);
-        RoundRectImageView.setRadius(holder.avatar,topic.getImgId(),40,10,fragment);
+        Picasso.get().load(topic.getImgId()).transform(new MyTransForm.RangleTransForm()).into(holder.avatar);
         holder.question.setText(topic.getQuestion());
         holder.name.setText(topic.getCreator());
         holder.time.setText(topic.getTime());

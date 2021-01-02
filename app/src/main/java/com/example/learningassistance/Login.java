@@ -130,7 +130,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         loginType = 1;
         userType.setOnClickListener(this);
 
-        username.setText("888888888");
+        username.setText("081417162");
         password.setText("000000");
 
         /*username.addTextChangedListener(new TextWatcher() {

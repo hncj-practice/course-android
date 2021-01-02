@@ -45,4 +45,14 @@ public class ExampleUnitTest {
             JSONObject jso = jsonObject.parseObject(j.toString());
         }*/
     }
+
+    @Test
+    public void test1(){
+        String a1 = "aaaa";
+        String a2 = "bbbbb";
+        String[] a = {a1,a2,a1};
+        for (int i = 0; i < a.length; i++) {
+            System.out.println(a[i]);
+        }
+    }
 }

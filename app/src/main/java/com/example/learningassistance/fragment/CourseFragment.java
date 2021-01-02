@@ -1,14 +1,11 @@
 package com.example.learningassistance.fragment;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,8 +16,10 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.example.learningassistance.R;
+import com.example.learningassistance.adapter.DataListAdapter;
 import com.example.learningassistance.adapter.ExamListAdapter;
 import com.example.learningassistance.adapter.TopicAdapter;
+import com.example.learningassistance.entity.Data;
 import com.example.learningassistance.entity.ExamList;
 import com.example.learningassistance.entity.Topic;
 import com.example.learningassistance.utils.Utils;
@@ -30,10 +29,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CourseFragment extends Fragment implements View.OnClickListener {
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+public class CourseFragment extends Fragment {
     private int id;
     private String cid;
     public View view;
+
+    private TextView noData;
+    private TextView noExam;
+    private TextView noTopic;
 
     public CourseFragment(int id,String cid) {
         this.id = id;
@@ -62,6 +68,8 @@ public class CourseFragment extends Fragment implements View.OnClickListener {
         }
         if (examLists.size() > 0){
             Utils.setRecycler(view,R.id.recycler_exam,new ExamListAdapter(examLists,this));
+        } else {
+            noExam.setVisibility(View.VISIBLE);
         }
         return false;
     });
@@ -74,20 +82,48 @@ public class CourseFragment extends Fragment implements View.OnClickListener {
             int arraySize = jsonArray.size();
             while (arraySize-- > 0) {
                 JSONObject jsonObject = jsonArray.getJSONObject(arraySize);
-                String name = jsonObject.getString("topictitle");
+                String title = jsonObject.getString("topictitle");
                 String commitTime = Utils.timeStampToDate(jsonObject.getString("committime"));
                 String content = jsonObject.getString("topiccontent");
-
-//                    暂时把这个当做名字了,其实他是话题号
+                String name = jsonObject.getString("name");
+                String imgUrl =  jsonObject.getString("avatar");
                 String topicId = jsonObject.getString("topicid");
 
-                Topic topic = new Topic(R.drawable.icon_default_avatar, topicId, commitTime, name, content);
+                Topic topic = new Topic(imgUrl, name, commitTime, title, content);
                 topic.setTopicId(topicId);
                 topics.add(topic);
             }
         }
         if (topics.size() > 0){
             Utils.setRecycler(view,R.id.recycler_topic_list,new TopicAdapter(topics,CourseFragment.this));
+        } else {
+            noTopic.setVisibility(View.VISIBLE);
+        }
+        return false;
+    });
+
+    Handler dataHandler = new Handler(msg -> {
+        ArrayList<Data> dataList = new ArrayList<>();
+        if (msg.what == 1){
+            JSONArray array = JSON.parseArray(msg.getData().getString("data"));
+            int arraySize = 0;
+            assert array != null;
+            while (arraySize < array.size()){
+                JSONObject jsonObject = array.getJSONObject(arraySize);
+                String type = jsonObject.getString("datatype");
+                String link = jsonObject.getString("datalink");
+                String name = jsonObject.getString("dataname");
+
+                Data data = new Data(name,link,type);
+                dataList.add(data);
+
+                arraySize += 1;
+            }
+        }
+        if (dataList.size() > 0){
+            Utils.setRecycler(view,R.id.recycler_data,new DataListAdapter(dataList));
+        } else {
+            noData.setVisibility(View.VISIBLE);
         }
         return false;
     });
@@ -100,64 +136,25 @@ public class CourseFragment extends Fragment implements View.OnClickListener {
         switch (id){
             case R.id.course_exam:
                 view = inflater.inflate(R.layout.fg_course_exam,container,false);
+                noExam = view.findViewById(R.id.exam_null);
                 Utils.getNetData("paper/getpaperbycourseid",map,examHandler);
                 break;
             case R.id.course_topic:
                 view = inflater.inflate(R.layout.fg_course_topic,container,false);
+                noTopic = view.findViewById(R.id.topic_null);
                 Utils.getNetData("topic/gettopicbycid",map,topicHandler);
                 break;
             case R.id.course_more:
                 view = inflater.inflate(R.layout.fg_course_more,container,false);
-                loadMoreFragment(view);
+                noData = view.findViewById(R.id.data_null);
+                map.put("page","1");
+                map.put("num","6");
+                Utils.getNetData("data/getdatabycourseid",map,dataHandler);
                 break;
             default:
                 break;
         }
         return view;
-    }
-
-    //    加载课程中的更多碎片
-    public void loadMoreFragment(View view){
-        LinearLayout learnData = view.findViewById(R.id.course_more_learn_data);
-        LinearLayout member = view.findViewById(R.id.course_more_member);
-        LinearLayout achievement = view.findViewById(R.id.course_more_achievement);
-        LinearLayout overview = view.findViewById(R.id.course_more_overview);
-
-        SharedPreferences preferences = view.getContext().getSharedPreferences("loginHistory", Context.MODE_PRIVATE);
-        if (preferences.getString("currentUserType","1").equals("2")){
-            overview.setVisibility(View.VISIBLE);
-            overview.setOnClickListener(this);
-        }
-
-        learnData.setOnClickListener(this);
-        member.setOnClickListener(this);
-        achievement.setOnClickListener(this);
-    }
-
-    /**
-     * 为more中的各项设置监听
-     */
-    @Override
-    public void onClick(View v) {
-        Intent intent = new Intent();
-        switch (v.getId()){
-            case R.id.course_more_learn_data:
-                intent.setAction("com.action.COURSE_DETAIL_LEARN_DATA");
-                break;
-            case R.id.course_more_member:
-                intent.setAction("com.action.COURSE_DETAIL_MEMBER");
-                break;
-            case R.id.course_more_achievement:
-                intent.setAction("com.action.COURSE_DETAIL_ACHIEVEMENT");
-                break;
-            case R.id.course_more_overview:
-                intent.setAction("com.action.COURSE_DETAIL_OVERVIEW");
-                break;
-            default:
-                break;
-        }
-        intent.putExtra("courseId",cid);
-        startActivity(intent);
     }
 
 }

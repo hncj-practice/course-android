@@ -86,17 +86,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".course.TopicDetail"
-            android:windowSoftInputMode="adjustPan">
+            android:name=".course.TopicDetail">
             <intent-filter>
                 <action android:name="com.action.COURSE_TOPIC_DETAIL" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".course.LearnDataActivity">
-            <intent-filter>
-                <action android:name="com.action.COURSE_DETAIL_LEARN_DATA" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>

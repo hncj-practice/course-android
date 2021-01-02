@@ -9,8 +9,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:fillViewport="true">
+        android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -91,6 +90,7 @@
     </androidx.core.widget.NestedScrollView>
 
     <LinearLayout
+        android:id="@+id/topic_reply_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/gray"
@@ -124,7 +124,7 @@
             android:gravity="center"
             android:layout_marginEnd="10dp"
             android:text="@string/send"
-            android:background="@drawable/style_topic_send_button_default"
+            android:background="@drawable/style_topic_send_button_selected"
             android:textColor="@color/black"/>
 
     </LinearLayout>

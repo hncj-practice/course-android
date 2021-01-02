@@ -1,6 +1,7 @@
 package com.example.learningassistance.course;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
@@ -8,8 +9,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -22,8 +27,10 @@ import com.example.learningassistance.R;
 import com.example.learningassistance.adapter.OpinionAdapter;
 import com.example.learningassistance.entity.Opinion;
 import com.example.learningassistance.entity.Topic;
+import com.example.learningassistance.utils.MyTransForm;
 import com.example.learningassistance.utils.RoundRectImageView;
 import com.example.learningassistance.utils.Utils;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -34,6 +41,7 @@ import java.util.Map;
 public class TopicDetail extends AppCompatActivity {
     private ImageView topicCreator;
     private TextView topicName,topicTime,TopicTitle,TopicQuestion;
+    private LinearLayout replyLayout;
     private EditText sendText;
     private TextView sendButton;
 
@@ -94,30 +102,8 @@ public class TopicDetail extends AppCompatActivity {
 
     }
 
-    public class EditChangedListener implements TextWatcher{
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-        }
-
-        @SuppressLint("UseCompatLoadingForDrawables")
-        @Override
-        public void afterTextChanged(Editable s) {
-            if (s.length() > 0){
-                sendButton.setBackground(getDrawable(R.drawable.style_topic_send_button_selected));
-            } else {
-                sendButton.setBackground(getDrawable(R.drawable.style_topic_send_button_default));
-            }
-        }
-    }
-
     private void initComponent(){
+        replyLayout = findViewById(R.id.topic_reply_layout);
         topicName = findViewById(R.id.topic_detail_creator);
         topicName.setText(topic.getCreator());
         topicTime = findViewById(R.id.topic_detail_time);
@@ -129,10 +115,9 @@ public class TopicDetail extends AppCompatActivity {
         TopicQuestion.setText(topic.getQuestion());
 
         topicCreator = findViewById(R.id.topic_detail_creator_avatar);
-        RoundRectImageView.setRadius(topicCreator,topic.getImgId(),40,10,this);
+        Picasso.get().load(topic.getImgId()).transform(new MyTransForm.RangleTransForm()).into(topicCreator);
 
         sendText = findViewById(R.id.opinion_send_text);
-        sendText.addTextChangedListener(new EditChangedListener());
         sendButton = findViewById(R.id.opinion_send_button);
 //        发送自己的评论
         sendButton.setOnClickListener(v -> {
@@ -152,4 +137,26 @@ public class TopicDetail extends AppCompatActivity {
             sendText.setText("");
         });
     }
+
+    /**
+     * 隐藏键盘
+     */
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        int x = (int) ev.getRawX();
+        int y = (int) ev.getRawY();
+        View v = getCurrentFocus();
+        if (!Utils.isTouchPointInView(replyLayout, x, y)) {
+            if (v != null){
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(),0);
+            }
+            return super.dispatchTouchEvent(ev);
+        }
+        if (getWindow().superDispatchTouchEvent(ev)) {
+            return true;
+        }
+        return super.onTouchEvent(ev);
+    }
+
 }
